@@ -1,0 +1,244 @@
+---
+import { site } from "../site.config";
+---
+
+<header class="header" id="top">
+  <div class="container header__inner">
+    <a href="/" class="header__logo">{site.name}</a>
+
+    <nav class="nav" aria-label="Navigation principale">
+      <ul class="nav__list">
+        {site.nav.map((item) => (
+          <li class="nav__item">
+            <a href={item.href} class="nav__link">
+              {item.label}
+              <svg class="nav__chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            {item.sub && (
+              <ul class="nav__sub">
+                {item.sub.map((sub) => (
+                  <li>
+                    <a href={sub.href} class="nav__sub-link">{sub.label}</a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <button class="menu-toggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<script>
+  // Mobile toggle
+  const toggle = document.querySelector(".menu-toggle") as HTMLButtonElement;
+  const nav = document.querySelector(".nav") as HTMLElement;
+  toggle?.addEventListener("click", () => {
+    const open = toggle.getAttribute("aria-expanded") === "true";
+    toggle.setAttribute("aria-expanded", String(!open));
+    nav.classList.toggle("nav--open", !open);
+  });
+
+  // Mobile: tap nav item to expand sub (don't navigate immediately)
+  document.querySelectorAll(".nav__item").forEach((item) => {
+    const link = item.querySelector(".nav__link") as HTMLAnchorElement;
+    const sub = item.querySelector(".nav__sub") as HTMLElement | null;
+    if (!sub) return;
+    link.addEventListener("click", (e) => {
+      if (window.innerWidth <= 900) {
+        e.preventDefault();
+        item.classList.toggle("nav__item--open");
+      }
+    });
+  });
+
+  // Shrink on scroll
+  const header = document.querySelector(".header") as HTMLElement;
+  window.addEventListener("scroll", () => {
+    header.classList.toggle("header--scrolled", window.scrollY > 40);
+  }, { passive: true });
+</script>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--c-bg);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .header--scrolled {
+    border-color: var(--c-border);
+    box-shadow: 0 1px 24px rgba(0,0,0,0.06);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-lg);
+    height: var(--nav-h);
+  }
+
+  .header__logo {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+    transition: color 0.2s;
+  }
+  .header__logo:hover { color: var(--c-accent); }
+
+  /* ─── Nav ─── */
+  .nav { flex: 1; display: flex; justify-content: flex-end; }
+
+  .nav__list {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-lg);
+  }
+
+  .nav__item { position: relative; }
+
+  .nav__link {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--c-muted);
+    white-space: nowrap;
+    padding-block: 0.25rem;
+    transition: color 0.2s;
+  }
+  .nav__link:hover { color: var(--c-text); }
+
+  .nav__chevron {
+    transition: transform 0.25s;
+    flex-shrink: 0;
+  }
+
+  .nav__item:hover .nav__chevron { transform: rotate(180deg); }
+
+  /* ─── Dropdown ─── */
+  .nav__sub {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    left: 0;
+    min-width: 11rem;
+    background: var(--c-bg);
+    border: 1px solid var(--c-border);
+    padding: var(--sp-xs) 0;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-6px);
+    transition: opacity 0.2s, transform 0.2s;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  }
+
+  .nav__item:hover .nav__sub {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .nav__sub-link {
+    display: block;
+    padding: 0.55rem var(--sp-sm);
+    font-size: var(--text-sm);
+    color: var(--c-muted);
+    transition: color 0.15s, background 0.15s;
+    white-space: nowrap;
+  }
+  .nav__sub-link:hover {
+    color: var(--c-text);
+    background: var(--c-surface);
+  }
+
+  /* ─── Burger ─── */
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--sp-xs);
+    margin-left: auto;
+  }
+  .menu-toggle span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--c-text);
+    transition: transform 0.25s, opacity 0.25s;
+  }
+
+  /* ─── Mobile ─── */
+  @media (max-width: 900px) {
+    .menu-toggle { display: flex; }
+
+    .nav {
+      position: fixed;
+      top: var(--nav-h); left: 0; right: 0;
+      background: var(--c-bg);
+      border-bottom: 1px solid var(--c-border);
+      padding: var(--sp-sm) var(--sp-md) var(--sp-md);
+      transform: translateY(-110%);
+      opacity: 0;
+      transition: transform 0.3s, opacity 0.3s;
+      pointer-events: none;
+    }
+    .nav--open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .nav__list {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+    }
+
+    .nav__item { width: 100%; }
+
+    .nav__link {
+      font-size: var(--text-base);
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--c-border);
+      width: 100%;
+      justify-content: space-between;
+      color: var(--c-text);
+    }
+
+    .nav__sub {
+      position: static;
+      border: none;
+      box-shadow: none;
+      opacity: 1;
+      pointer-events: auto;
+      transform: none;
+      padding: 0;
+      display: none;
+      background: var(--c-surface);
+    }
+
+    .nav__item--open .nav__sub { display: block; }
+    .nav__item--open .nav__chevron { transform: rotate(180deg); }
+
+    .nav__sub-link {
+      padding: 0.6rem var(--sp-md);
+      border-bottom: 1px solid var(--c-border);
+    }
+  }
+</style>

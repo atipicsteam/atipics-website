@@ -1,0 +1,201 @@
+---
+import { site } from "../site.config";
+const slides = site.projetsCarousel;
+const interval = 5000;
+---
+
+<section class="carousel" aria-label="Projets en vedette">
+  <div class="carousel__track">
+    {slides.map((slide, i) => (
+      <div
+        class:list={["carousel__slide", { "is-active": i === 0 }]}
+        style={`background-color: ${slide.bg};`}
+        aria-hidden={i !== 0}
+      >
+        {
+        <img src={slide.image} alt={slide.title} class="carousel__img" />}
+        <div class="carousel__overlay"></div>
+        <div class="carousel__content">
+          <span class="carousel__category">{slide.category} — {slide.year}</span>
+          <h2 class="carousel__title">{slide.title}</h2>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="carousel__dots">
+    {slides.map((_, i) => (
+      <button
+        class:list={["carousel__dot", { "is-active": i === 0 }]}
+        aria-label={`Projet ${i + 1}`}
+      />
+    ))}
+  </div>
+
+  <div class="carousel__progress">
+    <div class="carousel__progress-bar"></div>
+  </div>
+</section>
+
+<script is:inline define:vars={{ interval }}>
+  (function () {
+    const slides = document.querySelectorAll(".carousel__slide");
+    const dots = document.querySelectorAll(".carousel__dot");
+    const bar = document.querySelector(".carousel__progress-bar");
+    let current = 0;
+    let timer;
+    let barAnim;
+
+    function goTo(n) {
+      slides[current].classList.remove("is-active");
+      slides[current].setAttribute("aria-hidden", "true");
+      dots[current]?.classList.remove("is-active");
+      current = ((n % slides.length) + slides.length) % slides.length;
+      slides[current].classList.add("is-active");
+      slides[current].setAttribute("aria-hidden", "false");
+      dots[current]?.classList.add("is-active");
+      resetBar();
+    }
+
+    function resetBar() {
+      if (!bar) return;
+      bar.style.transition = "none";
+      bar.style.width = "0%";
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          bar.style.transition = `width ${interval}ms linear`;
+          bar.style.width = "100%";
+        });
+      });
+    }
+
+    function start() {
+      timer = setInterval(() => goTo(current + 1), interval);
+      resetBar();
+    }
+    function stop() {
+      clearInterval(timer);
+      if (bar) bar.style.transition = "none";
+    }
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener("click", () => { stop(); goTo(i); start(); });
+    });
+
+    const carousel = document.querySelector(".carousel");
+    carousel?.addEventListener("mouseenter", stop);
+    carousel?.addEventListener("mouseleave", start);
+
+    start();
+  })();
+</script>
+
+<style>
+  .carousel {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - var(--nav-h));
+    height: calc(100dvh - var(--nav-h));
+    overflow: hidden;
+    background: #111;
+  }
+
+  .carousel__track { width: 100%; height: 100%; }
+
+  .carousel__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1s ease;
+    pointer-events: none;
+  }
+  .carousel__slide.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .carousel__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .carousel__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 60%);
+  }
+
+  .carousel__content {
+    position: absolute;
+    bottom: var(--sp-xl);
+    left: var(--sp-xl);
+    color: #fff;
+    z-index: 1;
+  }
+
+  .carousel__category {
+    display: block;
+    font-size: var(--text-xs);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.65;
+    margin-bottom: var(--sp-xs);
+  }
+
+  .carousel__title {
+    font-size: clamp(2.5rem, 7vw, 7rem);
+    font-weight: 200;
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+  }
+
+  /* ─── Dots ─── */
+  .carousel__dots {
+    position: absolute;
+    bottom: var(--sp-md);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.5rem;
+    z-index: 10;
+  }
+
+  .carousel__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.35);
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .carousel__dot.is-active {
+    background: #fff;
+    transform: scale(1.4);
+  }
+
+  /* ─── Progress bar ─── */
+  .carousel__progress {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: rgba(255,255,255,0.15);
+    z-index: 10;
+  }
+
+  .carousel__progress-bar {
+    height: 100%;
+    width: 0%;
+    background: rgba(255,255,255,0.7);
+  }
+
+  @media (max-width: 768px) {
+    .carousel__content {
+      bottom: var(--sp-lg);
+      left: var(--sp-sm);
+    }
+  }
+</style>

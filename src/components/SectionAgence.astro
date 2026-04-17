@@ -1,0 +1,53 @@
+---
+import { site } from "../site.config";
+const { agence } = site;
+---
+
+<section class="section" id="agence">
+  <div class="container">
+    <p class="section-label">Qui sommes-nous</p>
+    <h2 class="section-title">{agence.title}</h2>
+    <div class="divider"></div>
+    <p class="section-intro">{agence.intro}</p>
+
+    <div class="manifeste">
+      {agence.manifeste.map((block) => (
+        <article class="manifeste__block">
+          <p class="manifeste__label">{block.label}</p>
+          <blockquote class="manifeste__text">{block.text}</blockquote>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .manifeste {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+    gap: var(--sp-lg);
+    margin-top: var(--sp-xl);
+  }
+
+  .manifeste__block {
+    border-left: 2px solid var(--c-accent);
+    padding-left: var(--sp-md);
+  }
+
+  .manifeste__label {
+    font-size: var(--text-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+    font-weight: 600;
+    margin-bottom: var(--sp-sm);
+  }
+
+  .manifeste__text {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    line-height: 1.75;
+    color: var(--c-text);
+    font-style: italic;
+  }
+</style>
