@@ -1,8 +1,10 @@
 ---
 import { site } from "../site.config";
+interface Props { fixed?: boolean; }
+const { fixed = false } = Astro.props;
 ---
 
-<footer class="footer">
+<footer class:list={["footer", { "footer--fixed": fixed }]}>
   <div class="container footer__inner">
     <a href="/" class="footer__logo">{site.name}</a>
 
@@ -16,7 +18,7 @@ import { site } from "../site.config";
       </ul>
     </nav>
 
-    <p class="footer__legal">{site.footer.legal}</p>
+    {!fixed && <p class="footer__legal">{site.footer.legal}</p>}
   </div>
 </footer>
 
@@ -24,6 +26,25 @@ import { site } from "../site.config";
   .footer {
     border-top: 1px solid var(--c-border);
     padding-block: var(--sp-lg);
+    background: var(--c-bg);
+  }
+
+  .footer--fixed {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 90;
+    height: var(--footer-h);
+    padding-block: 0;
+    border-top: 1px solid var(--c-border);
+  }
+
+  .footer--fixed .footer__inner {
+    height: 100%;
+    grid-template-rows: 1fr;
+  }
+
+  .footer--fixed .footer__logo {
+    grid-row: 1; grid-column: 1;
   }
 
   .footer__inner {
