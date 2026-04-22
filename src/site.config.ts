@@ -31,7 +31,7 @@ export const site = {
       ],
     },
     {
-      label: "Village",
+      label: "Village Atipics",
       href: "/village",
       sub: [
         { label: "Entrepôt", href: "/village#Entrepôt" },
