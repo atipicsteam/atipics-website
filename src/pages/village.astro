@@ -1,0 +1,440 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { site } from "../site.config";
+
+const espaces = [
+  {
+    id: "Entrepôt",
+    label: "ENTREPÔT",
+    title: "L'Entrepôt",
+    image: "/images/projet1.jpg",
+    paragraphs: [
+      "Vaste espace de stockage, de tri et de curation, l'Entrepôt est le point de départ de toutes nos histoires. C'est ici que les pièces arrivent, sont répertoriées, nettoyées et préparées avant de prendre leur place dans un projet.",
+      "Plus de 800 m² dédiés à la réception, au conditionnement et à la conservation d'un inventaire toujours renouvelé. Chaque centimètre carré est pensé pour le mouvement et la praticité.",
+      "L'accès est possible sur rendez-vous pour les clients et partenaires souhaitant découvrir les pièces disponibles directement en entrepôt.",
+    ],
+    reverse: false,
+  },
+  {
+    id: "StudioDesign",
+    label: "STUDIO DESIGN",
+    title: "Studio Design",
+    image: "/images/projet2.webp",
+    paragraphs: [
+      "Le Studio Design est notre laboratoire créatif. C'est ici que nous concevons les scénographies, testons les associations de pièces et imaginons les compositions qui seront déployées sur vos espaces.",
+      "Lumière naturelle zénithale, fonds neutres modulables, zone de photographie professionnelle — le Studio est conçu pour mettre en valeur chaque pièce dans les meilleures conditions.",
+      "Le Studio accueille également des sessions de travail collaboratif avec architectes et décorateurs, dans un cadre propice à la réflexion créative.",
+    ],
+    reverse: true,
+  },
+  {
+    id: "Atelier",
+    label: "ATELIER",
+    title: "L'Atelier",
+    image: "/images/projet3.jpg",
+    paragraphs: [
+      "L'Atelier est le sanctuaire des savoir-faire manuels. Menuiserie, tapisserie, dorure, restauration — c'est ici que nos artisans partenaires interviennent pour redonner vie aux pièces qui ont besoin d'attention.",
+      "Équipé de machines-outils professionnelles et organisé pour accueillir des artisans spécialisés en résidence, l'Atelier est le maillon essentiel entre la trouvaille brute et la pièce aboutie.",
+      "Nous travaillons avec un réseau d'artisans sélectionnés pour leur excellence technique et leur respect des matériaux d'origine.",
+    ],
+    reverse: false,
+  },
+];
+---
+
+<Layout title={`Village Atipics — ${site.name}`} description="L'Entrepôt, le Studio Design et l'Atelier du Village Atipics">
+  <Header />
+  <main style="padding-top: var(--nav-h);">
+
+    <!-- Bandeau drone -->
+    <section class="bandeau">
+      <img src="/images/droneImageBandeau.jpg" alt="Vue aérienne du Village Atipics" class="bandeau__img" />
+      <div class="bandeau__overlay">
+        <div class="container bandeau__text">
+          <p class="bandeau__label">Le Village</p>
+          <h1 class="bandeau__title">Village<br/>Atipics</h1>
+        </div>
+      </div>
+    </section>
+
+    <!-- Intro -->
+    <section class="intro-section">
+      <div class="container">
+        <p class="intro-desc">Un écosystème complet réunissant sous un même toit tous les outils et les expertises nécessaires à vos projets les plus ambitieux — entrepôt, studio de création et atelier de restauration.</p>
+      </div>
+    </section>
+
+    <!-- Espaces — alternance photo/texte -->
+    {espaces.map((e) => (
+      <section class="espace" id={e.id}>
+        <div class="container">
+          <div class="espace__label-row">
+            <span class="espace__section-label">{e.label}</span>
+            <div class="espace__rule"></div>
+          </div>
+          <div class:list={["espace__grid", { "espace__grid--reverse": e.reverse }]}>
+            <div class="espace__img-col">
+              <img src={e.image} alt={e.title} class="espace__img" loading="lazy" />
+            </div>
+            <div class="espace__text-col">
+              <h2 class="espace__title">{e.title}</h2>
+              {e.paragraphs.map((p) => (
+                <p class="espace__p">{p}</p>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    ))}
+
+    <!-- Formulaire de contact -->
+    <section class="form-section" id="contact-village">
+      <div class="container">
+        <div class="form-label-row">
+          <span class="espace__section-label">CONTACT</span>
+          <div class="espace__rule"></div>
+        </div>
+        <div class="form-layout">
+          <div class="form-intro">
+            <p class="form-intro__text">Vous souhaitez visiter le Village, collaborer avec nous ou en savoir plus sur nos espaces ? Remplissez le formulaire ci-dessous, nous reviendrons vers vous rapidement.</p>
+            <p class="form-intro__text">Pour toute question urgente, vous pouvez nous écrire directement à <a href={`mailto:${site.contact.email}`} class="form-intro__link">{site.contact.email}</a>.</p>
+          </div>
+          <form class="vform" name="village-contact" method="POST">
+            <div class="vform__row">
+              <div class="vform__group">
+                <label class="vform__label" for="vc-nom">NOM</label>
+                <input class="vform__input" type="text" id="vc-nom" name="nom" required autocomplete="name" />
+              </div>
+              <div class="vform__group">
+                <label class="vform__label" for="vc-societe">SOCIÉTÉ</label>
+                <input class="vform__input" type="text" id="vc-societe" name="societe" autocomplete="organization" />
+              </div>
+            </div>
+            <div class="vform__row">
+              <div class="vform__group">
+                <label class="vform__label" for="vc-email">EMAIL</label>
+                <input class="vform__input" type="email" id="vc-email" name="email" required autocomplete="email" />
+              </div>
+              <div class="vform__group">
+                <label class="vform__label" for="vc-tel">TÉLÉPHONE</label>
+                <input class="vform__input" type="tel" id="vc-tel" name="telephone" autocomplete="tel" />
+              </div>
+            </div>
+            <div class="vform__group">
+              <label class="vform__label" for="vc-projet">PROJET</label>
+              <input class="vform__input" type="text" id="vc-projet" name="projet" />
+            </div>
+            <div class="vform__group">
+              <label class="vform__label" for="vc-message">MESSAGE</label>
+              <textarea class="vform__input vform__textarea" id="vc-message" name="message" rows="5" required></textarea>
+            </div>
+            <label class="vform__check">
+              <input class="vform__check-input" type="checkbox" name="newsletter" />
+              <span class="vform__check-box" aria-hidden="true"></span>
+              <span class="vform__check-label">J'accepte de recevoir la newsletter Atipics</span>
+            </label>
+            <button type="submit" class="vform__submit">
+              ENVOYER <span class="vform__arrow" aria-hidden="true">→</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  /* ─── Bandeau drone ─── */
+  .bandeau {
+    position: relative;
+    width: 100%;
+    height: 58vh;
+    min-height: 360px;
+    overflow: hidden;
+  }
+  .bandeau__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 60%;
+  }
+  .bandeau__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0.1) 55%, transparent 100%);
+    display: flex;
+    align-items: flex-end;
+  }
+  .bandeau__text {
+    padding-bottom: var(--sp-lg);
+    color: #fff;
+  }
+  .bandeau__label {
+    font-size: var(--text-xs);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 0.4rem;
+  }
+  .bandeau__title {
+    font-size: clamp(2.5rem, 6vw, 5.5rem);
+    font-weight: 200;
+    letter-spacing: -0.03em;
+    line-height: 0.92;
+  }
+
+  /* ─── Intro ─── */
+  .intro-section {
+    border-bottom: 1px solid var(--c-border);
+    padding-block: var(--sp-md);
+  }
+  .intro-desc {
+    font-size: var(--text-base);
+    color: var(--c-muted);
+    line-height: 1.75;
+    max-width: 72ch;
+  }
+
+  /* ─── Label row ─── */
+  .espace__label-row {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-md);
+    padding-top: var(--sp-lg);
+    padding-bottom: var(--sp-md);
+  }
+  .espace__section-label {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    color: var(--c-muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .espace__rule {
+    flex: 1;
+    height: 1px;
+    background: var(--c-border);
+  }
+
+  /* ─── Espace grid ─── */
+  .espace {
+    padding-bottom: var(--sp-lg);
+    border-bottom: 1px solid var(--c-border);
+  }
+  .espace:last-of-type { border-bottom: none; }
+  .espace:nth-of-type(even) { background: var(--c-surface); }
+
+  .espace__grid {
+    display: grid;
+    grid-template-columns: 48% 1fr;
+    gap: var(--sp-xl);
+    align-items: start;
+  }
+  .espace__grid--reverse {
+    grid-template-columns: 1fr 48%;
+  }
+  .espace__grid--reverse .espace__img-col { order: 2; }
+  .espace__grid--reverse .espace__text-col { order: 1; }
+
+  .espace__img {
+    width: 100%;
+    aspect-ratio: 3/2;
+    object-fit: cover;
+    display: block;
+  }
+
+  .espace__text-col {
+    padding-top: 0.25rem;
+  }
+
+  .espace__title {
+    font-size: var(--text-xl);
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    margin-bottom: var(--sp-sm);
+  }
+  .espace__p {
+    font-size: var(--text-xs);
+    color: var(--c-muted);
+    line-height: 1.8;
+    margin-bottom: 0.75rem;
+    max-width: 48ch;
+  }
+  .espace__p:last-child { margin-bottom: 0; }
+
+  /* ─── Form section ─── */
+  .form-section {
+    padding-block: var(--sp-lg);
+    border-top: 1px solid var(--c-border);
+  }
+
+  .form-label-row {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-md);
+    margin-bottom: var(--sp-md);
+  }
+
+  .form-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--sp-xl);
+    align-items: start;
+  }
+
+  .form-intro__text {
+    font-size: var(--text-xs);
+    color: var(--c-muted);
+    line-height: 1.8;
+    margin-bottom: var(--sp-sm);
+    max-width: 38ch;
+  }
+  .form-intro__link {
+    color: var(--c-text);
+    border-bottom: 1px solid var(--c-border);
+    transition: border-color 0.2s;
+  }
+  .form-intro__link:hover { border-bottom-color: var(--c-text); }
+
+  /* ─── Form ─── */
+  .vform {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-sm);
+  }
+
+  .vform__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-sm);
+  }
+
+  .vform__group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .vform__label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--c-muted);
+  }
+
+  .vform__input {
+    border: 1px solid var(--c-border);
+    background: var(--c-bg);
+    padding: 0.6rem 0.75rem;
+    font-size: var(--text-xs);
+    font-family: var(--font);
+    color: var(--c-text);
+    width: 100%;
+    outline: none;
+    border-radius: 0;
+    -webkit-appearance: none;
+    transition: border-color 0.2s;
+  }
+  .vform__input:focus { border-color: var(--c-text); }
+
+  .vform__textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .vform__submit {
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    border: 1px solid var(--c-text);
+    background: none;
+    padding: 0.65rem 1.4rem;
+    font-size: 0.7rem;
+    font-family: var(--font);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--c-text);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    margin-top: 0.25rem;
+  }
+  .vform__submit:hover {
+    background: var(--c-text);
+    color: var(--c-bg);
+  }
+  .vform__arrow {
+    font-size: 0.85rem;
+    transition: transform 0.2s;
+  }
+  .vform__submit:hover .vform__arrow { transform: translateX(3px); }
+
+  /* ─── Checkbox newsletter ─── */
+  .vform__check {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    cursor: pointer;
+    margin-top: 0.25rem;
+  }
+  .vform__check-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .vform__check-box {
+    width: 14px;
+    height: 14px;
+    border: 1px solid var(--c-border);
+    flex-shrink: 0;
+    position: relative;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .vform__check-input:checked + .vform__check-box {
+    background: var(--c-text);
+    border-color: var(--c-text);
+  }
+  .vform__check-input:checked + .vform__check-box::after {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 1px;
+    width: 5px;
+    height: 8px;
+    border: 1.5px solid var(--c-bg);
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg);
+  }
+  .vform__check-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    color: var(--c-muted);
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 900px) {
+    .espace__grid,
+    .espace__grid--reverse {
+      grid-template-columns: 1fr;
+      gap: var(--sp-md);
+    }
+    .espace__grid--reverse .espace__img-col { order: 0; }
+    .espace__grid--reverse .espace__text-col { order: 0; }
+    .espace__p { max-width: 100%; }
+    .form-layout { grid-template-columns: 1fr; gap: var(--sp-md); }
+    .form-intro__text { max-width: 100%; }
+  }
+  @media (max-width: 600px) {
+    .bandeau { height: 50vh; }
+    .vform__row { grid-template-columns: 1fr; }
+  }
+</style>

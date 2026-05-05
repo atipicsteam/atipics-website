@@ -1,0 +1,207 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { site } from "../site.config";
+---
+
+<Layout title={`Agence Atipics — ${site.name}`} description="Manifeste et réseaux de l'Agence Atipics">
+  <Header />
+  <main style="padding-top: var(--nav-h);">
+
+    <!-- Bandeau pleine largeur -->
+    <section class="bandeau">
+      <img src="/images/projet1.jpg" alt="Atipics" class="bandeau__img" />
+      <div class="bandeau__overlay">
+        <div class="container bandeau__text">
+          <p class="bandeau__label">L'Agence</p>
+          <h1 class="bandeau__title">Atipics</h1>
+        </div>
+      </div>
+    </section>
+
+    <!-- Intro -->
+    <section class="intro-section">
+      <div class="container">
+        <p class="intro-desc">Ressourcerie éclectique et polyvalente — dix ans de savoir-faire au service de projets singuliers, pour particuliers, collectionneurs et professionnels.</p>
+      </div>
+    </section>
+
+    <!-- Manifeste -->
+    <section class="split-block" id="manifeste">
+      <div class="container">
+        <div class="label-row">
+          <span class="stamp">MANIFESTE</span>
+          <div class="rule"></div>
+        </div>
+        <div class="split-grid">
+          <div class="split-text">
+            <h2 class="split-title">Une agence hors<br/>des sentiers battus</h2>
+            <p class="split-p">Atipics est née d'une conviction : chaque espace, chaque objet, chaque projet mérite une attention singulière. Nous cultivons l'art de la trouvaille, du détail inattendu, du savoir-faire transmis.</p>
+            <p class="split-p">Curateurs, logisticiens, scénographes — nous sommes avant tout des passionnés animés par la conviction que les objets ont une histoire, et que cette histoire mérite d'être racontée.</p>
+            <p class="split-p">Notre ancrage au Village Atipics, véritable hub de créativité et de compétences, nous permet d'offrir un écosystème complet, du sourcing à la mise en valeur finale.</p>
+          </div>
+          <div class="split-img-col">
+            <img src="/images/projet2.webp" alt="Manifeste Atipics" class="split-img" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Réseaux -->
+    <section class="split-block split-block--alt" id="reseaux">
+      <div class="container">
+        <div class="label-row">
+          <span class="stamp">RÉSEAUX</span>
+          <div class="rule"></div>
+        </div>
+        <div class="split-grid split-grid--reverse">
+          <div class="split-img-col">
+            <img src="/images/projet3.jpg" alt="Réseaux Atipics" class="split-img" loading="lazy" />
+          </div>
+          <div class="split-text">
+            <h2 class="split-title">Un réseau<br/>d'exception</h2>
+            <p class="split-p">Artisans, antiquaires, architectes, artistes — notre carnet d'adresses est le fruit de dix années de rencontres et de confiance mutuelle. Un réseau humain, construit sur la durée.</p>
+            <p class="split-p">Ébénistes, tapissiers, ferronniers, doreurs — des mains expertes qui perpétuent les savoir-faire. Un accès privilégié aux meilleures sources, en France et à l'international.</p>
+            <p class="split-p">Des collaborations croisées avec architectes et designers pour des projets qui mêlent structure, espace et objet. Une discrétion absolue pour accompagner les projets les plus sensibles.</p>
+            <p class="split-p">Pour toute demande, contactez-nous à <a href={`mailto:${site.contact.email}`} class="text-link">{site.contact.email}</a>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  /* ─── Bandeau ─── */
+  .bandeau {
+    position: relative;
+    width: 100%;
+    height: 58vh;
+    overflow: hidden;
+  }
+  .bandeau__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    display: block;
+  }
+  .bandeau__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0.1) 60%, transparent 100%);
+    display: flex;
+    align-items: flex-end;
+  }
+  .bandeau__text {
+    padding-bottom: var(--sp-xl);
+    color: #fff;
+  }
+  .bandeau__label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 0.5rem;
+  }
+  .bandeau__title {
+    font-size: clamp(3.5rem, 9vw, 8rem);
+    font-weight: 200;
+    letter-spacing: -0.03em;
+    line-height: 0.92;
+  }
+
+  /* ─── Intro ─── */
+  .intro-section {
+    padding-block: var(--sp-xl);
+    border-bottom: 1px solid var(--c-border);
+  }
+  .intro-desc {
+    font-size: clamp(1rem, 2.2vw, 1.35rem);
+    font-weight: 300;
+    color: var(--c-muted);
+    line-height: 1.75;
+    max-width: 64ch;
+    letter-spacing: -0.01em;
+  }
+
+  /* ─── Label row ─── */
+  .label-row {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-md);
+    margin-bottom: var(--sp-lg);
+  }
+  .stamp {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--c-muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .rule { flex: 1; height: 1px; background: var(--c-border); }
+
+  .text-link {
+    border-bottom: 1px solid var(--c-border);
+    transition: border-color 0.2s;
+  }
+  .text-link:hover { border-bottom-color: var(--c-text); }
+
+  /* ─── Split blocks ─── */
+  .split-block {
+    padding-block: calc(var(--sp-xl) * 1.5);
+    border-bottom: 1px solid var(--c-border);
+  }
+  .split-block--alt { background: var(--c-surface); }
+  .split-block:last-child { border-bottom: none; }
+
+  .split-grid {
+    display: grid;
+    grid-template-columns: 1fr 52%;
+    gap: var(--sp-xl);
+    align-items: center;
+  }
+  .split-grid--reverse {
+    grid-template-columns: 52% 1fr;
+  }
+
+  .split-img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+  }
+
+  .split-title {
+    font-size: clamp(1.8rem, 3.5vw, 3rem);
+    font-weight: 200;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin-bottom: var(--sp-md);
+  }
+  .split-p {
+    font-size: var(--text-sm);
+    color: var(--c-muted);
+    line-height: 1.9;
+    margin-bottom: 1rem;
+    max-width: 48ch;
+  }
+  .split-p:last-child { margin-bottom: 0; }
+
+  @media (max-width: 900px) {
+    .bandeau { height: 50vh; }
+    .split-grid,
+    .split-grid--reverse { grid-template-columns: 1fr; }
+    .split-grid--reverse .split-img-col { order: -1; }
+    .split-p { max-width: 100%; }
+  }
+  @media (max-width: 600px) {
+    .bandeau { height: 42vh; }
+    .split-block { padding-block: var(--sp-xl); }
+  }
+</style>

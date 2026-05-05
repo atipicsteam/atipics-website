@@ -1,5 +1,6 @@
 ---
 import { site } from "../site.config";
+const currentPath = Astro.url.pathname;
 ---
 
 <header class="header" id="top">
@@ -10,13 +11,10 @@ import { site } from "../site.config";
       <ul class="nav__list">
         {site.nav.map((item) => (
           <li class="nav__item">
-            <a href={item.href} class="nav__link">
+            <a href={item.href} class:list={["nav__link", { "nav__link--active": currentPath === item.href || currentPath.startsWith(item.href + "/") || currentPath.startsWith(item.href + "#") }]}>
               {item.label}
-              <svg class="nav__chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
-                <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
             </a>
-            {item.sub && (
+            {item.sub && item.sub.length > 0 && (
               <ul class="nav__sub">
                 {item.sub.map((sub) => (
                   <li>
@@ -58,6 +56,57 @@ import { site } from "../site.config";
       }
     });
   });
+
+  // Active state: highlight the nav item matching the current path or visible #section
+  const currentPath = window.location.pathname;
+
+  // Map each sub-link href → its parent nav__link element
+  const sectionMap = new Map<string, HTMLAnchorElement>();
+  document.querySelectorAll(".nav__item").forEach((item) => {
+    const navLink = item.querySelector(".nav__link") as HTMLAnchorElement | null;
+    if (!navLink) return;
+    item.querySelectorAll(".nav__sub-link").forEach((sub) => {
+      const href = (sub as HTMLAnchorElement).getAttribute("href") || "";
+      const [path, hash] = href.split("#");
+      if (path === currentPath && hash) {
+        sectionMap.set(hash, navLink);
+      }
+    });
+  });
+
+  // Activate sub-link indicator on scroll via IntersectionObserver
+  if (sectionMap.size > 0) {
+    const activateSection = (id: string) => {
+      // remove all active states first
+      document.querySelectorAll(".nav__sub-link--active").forEach((el) =>
+        el.classList.remove("nav__sub-link--active")
+      );
+      document.querySelectorAll(".nav__link").forEach((el) =>
+        el.classList.remove("nav__link--active")
+      );
+      // find the matching sub-link and activate it + its parent nav__link
+      document.querySelectorAll(".nav__sub-link").forEach((sub) => {
+        const href = (sub as HTMLAnchorElement).getAttribute("href") || "";
+        if (href.endsWith(`#${id}`)) {
+          sub.classList.add("nav__sub-link--active");
+          sectionMap.get(id)?.classList.add("nav__link--active");
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((e) => e.isIntersecting);
+        if (visible.length > 0) activateSection(visible[0].target.id);
+      },
+      { rootMargin: "-20% 0px -60% 0px", threshold: 0 }
+    );
+
+    sectionMap.forEach((_, id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+  }
 
   // Shrink on scroll
   const header = document.querySelector(".header") as HTMLElement;
@@ -109,40 +158,51 @@ import { site } from "../site.config";
   .nav__item { position: relative; }
 
   .nav__link {
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
+    display: inline-block;
     font-size: var(--text-sm);
     font-weight: 500;
     letter-spacing: 0.02em;
     color: var(--c-muted);
     white-space: nowrap;
     padding-block: 0.25rem;
-    transition: color 0.2s;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
   }
-  .nav__link:hover { color: var(--c-text); }
-
-  .nav__chevron {
-    transition: transform 0.25s;
-    flex-shrink: 0;
+  .nav__link:hover {
+    color: var(--c-text);
+    border-bottom-color: var(--c-text);
   }
-
-  .nav__item:hover .nav__chevron { transform: rotate(180deg); }
+  .nav__link--active {
+    color: var(--c-text);
+    border-bottom-color: var(--c-text);
+  }
 
   /* ─── Dropdown ─── */
   .nav__sub {
     position: absolute;
-    top: calc(100% + 0.75rem);
+    top: 100%;
     left: 0;
     min-width: 11rem;
     background: var(--c-bg);
     border: 1px solid var(--c-border);
     padding: var(--sp-xs) 0;
+    padding-top: calc(var(--sp-xs) + 0.75rem);
     opacity: 0;
     pointer-events: none;
     transform: translateY(-6px);
     transition: opacity 0.2s, transform 0.2s;
     box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    /* invisible bridge so hover doesn't break when moving from link to dropdown */
+    margin-top: 0;
+  }
+  /* pseudo-element bridge fills the gap between nav__link and nav__sub */
+  .nav__item::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 0.75rem;
   }
 
   .nav__item:hover .nav__sub {
@@ -154,14 +214,18 @@ import { site } from "../site.config";
   .nav__sub-link {
     display: block;
     padding: 0.55rem var(--sp-sm);
+    padding-left: calc(var(--sp-sm) + 3px);
     font-size: var(--text-sm);
     color: var(--c-muted);
-    transition: color 0.15s, background 0.15s;
+    border-left: 3px solid transparent;
+    transition: color 0.15s, background 0.15s, border-color 0.15s;
     white-space: nowrap;
   }
-  .nav__sub-link:hover {
+  .nav__sub-link:hover,
+  .nav__sub-link--active {
     color: var(--c-text);
     background: var(--c-surface);
+    border-left-color: var(--c-accent);
   }
 
   /* ─── Burger ─── */
@@ -234,7 +298,6 @@ import { site } from "../site.config";
     }
 
     .nav__item--open .nav__sub { display: block; }
-    .nav__item--open .nav__chevron { transform: rotate(180deg); }
 
     .nav__sub-link {
       padding: 0.6rem var(--sp-md);

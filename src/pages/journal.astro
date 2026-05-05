@@ -1,0 +1,236 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { site } from "../site.config";
+
+// Articles du journal — à enrichir par les admins dans site.config ou ici
+const articles = [
+  {
+    id: "sourcing-marche-biennale",
+    date: "2026-04-10",
+    dateLabel: "10 Avril 2026",
+    category: "SOURCING",
+    title: "Biennale des Antiquaires — nos coups de cœur",
+    excerpt: "Retour sur notre visite de la dernière Biennale. Quelques pièces rares qui ont retenu notre attention et rejoindront bientôt nos collections.",
+    cover: "/images/projet1.jpg",
+  },
+  {
+    id: "scenographie-lvmh",
+    date: "2026-03-22",
+    dateLabel: "22 Mars 2026",
+    category: "SCÉNOGRAPHIE",
+    title: "Mise en scène d'un espace LVMH",
+    excerpt: "Comment nous avons composé une atmosphère entre passé et présent pour un espace événementiel de la maison LVMH, en mêlant pièces vintage et mobilier contemporain.",
+    cover: "/images/projet2.webp",
+  },
+  {
+    id: "atelier-restauration-tapisserie",
+    date: "2026-02-14",
+    dateLabel: "14 Février 2026",
+    category: "ATELIER",
+    title: "L'art de la restauration en tapisserie",
+    excerpt: "Rencontre avec notre tapissier partenaire, qui perpétue un savoir-faire ancestral dans l'atelier du Village. Un processus minutieux, fascinant à observer.",
+    cover: "/images/projet3.jpg",
+  },
+  {
+    id: "collection-textile-hotel",
+    date: "2025-12-05",
+    dateLabel: "5 Décembre 2025",
+    category: "CURATION",
+    title: "Curation d'une collection textile pour un hôtel de luxe",
+    excerpt: "Six mois de recherche pour constituer une collection de textiles uniques tissés à la main. Le résultat : une identité visuelle et sensorielle forte, reconnaissable dès l'entrée.",
+    cover: "/images/projet4.webp",
+  },
+  {
+    id: "village-drone",
+    date: "2025-10-18",
+    dateLabel: "18 Octobre 2025",
+    category: "VILLAGE",
+    title: "Le Village Atipics vu du ciel",
+    excerpt: "Une session de prises de vue en drone pour immortaliser notre espace. L'occasion de redécouvrir notre lieu de travail avec un autre regard, plus large, plus aérien.",
+    cover: "/images/droneImageBandeau.jpg",
+  },
+  {
+    id: "sourcing-bresil",
+    date: "2025-09-03",
+    dateLabel: "3 Septembre 2025",
+    category: "SOURCING",
+    title: "Sourcing au Brésil — design moderniste",
+    excerpt: "Un voyage de sourcing à São Paulo et Rio à la recherche de mobilier moderniste brésilien. Des pièces exceptionnelles signées des grands noms du design tropical.",
+    cover: "/images/projet1.jpg",
+  },
+];
+---
+
+<Layout title={`Journal — ${site.name}`} description="Actualités, découvertes et réflexions de l'Agence Atipics">
+  <Header />
+  <main style="padding-top: var(--nav-h);">
+
+    <!-- Header -->
+    <section class="page-head">
+      <div class="container">
+        <div class="label-row">
+          <span class="section-stamp">JOURNAL</span>
+          <div class="rule"></div>
+        </div>
+        <h1 class="page-head__title">Actualités &amp; Réflexions</h1>
+        <p class="page-head__sub">Nos découvertes, nos coups de cœur, nos chroniques depuis le Village.</p>
+      </div>
+    </section>
+
+    <!-- Grille articles -->
+    <section class="articles">
+      <div class="container">
+        <div class="articles__grid">
+          {articles.map((a) => (
+            <article class="art-card">
+              <div class="art-card__img-wrap">
+                <img src={a.cover} alt={a.title} class="art-card__img" loading="lazy" />
+              </div>
+              <div class="art-card__body">
+                <div class="art-card__meta">
+                  <span class="art-card__cat">{a.category}</span>
+                  <span class="art-card__sep">—</span>
+                  <time class="art-card__date" datetime={a.date}>{a.dateLabel}</time>
+                </div>
+                <h2 class="art-card__title">{a.title}</h2>
+                <p class="art-card__excerpt">{a.excerpt}</p>
+                <span class="art-card__read">Lire →</span>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  /* ─── Helpers ─── */
+  .label-row {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-md);
+    margin-bottom: var(--sp-md);
+  }
+  .section-stamp {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--c-muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .rule {
+    flex: 1;
+    height: 1px;
+    background: var(--c-border);
+  }
+
+  /* ─── Page head ─── */
+  .page-head {
+    padding-top: var(--sp-lg);
+    padding-bottom: var(--sp-lg);
+    border-bottom: 1px solid var(--c-border);
+  }
+  .page-head__title {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 200;
+    letter-spacing: -0.03em;
+    line-height: 0.92;
+    margin-bottom: var(--sp-sm);
+  }
+  .page-head__sub {
+    font-size: var(--text-xs);
+    color: var(--c-muted);
+    line-height: 1.75;
+    max-width: 52ch;
+  }
+
+  /* ─── Articles grid ─── */
+  .articles {
+    padding-block: var(--sp-lg);
+  }
+
+  .articles__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-md) var(--sp-md);
+  }
+
+  /* ─── Article card ─── */
+  .art-card {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+  }
+
+  .art-card__img-wrap {
+    overflow: hidden;
+    aspect-ratio: 16/10;
+    background: var(--c-surface);
+    margin-bottom: 0.75rem;
+  }
+  .art-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  .art-card:hover .art-card__img { transform: scale(1.04); }
+
+  .art-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    flex: 1;
+  }
+
+  .art-card__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--c-muted);
+    text-transform: uppercase;
+  }
+  .art-card__sep { color: var(--c-border); }
+
+  .art-card__title {
+    font-size: var(--text-base);
+    font-weight: 300;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+  .art-card:hover .art-card__title { text-decoration: underline; text-decoration-color: var(--c-border); }
+
+  .art-card__excerpt {
+    font-size: var(--text-xs);
+    color: var(--c-muted);
+    line-height: 1.75;
+    margin-top: 0.2rem;
+  }
+
+  .art-card__read {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--c-muted);
+    margin-top: auto;
+    padding-top: 0.5rem;
+    transition: color 0.2s;
+  }
+  .art-card:hover .art-card__read { color: var(--c-text); }
+
+  @media (max-width: 900px) {
+    .articles__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .articles__grid { grid-template-columns: 1fr; }
+  }
+</style>

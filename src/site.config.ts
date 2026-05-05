@@ -73,6 +73,64 @@ export const site = {
     },
   ],
 
+  // ─── Page Projets ───
+  // Chaque projet peut contenir des images et/ou vidéos (type: "image" | "video")
+  // Pour ajouter un projet: dupliquer un bloc et modifier les champs
+  projets: [
+    {
+      id: "projet-a",
+      title: "Projet A",
+      category: "Artisanat",
+      year: "2024",
+      description: "Sélection et mise en scène d'objets artisanaux pour une résidence privée dans le sud de la France. Sourcing, restauration et scénographie sur-mesure.",
+      cover: "/images/projet1.jpg",
+      medias: [
+        { type: "image", src: "/images/projet1.jpg", alt: "Vue principale" },
+        { type: "image", src: "/images/projet2.webp", alt: "Détail" },
+        { type: "image", src: "/images/projet3.jpg", alt: "Ambiance générale" },
+      ],
+    },
+    {
+      id: "projet-b",
+      title: "Projet B",
+      category: "Design circulaire",
+      year: "2024",
+      description: "Valorisation d'une collection de mobilier des années 70 pour un client collectionneur. Restauration complète, documentation et mise en vente sélective.",
+      cover: "/images/projet2.webp",
+      medias: [
+        { type: "image", src: "/images/projet2.webp", alt: "Vue principale" },
+        { type: "image", src: "/images/projet4.webp", alt: "Détail pièce" },
+        { type: "image", src: "/images/projet1.jpg", alt: "Contexte" },
+      ],
+    },
+    {
+      id: "projet-c",
+      title: "Projet C",
+      category: "Architecture",
+      year: "2023",
+      description: "Scénographie d'une galerie éphémère pour une exposition d'architectures intérieures. Conception spatiale, sélection des œuvres et coordination logistique.",
+      cover: "/images/projet3.jpg",
+      medias: [
+        { type: "image", src: "/images/projet3.jpg", alt: "Vue d'ensemble" },
+        { type: "image", src: "/images/projet1.jpg", alt: "Détail installation" },
+        { type: "image", src: "/images/projet2.webp", alt: "Vue latérale" },
+      ],
+    },
+    {
+      id: "projet-d",
+      title: "Projet D",
+      category: "Textile",
+      year: "2023",
+      description: "Curation d'une collection textile rare pour un hôtel de luxe. Recherche, acquisition et mise en valeur de pièces uniques tissées à la main.",
+      cover: "/images/projet4.webp",
+      medias: [
+        { type: "image", src: "/images/projet4.webp", alt: "Vue principale" },
+        { type: "image", src: "/images/projet3.jpg", alt: "Détail tissu" },
+        { type: "image", src: "/images/projet2.webp", alt: "Mise en scène" },
+      ],
+    },
+  ],
+
   // ─── Page Contact ───
   contact: {
     title: "Contact",
@@ -84,11 +142,9 @@ export const site = {
   // ─── Footer ───
   footer: {
     links: [
-      { label: "Projets", href: "/village#projets" },
-      { label: "Journal", href: "/village#journal" },
+      { label: "Projets", href: "/projets" },
+      { label: "Journal", href: "/journal" },
       { label: "Contact", href: "/contact" },
-      { label: "Rejoignez nous", href: "/rejoindre" },
-      { label: "Galerie", href: "/village#galerie" },
     ],
     legal: "© 2026 Atipics — Ressourcerie éclectique et polyvalente",
   },
