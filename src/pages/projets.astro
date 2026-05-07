@@ -25,7 +25,7 @@ const projets = raw.length > 0
       year: p.annee,
       description: p.description,
       cover: fileUrl(p.cover),
-      medias: (p.medias ?? []).map((id) => ({ type: "image" as const, src: fileUrl(id), alt: p.titre })),
+      medias: (Array.isArray(p.medias) ? p.medias : p.medias ? [p.medias] : []).map((id: string) => ({ type: "image" as const, src: fileUrl(id), alt: p.titre })),
     }))
   : site.projets;
 ---
