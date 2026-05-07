@@ -3,54 +3,10 @@ import { site } from "../site.config";
 interface Props { fixed?: boolean; }
 const { fixed = false } = Astro.props;
 
-const socials = [
-  {
-    id: "instagram",
-    label: "Instagram",
-    href: "https://instagram.com/atipics",
-    svg: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>`,
-  },
-  {
-    id: "pinterest",
-    label: "Pinterest",
-    href: "https://pinterest.com/atipics",
-    svg: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.03-2.83.19-.77 1.26-5.33 1.26-5.33s-.32-.64-.32-1.59c0-1.49.87-2.6 1.94-2.6.92 0 1.36.69 1.36 1.51 0 .92-.59 2.3-.89 3.58-.25 1.07.53 1.94 1.58 1.94 1.9 0 3.17-2.43 3.17-5.31 0-2.19-1.47-3.85-4.15-3.85-3.03 0-4.91 2.26-4.91 4.79 0 .87.26 1.48.67 1.96.19.22.21.31.14.57-.05.18-.16.63-.2.8-.06.25-.25.34-.47.25-1.32-.54-1.93-2-1.93-3.63 0-2.7 2.28-5.96 6.8-5.96 3.64 0 6.04 2.64 6.04 5.47 0 3.75-2.07 6.56-5.12 6.56-1.02 0-2-.55-2.33-1.18l-.65 2.53c-.23.86-.68 1.72-1.1 2.39.83.25 1.7.39 2.61.39 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>`,
-  },
-  {
-    id: "facebook",
-    label: "Facebook",
-    href: "https://facebook.com/atipics",
-    svg: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>`,
-  },
-  {
-    id: "linkedin",
-    label: "LinkedIn",
-    href: "https://linkedin.com/company/atipics",
-    svg: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>`,
-  },
-  {
-    id: "substack",
-    label: "Substack",
-    href: "https://atipics.substack.com",
-    svg: `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg>`,
-  },
-  {
-    id: "whatsapp",
-    label: "WhatsApp",
-    href: "https://wa.me/33600000000",
-    svg: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>`,
-  },
-  {
-    id: "mail",
-    label: "Email",
-    href: `mailto:${site.contact.email}`,
-    svg: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`,
-  },
-];
 ---
 
 <footer class:list={["footer", { "footer--fixed": fixed }]}>
-  <div class="container footer__inner">
+  <div class="footer__inner">
 
     <!-- Liens nav -->
     <nav class="footer__nav" aria-label="Liens rapides">
@@ -119,6 +75,8 @@ const socials = [
     flex-direction: column;
     gap: 0.4rem;
     justify-content: center;
+    padding-inline: var(--sp-md);
+    width: 100%;
   }
 
   /* ─── Nav links ─── */

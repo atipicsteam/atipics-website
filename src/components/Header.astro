@@ -4,7 +4,7 @@ const currentPath = Astro.url.pathname;
 ---
 
 <header class="header" id="top">
-  <div class="container header__inner">
+  <div class="header__inner">
     <a href="/" class="header__logo">{site.name}</a>
 
     <nav class="nav" aria-label="Navigation principale">
@@ -135,6 +135,8 @@ const currentPath = Astro.url.pathname;
     align-items: center;
     gap: var(--sp-lg);
     height: var(--nav-h);
+    padding-inline: var(--sp-md);
+    width: 100%;
   }
 
   .header__logo {
