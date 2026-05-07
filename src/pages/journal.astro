@@ -3,9 +3,34 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { site } from "../site.config";
+import { fetchCollection, fileUrl } from "../lib/directus";
 
-// Articles du journal — à enrichir par les admins dans site.config ou ici
-const articles = [
+interface ArticleDirectus {
+  id: number;
+  titre: string;
+  categorie: string;
+  date_publication: string;
+  extrait: string;
+  contenu: string;
+  cover: string;
+}
+
+const raw = await fetchCollection<ArticleDirectus>("articles", { sort: "-date_publication" });
+
+const articlesDirectus = raw.map((a) => ({
+  id: String(a.id),
+  date: a.date_publication?.slice(0, 10) ?? "",
+  dateLabel: a.date_publication
+    ? new Date(a.date_publication).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })
+    : "",
+  category: a.categorie?.toUpperCase() ?? "",
+  title: a.titre,
+  excerpt: a.extrait,
+  cover: fileUrl(a.cover),
+}));
+
+// Fallback sur les articles statiques si Directus est vide
+const articlesFallback = [
   {
     id: "sourcing-marche-biennale",
     date: "2026-04-10",
@@ -61,6 +86,8 @@ const articles = [
     cover: "/images/projet1.jpg",
   },
 ];
+
+const articles = articlesDirectus.length > 0 ? articlesDirectus : articlesFallback;
 ---
 
 <Layout title={`Journal — ${site.name}`} description="Actualités, découvertes et réflexions de l'Agence Atipics">
