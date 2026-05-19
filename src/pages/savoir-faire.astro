@@ -3,6 +3,23 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { site } from "../site.config";
+import { fetchCollection, fileUrl } from "../lib/directus";
+
+interface ExpertiseImageDirectus {
+  id: number;
+  section: string;
+  image: string;
+}
+
+const rawImages = await fetchCollection<ExpertiseImageDirectus>("expertise_images", { sort: "id" });
+
+// Grouper par section
+const imagesBySection: Record<string, string[]> = {};
+for (const item of rawImages) {
+  if (!item.section || !item.image) continue;
+  if (!imagesBySection[item.section]) imagesBySection[item.section] = [];
+  imagesBySection[item.section].push(fileUrl(item.image));
+}
 
 const expertises = [
   {
@@ -127,7 +144,7 @@ const expertises = [
             </div>
             <div class="expertise-carousel" data-carousel>
               <div class="ecarousel__track" data-track>
-                {e.images.map((img, j) => (
+                {(imagesBySection[e.id]?.length > 0 ? imagesBySection[e.id] : e.images).map((img, j) => (
                   <div class="ecarousel__slide" aria-hidden={j !== 0}>
                     <img src={img} alt={`${e.title} ${j + 1}`} class="ecarousel__img" loading="lazy" />
                   </div>

@@ -1,6 +1,28 @@
 ---
 import { site } from "../site.config";
-const slides = site.projetsCarousel;
+import { fetchCollection, fileUrl } from "../lib/directus";
+
+interface CarouselDirectus {
+  id: number;
+  titre: string;
+  categorie: string;
+  annee: string;
+  image: string;
+  couleur_fond: string;
+}
+
+const raw = await fetchCollection<CarouselDirectus>("Carousel_Page_Principal", { sort: "id" });
+
+const slides = raw.length > 0
+  ? raw.map((s) => ({
+      title: s.titre,
+      category: s.categorie,
+      year: s.annee,
+      image: fileUrl(s.image),
+      bg: s.couleur_fond || "#2E4D3F",
+    }))
+  : site.projetsCarousel;
+
 const interval = 5000;
 ---
 

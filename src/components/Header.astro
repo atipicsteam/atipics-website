@@ -1,15 +1,20 @@
 ---
 import { site } from "../site.config";
+import { fetchSiteNav } from "../lib/directus";
+
+const siteNav = await fetchSiteNav();
+const name = siteNav?.name || site.name;
+const navItems = (siteNav?.nav && siteNav.nav.length > 0) ? siteNav.nav : site.nav;
 const currentPath = Astro.url.pathname;
 ---
 
 <header class="header" id="top">
   <div class="header__inner">
-    <a href="/" class="header__logo">{site.name}</a>
+    <a href="/" class="header__logo">{name}</a>
 
     <nav class="nav" aria-label="Navigation principale">
       <ul class="nav__list">
-        {site.nav.map((item) => (
+        {navItems.map((item) => (
           <li class="nav__item">
             <a href={item.href} class:list={["nav__link", { "nav__link--active": currentPath === item.href || currentPath.startsWith(item.href + "/") || currentPath.startsWith(item.href + "#") }]}>
               {item.label}

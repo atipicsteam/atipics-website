@@ -1,8 +1,14 @@
 ---
 import { site } from "../site.config";
+import { fetchSiteNav } from "../lib/directus";
+
 interface Props { fixed?: boolean; }
 const { fixed = false } = Astro.props;
 
+const siteNav = await fetchSiteNav();
+const footerLinks = (siteNav?.footerLinks && siteNav.footerLinks.length > 0)
+  ? siteNav.footerLinks
+  : site.footer.links;
 ---
 
 <footer class:list={["footer", { "footer--fixed": fixed }]}>
@@ -11,7 +17,7 @@ const { fixed = false } = Astro.props;
     <!-- Liens nav -->
     <nav class="footer__nav" aria-label="Liens rapides">
       <ul class="footer__links">
-        {site.footer.links.map((item) => (
+        {footerLinks.map((item) => (
           <li>
             <a href={item.href} class="footer__link">{item.label}</a>
           </li>

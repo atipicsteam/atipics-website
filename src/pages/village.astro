@@ -3,10 +3,31 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { site } from "../site.config";
+import { fetchCollection, fileUrl } from "../lib/directus";
+
+interface Parametres { bandeau_village: string; }
+interface VillageImageDirectus { id: number; section: string; image: string; }
+
+const [params, rawVillageImages] = await Promise.all([
+  fetchCollection<Parametres>("parametres"),
+  fetchCollection<VillageImageDirectus>("village_images", { sort: "id" }),
+]);
+
+const bandeauVillage = params[0]?.bandeau_village
+  ? fileUrl(params[0].bandeau_village)
+  : "/images/droneImageBandeau.jpg";
+
+const villageImages: Record<string, string[]> = {};
+for (const item of rawVillageImages) {
+  if (!item.section || !item.image) continue;
+  if (!villageImages[item.section]) villageImages[item.section] = [];
+  villageImages[item.section].push(fileUrl(item.image));
+}
 
 const espaces = [
   {
     id: "Entrepôt",
+    slug: "entrepot",
     label: "ENTREPÔT",
     title: "L'Entrepôt",
     image: "/images/projet1.jpg",
@@ -19,6 +40,7 @@ const espaces = [
   },
   {
     id: "StudioDesign",
+    slug: "studiodesign",
     label: "STUDIO DESIGN",
     title: "Studio Design",
     image: "/images/projet2.webp",
@@ -31,6 +53,7 @@ const espaces = [
   },
   {
     id: "Atelier",
+    slug: "atelier",
     label: "ATELIER",
     title: "L'Atelier",
     image: "/images/projet3.jpg",
@@ -50,7 +73,7 @@ const espaces = [
 
     <!-- Bandeau drone -->
     <section class="bandeau">
-      <img src="/images/droneImageBandeau.jpg" alt="Vue aérienne du Village Atipics" class="bandeau__img" />
+      <img src={bandeauVillage} alt="Vue aérienne du Village Atipics" class="bandeau__img" />
       <div class="bandeau__overlay">
         <div class="container bandeau__text">
           <p class="bandeau__label">Le Village</p>
@@ -76,7 +99,30 @@ const espaces = [
           </div>
           <div class:list={["espace__grid", { "espace__grid--reverse": e.reverse }]}>
             <div class="espace__img-col">
-              <img src={e.image} alt={e.title} class="espace__img" loading="lazy" />
+              {(villageImages[e.slug]?.length > 0) ? (
+                <div class="vcarousel" data-vcarousel>
+                  <div class="vcarousel__track" data-vtrack>
+                    {villageImages[e.slug].map((src, j) => (
+                      <div class:list={["vcarousel__slide", { "is-active": j === 0 }]} aria-hidden={j !== 0}>
+                        <img src={src} alt={`${e.title} ${j + 1}`} class="espace__img" loading="lazy" />
+                      </div>
+                    ))}
+                  </div>
+                  {villageImages[e.slug].length > 1 && (
+                    <>
+                      <button class="vcarousel__btn vcarousel__btn--prev" aria-label="Précédent">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      </button>
+                      <button class="vcarousel__btn vcarousel__btn--next" aria-label="Suivant">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      </button>
+                      <div class="vcarousel__counter" data-vcounter></div>
+                    </>
+                  )}
+                </div>
+              ) : (
+                <img src={e.image} alt={e.title} class="espace__img" loading="lazy" />
+              )}
             </div>
             <div class="espace__text-col">
               <h2 class="espace__title">{e.title}</h2>
@@ -146,6 +192,29 @@ const espaces = [
   </main>
   <Footer />
 </Layout>
+
+<script>
+  document.querySelectorAll('[data-vcarousel]').forEach((carousel) => {
+    const slides = Array.from(carousel.querySelectorAll('.vcarousel__slide')) as HTMLElement[];
+    const prev   = carousel.querySelector('.vcarousel__btn--prev') as HTMLButtonElement | null;
+    const next   = carousel.querySelector('.vcarousel__btn--next') as HTMLButtonElement | null;
+    const counter = carousel.querySelector('[data-vcounter]') as HTMLElement | null;
+    let cur = 0;
+
+    function go(n: number) {
+      slides[cur].classList.remove('is-active');
+      slides[cur].setAttribute('aria-hidden', 'true');
+      cur = ((n % slides.length) + slides.length) % slides.length;
+      slides[cur].classList.add('is-active');
+      slides[cur].setAttribute('aria-hidden', 'false');
+      if (counter) counter.textContent = `${cur + 1} / ${slides.length}`;
+    }
+
+    if (counter) counter.textContent = `1 / ${slides.length}`;
+    prev?.addEventListener('click', () => go(cur - 1));
+    next?.addEventListener('click', () => go(cur + 1));
+  });
+</script>
 
 <style>
   /* ─── Bandeau drone ─── */
@@ -248,6 +317,59 @@ const espaces = [
     aspect-ratio: 3/2;
     object-fit: cover;
     display: block;
+  }
+
+  /* ─── Village carousel ─── */
+  .vcarousel {
+    position: relative;
+    aspect-ratio: 3/2;
+    overflow: hidden;
+    background: var(--c-surface);
+  }
+  .vcarousel__track { position: absolute; inset: 0; }
+  .vcarousel__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+  }
+  .vcarousel__slide.is-active { opacity: 1; pointer-events: auto; }
+  .vcarousel__slide .espace__img { aspect-ratio: unset; height: 100%; }
+
+  .vcarousel__btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.88);
+    border: none;
+    width: 2.25rem;
+    height: 2.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--c-text);
+    opacity: 0;
+    transition: opacity 0.2s, background 0.15s;
+    z-index: 2;
+  }
+  .vcarousel:hover .vcarousel__btn { opacity: 1; }
+  .vcarousel__btn:hover { background: #fff; }
+  .vcarousel__btn--prev { left: 0.5rem; }
+  .vcarousel__btn--next { right: 0.5rem; }
+
+  .vcarousel__counter {
+    position: absolute;
+    bottom: 0.6rem;
+    right: 0.75rem;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #fff;
+    background: rgba(0,0,0,0.35);
+    padding: 0.2rem 0.5rem;
+    z-index: 2;
   }
 
   .espace__text-col {

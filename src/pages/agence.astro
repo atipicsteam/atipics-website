@@ -3,6 +3,26 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { site } from "../site.config";
+import { fetchCollection, fileUrl } from "../lib/directus";
+
+interface Parametres { bandeau_agence: string; }
+interface AgenceImageDirectus { id: number; section: string; image: string; }
+
+const [params, rawAgenceImages] = await Promise.all([
+  fetchCollection<Parametres>("parametres"),
+  fetchCollection<AgenceImageDirectus>("agence_images", { sort: "id" }),
+]);
+
+const bandeauAgence = params[0]?.bandeau_agence
+  ? fileUrl(params[0].bandeau_agence)
+  : "/images/projet1.jpg";
+
+const agenceImages: Record<string, string[]> = {};
+for (const item of rawAgenceImages) {
+  if (!item.section || !item.image) continue;
+  if (!agenceImages[item.section]) agenceImages[item.section] = [];
+  agenceImages[item.section].push(fileUrl(item.image));
+}
 ---
 
 <Layout title={`Agence Atipics — ${site.name}`} description="Manifeste et réseaux de l'Agence Atipics">
@@ -11,7 +31,7 @@ import { site } from "../site.config";
 
     <!-- Bandeau pleine largeur -->
     <section class="bandeau">
-      <img src="/images/projet1.jpg" alt="Atipics" class="bandeau__img" />
+      <img src={bandeauAgence} alt="Atipics" class="bandeau__img" />
       <div class="bandeau__overlay">
         <div class="container bandeau__text">
           <p class="bandeau__label">L'Agence</p>
@@ -42,7 +62,26 @@ import { site } from "../site.config";
             <p class="split-p">Notre ancrage au Village Atipics, véritable hub de créativité et de compétences, nous permet d'offrir un écosystème complet, du sourcing à la mise en valeur finale.</p>
           </div>
           <div class="split-img-col">
-            <img src="/images/projet2.webp" alt="Manifeste Atipics" class="split-img" loading="lazy" />
+            {agenceImages["manifeste"]?.length > 0 ? (
+              <div class="acarousel" data-acarousel>
+                <div class="acarousel__track">
+                  {agenceImages["manifeste"].map((src, j) => (
+                    <div class:list={["acarousel__slide", { "is-active": j === 0 }]} aria-hidden={j !== 0}>
+                      <img src={src} alt={`Manifeste ${j + 1}`} class="split-img" loading="lazy" />
+                    </div>
+                  ))}
+                </div>
+                {agenceImages["manifeste"].length > 1 && (
+                  <>
+                    <button class="acarousel__btn acarousel__btn--prev" aria-label="Précédent"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                    <button class="acarousel__btn acarousel__btn--next" aria-label="Suivant"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                    <div class="acarousel__counter" data-acounter></div>
+                  </>
+                )}
+              </div>
+            ) : (
+              <img src="/images/projet2.webp" alt="Manifeste Atipics" class="split-img" loading="lazy" />
+            )}
           </div>
         </div>
       </div>
@@ -57,7 +96,26 @@ import { site } from "../site.config";
         </div>
         <div class="split-grid split-grid--reverse">
           <div class="split-img-col">
-            <img src="/images/projet3.jpg" alt="Réseaux Atipics" class="split-img" loading="lazy" />
+            {agenceImages["reseaux"]?.length > 0 ? (
+              <div class="acarousel" data-acarousel>
+                <div class="acarousel__track">
+                  {agenceImages["reseaux"].map((src, j) => (
+                    <div class:list={["acarousel__slide", { "is-active": j === 0 }]} aria-hidden={j !== 0}>
+                      <img src={src} alt={`Réseaux ${j + 1}`} class="split-img" loading="lazy" />
+                    </div>
+                  ))}
+                </div>
+                {agenceImages["reseaux"].length > 1 && (
+                  <>
+                    <button class="acarousel__btn acarousel__btn--prev" aria-label="Précédent"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                    <button class="acarousel__btn acarousel__btn--next" aria-label="Suivant"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                    <div class="acarousel__counter" data-acounter></div>
+                  </>
+                )}
+              </div>
+            ) : (
+              <img src="/images/projet3.jpg" alt="Réseaux Atipics" class="split-img" loading="lazy" />
+            )}
           </div>
           <div class="split-text">
             <h2 class="split-title">Un réseau<br/>d'exception</h2>
@@ -193,15 +251,94 @@ import { site } from "../site.config";
   }
   .split-p:last-child { margin-bottom: 0; }
 
+  /* ─── Agence carousel ─── */
+  .acarousel {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+  }
+  .acarousel__track { width: 100%; height: 100%; }
+  .acarousel__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+  }
+  .acarousel__slide.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .acarousel__slide .split-img {
+    aspect-ratio: unset;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  .acarousel__btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff;
+    width: 2.2rem;
+    height: 2.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.25s, background 0.2s;
+    backdrop-filter: blur(4px);
+  }
+  .acarousel:hover .acarousel__btn { opacity: 1; }
+  .acarousel__btn:hover { background: rgba(255,255,255,0.22); }
+  .acarousel__btn--prev { left: 0.5rem; }
+  .acarousel__btn--next { right: 0.5rem; }
+  .acarousel__counter {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.75rem;
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 0.08em;
+    z-index: 10;
+  }
+
   @media (max-width: 900px) {
     .bandeau { height: 50vh; }
     .split-grid,
     .split-grid--reverse { grid-template-columns: 1fr; }
     .split-grid--reverse .split-img-col { order: -1; }
     .split-p { max-width: 100%; }
+    .acarousel__btn { opacity: 1; }
   }
   @media (max-width: 600px) {
     .bandeau { height: 42vh; }
     .split-block { padding-block: var(--sp-xl); }
   }
 </style>
+
+<script>
+  document.querySelectorAll('[data-acarousel]').forEach((carousel) => {
+    const slides = Array.from(carousel.querySelectorAll('.acarousel__slide'));
+    const prev = carousel.querySelector('.acarousel__btn--prev');
+    const next = carousel.querySelector('.acarousel__btn--next');
+    const counter = carousel.querySelector('[data-acounter]');
+    let cur = 0;
+    function go(n) {
+      slides[cur].classList.remove('is-active');
+      slides[cur].setAttribute('aria-hidden', 'true');
+      cur = ((n % slides.length) + slides.length) % slides.length;
+      slides[cur].classList.add('is-active');
+      slides[cur].setAttribute('aria-hidden', 'false');
+      if (counter) counter.textContent = `${cur + 1} / ${slides.length}`;
+    }
+    if (counter && slides.length > 1) counter.textContent = `1 / ${slides.length}`;
+    prev?.addEventListener('click', () => go(cur - 1));
+    next?.addEventListener('click', () => go(cur + 1));
+  });
+</script>
