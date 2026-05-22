@@ -3,19 +3,20 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { site } from "../site.config";
-import { fetchCollection, fileUrl } from "../lib/directus";
+import { fetchVillagePage, fetchCollection, fileUrl } from "../lib/directus";
 
-interface Parametres { bandeau_village: string; }
 interface VillageImageDirectus { id: number; section: string; image: string; }
 
-const [params, rawVillageImages] = await Promise.all([
-  fetchCollection<Parametres>("parametres"),
+const [cms, rawVillageImages] = await Promise.all([
+  fetchVillagePage(),
   fetchCollection<VillageImageDirectus>("village_images", { sort: "id" }),
 ]);
 
-const bandeauVillage = params[0]?.bandeau_village
-  ? fileUrl(params[0].bandeau_village)
-  : "/images/droneImageBandeau.jpg";
+const bandeauVillage = cms.bandeau_image ? fileUrl(cms.bandeau_image) : "/images/droneImageBandeau.jpg";
+const bandeauLabel   = cms.bandeau_label || "Le Village";
+const bandeauTitre   = cms.bandeau_titre || "Village Atipics";
+const intro          = cms.intro         || "Un écosystème complet réunissant sous un même toit tous les outils et les expertises nécessaires à vos projets les plus ambitieux — entrepôt, studio de création et atelier de restauration.";
+const formIntro      = cms.form_intro    || "Vous souhaitez visiter le Village, collaborer avec nous ou en savoir plus sur nos espaces ? Remplissez le formulaire ci-dessous, nous reviendrons vers vous rapidement.";
 
 const villageImages: Record<string, string[]> = {};
 for (const item of rawVillageImages) {
@@ -26,41 +27,38 @@ for (const item of rawVillageImages) {
 
 const espaces = [
   {
-    id: "Entrepôt",
     slug: "entrepot",
-    label: "ENTREPÔT",
-    title: "L'Entrepôt",
-    image: "/images/projet1.jpg",
+    label: cms.entrepot_label || "ENTREPÔT",
+    title: cms.entrepot_titre || "L'Entrepôt",
+    fallbackImg: "/images/projet1.jpg",
     paragraphs: [
-      "Vaste espace de stockage, de tri et de curation, l'Entrepôt est le point de départ de toutes nos histoires. C'est ici que les pièces arrivent, sont répertoriées, nettoyées et préparées avant de prendre leur place dans un projet.",
-      "Plus de 800 m² dédiés à la réception, au conditionnement et à la conservation d'un inventaire toujours renouvelé. Chaque centimètre carré est pensé pour le mouvement et la praticité.",
-      "L'accès est possible sur rendez-vous pour les clients et partenaires souhaitant découvrir les pièces disponibles directement en entrepôt.",
+      cms.entrepot_p1 || "Vaste espace de stockage, de tri et de curation, l'Entrepôt est le point de départ de toutes nos histoires. C'est ici que les pièces arrivent, sont répertoriées, nettoyées et préparées avant de prendre leur place dans un projet.",
+      cms.entrepot_p2 || "Plus de 800 m² dédiés à la réception, au conditionnement et à la conservation d'un inventaire toujours renouvelé. Chaque centimètre carré est pensé pour le mouvement et la praticité.",
+      cms.entrepot_p3 || "L'accès est possible sur rendez-vous pour les clients et partenaires souhaitant découvrir les pièces disponibles directement en entrepôt.",
     ],
     reverse: false,
   },
   {
-    id: "StudioDesign",
     slug: "studiodesign",
-    label: "STUDIO DESIGN",
-    title: "Studio Design",
-    image: "/images/projet2.webp",
+    label: cms.studiodesign_label || "STUDIO DESIGN",
+    title: cms.studiodesign_titre || "Studio Design",
+    fallbackImg: "/images/projet2.webp",
     paragraphs: [
-      "Le Studio Design est notre laboratoire créatif. C'est ici que nous concevons les scénographies, testons les associations de pièces et imaginons les compositions qui seront déployées sur vos espaces.",
-      "Lumière naturelle zénithale, fonds neutres modulables, zone de photographie professionnelle — le Studio est conçu pour mettre en valeur chaque pièce dans les meilleures conditions.",
-      "Le Studio accueille également des sessions de travail collaboratif avec architectes et décorateurs, dans un cadre propice à la réflexion créative.",
+      cms.studiodesign_p1 || "Le Studio Design est notre laboratoire créatif. C'est ici que nous concevons les scénographies, testons les associations de pièces et imaginons les compositions qui seront déployées sur vos espaces.",
+      cms.studiodesign_p2 || "Lumière naturelle zénithale, fonds neutres modulables, zone de photographie professionnelle — le Studio est conçu pour mettre en valeur chaque pièce dans les meilleures conditions.",
+      cms.studiodesign_p3 || "Le Studio accueille également des sessions de travail collaboratif avec architectes et décorateurs, dans un cadre propice à la réflexion créative.",
     ],
     reverse: true,
   },
   {
-    id: "Atelier",
     slug: "atelier",
-    label: "ATELIER",
-    title: "L'Atelier",
-    image: "/images/projet3.jpg",
+    label: cms.atelier_label || "ATELIER",
+    title: cms.atelier_titre || "L'Atelier",
+    fallbackImg: "/images/projet3.jpg",
     paragraphs: [
-      "L'Atelier est le sanctuaire des savoir-faire manuels. Menuiserie, tapisserie, dorure, restauration — c'est ici que nos artisans partenaires interviennent pour redonner vie aux pièces qui ont besoin d'attention.",
-      "Équipé de machines-outils professionnelles et organisé pour accueillir des artisans spécialisés en résidence, l'Atelier est le maillon essentiel entre la trouvaille brute et la pièce aboutie.",
-      "Nous travaillons avec un réseau d'artisans sélectionnés pour leur excellence technique et leur respect des matériaux d'origine.",
+      cms.atelier_p1 || "L'Atelier est le sanctuaire des savoir-faire manuels. Menuiserie, tapisserie, dorure, restauration — c'est ici que nos artisans partenaires interviennent pour redonner vie aux pièces qui ont besoin d'attention.",
+      cms.atelier_p2 || "Équipé de machines-outils professionnelles et organisé pour accueillir des artisans spécialisés en résidence, l'Atelier est le maillon essentiel entre la trouvaille brute et la pièce aboutie.",
+      cms.atelier_p3 || "Nous travaillons avec un réseau d'artisans sélectionnés pour leur excellence technique et leur respect des matériaux d'origine.",
     ],
     reverse: false,
   },
@@ -76,8 +74,8 @@ const espaces = [
       <img src={bandeauVillage} alt="Vue aérienne du Village Atipics" class="bandeau__img" />
       <div class="bandeau__overlay">
         <div class="container bandeau__text">
-          <p class="bandeau__label">Le Village</p>
-          <h1 class="bandeau__title">Village<br/>Atipics</h1>
+          <p class="bandeau__label">{bandeauLabel}</p>
+          <h1 class="bandeau__title">{bandeauTitre}</h1>
         </div>
       </div>
     </section>
@@ -85,7 +83,7 @@ const espaces = [
     <!-- Intro -->
     <section class="intro-section">
       <div class="container">
-        <p class="intro-desc">Un écosystème complet réunissant sous un même toit tous les outils et les expertises nécessaires à vos projets les plus ambitieux — entrepôt, studio de création et atelier de restauration.</p>
+        <p class="intro-desc">{intro}</p>
       </div>
     </section>
 
@@ -99,7 +97,7 @@ const espaces = [
           </div>
           <div class:list={["espace__grid", { "espace__grid--reverse": e.reverse }]}>
             <div class="espace__img-col">
-              {(villageImages[e.slug]?.length > 0) ? (
+              {(villageImages[e.slug]?.length > 0 ? villageImages[e.slug] : null) ? (
                 <div class="vcarousel" data-vcarousel>
                   <div class="vcarousel__track" data-vtrack>
                     {villageImages[e.slug].map((src, j) => (
@@ -121,7 +119,7 @@ const espaces = [
                   )}
                 </div>
               ) : (
-                <img src={e.image} alt={e.title} class="espace__img" loading="lazy" />
+                <img src={e.fallbackImg} alt={e.title} class="espace__img" loading="lazy" />
               )}
             </div>
             <div class="espace__text-col">
@@ -144,7 +142,7 @@ const espaces = [
         </div>
         <div class="form-layout">
           <div class="form-intro">
-            <p class="form-intro__text">Vous souhaitez visiter le Village, collaborer avec nous ou en savoir plus sur nos espaces ? Remplissez le formulaire ci-dessous, nous reviendrons vers vous rapidement.</p>
+            <p class="form-intro__text">{formIntro}</p>
             <p class="form-intro__text">Pour toute question urgente, vous pouvez nous écrire directement à <a href={`mailto:${site.contact.email}`} class="form-intro__link">{site.contact.email}</a>.</p>
           </div>
           <form class="vform" name="village-contact" method="POST">

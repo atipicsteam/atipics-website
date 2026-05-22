@@ -88,6 +88,29 @@ export interface SavoirFairePageDirectus {
   form_intro_2?: string;
 }
 
+export interface VillagePageDirectus {
+  bandeau_image?: string;
+  bandeau_label?: string;
+  bandeau_titre?: string;
+  intro?: string;
+  entrepot_label?: string; entrepot_titre?: string; entrepot_p1?: string; entrepot_p2?: string; entrepot_p3?: string;
+  studiodesign_label?: string; studiodesign_titre?: string; studiodesign_p1?: string; studiodesign_p2?: string; studiodesign_p3?: string;
+  atelier_label?: string; atelier_titre?: string; atelier_p1?: string; atelier_p2?: string; atelier_p3?: string;
+  form_intro?: string;
+}
+
+export async function fetchVillagePage(): Promise<VillagePageDirectus> {
+  try {
+    const res = await fetch(`${DIRECTUS_API_URL}/items/village_page`);
+    if (!res.ok) return {};
+    const json = await res.json();
+    const data = json.data;
+    return (Array.isArray(data) ? data[0] : data) ?? {};
+  } catch {
+    return {};
+  }
+}
+
 export async function fetchSavoirFairePage(): Promise<SavoirFairePageDirectus> {
   try {
     const res = await fetch(`${DIRECTUS_API_URL}/items/savoir_faire_page`);
