@@ -74,6 +74,32 @@ export interface AgencePageDirectus {
   reseaux_p4?: string;
 }
 
+export interface SavoirFairePageDirectus {
+  page_label?: string;
+  page_titre?: string;
+  page_sous_titre?: string;
+  curation_label?: string; curation_titre?: string; curation_intro?: string; curation_p1?: string; curation_p2?: string;
+  conciergerie_label?: string; conciergerie_titre?: string; conciergerie_intro?: string; conciergerie_p1?: string; conciergerie_p2?: string;
+  events_label?: string; events_titre?: string; events_intro?: string; events_p1?: string; events_p2?: string;
+  intendance_label?: string; intendance_titre?: string; intendance_intro?: string; intendance_p1?: string; intendance_p2?: string;
+  valorisation_label?: string; valorisation_titre?: string; valorisation_intro?: string; valorisation_p1?: string; valorisation_p2?: string;
+  form_titre?: string;
+  form_intro_1?: string;
+  form_intro_2?: string;
+}
+
+export async function fetchSavoirFairePage(): Promise<SavoirFairePageDirectus> {
+  try {
+    const res = await fetch(`${DIRECTUS_API_URL}/items/savoir_faire_page`);
+    if (!res.ok) return {};
+    const json = await res.json();
+    const data = json.data;
+    return (Array.isArray(data) ? data[0] : data) ?? {};
+  } catch {
+    return {};
+  }
+}
+
 export async function fetchAgencePage(): Promise<AgencePageDirectus> {
   try {
     const res = await fetch(`${DIRECTUS_API_URL}/items/agence_page`);

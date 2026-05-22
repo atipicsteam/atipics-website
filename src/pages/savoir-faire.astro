@@ -3,17 +3,15 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { site } from "../site.config";
-import { fetchCollection, fileUrl } from "../lib/directus";
+import { fetchSavoirFairePage, fetchCollection, fileUrl } from "../lib/directus";
 
-interface ExpertiseImageDirectus {
-  id: number;
-  section: string;
-  image: string;
-}
+interface ExpertiseImageDirectus { id: number; section: string; image: string; }
 
-const rawImages = await fetchCollection<ExpertiseImageDirectus>("expertise_images", { sort: "id" });
+const [cms, rawImages] = await Promise.all([
+  fetchSavoirFairePage(),
+  fetchCollection<ExpertiseImageDirectus>("expertise_images", { sort: "id" }),
+]);
 
-// Grouper par section
 const imagesBySection: Record<string, string[]> = {};
 for (const item of rawImages) {
   if (!item.section || !item.image) continue;
@@ -21,91 +19,68 @@ for (const item of rawImages) {
   imagesBySection[item.section].push(fileUrl(item.image));
 }
 
+const pageLabel    = cms.page_label     || "EXPERTISES";
+const pageTitre    = cms.page_titre     || "Savoir Faire";
+const pageSousTitre = cms.page_sous_titre || "Cinq domaines d'expertise complémentaires, un fil conducteur : l'exigence et la passion du travail bien fait.";
+const formTitre    = cms.form_titre     || "Parlons de votre projet";
+const formIntro1   = cms.form_intro_1   || "Vous avez un besoin précis — sourcing, scénographie, logistique, valorisation de collection ? Décrivez-nous votre mission et nous reviendrons vers vous avec une proposition adaptée.";
+const formIntro2   = cms.form_intro_2   || "Ce formulaire est dédié aux demandes de <strong>prestation et de collaboration</strong>. Pour une visite du Village ou une question générale, utilisez le formulaire de contact.";
+
 const expertises = [
   {
     id: "curation",
-    label: "CURATION ET SOURCING",
-    title: "Curation et Sourcing",
-    intro: "L'art de trouver ce qui n'existe pas encore sur le marché.",
+    label: cms.curation_label || "CURATION ET SOURCING",
+    title: cms.curation_titre || "Curation et Sourcing",
+    intro: cms.curation_intro || "L'art de trouver ce qui n'existe pas encore sur le marché.",
     body: [
-      "Notre mission de curation va bien au-delà de la simple sélection. Nous fouillons marchés, ventes aux enchères, ateliers d'artisans et collections privées pour dénicher les pièces qui feront la différence dans votre projet.",
-      "Mobilier ancien et contemporain, objets de curiosité, textiles rares, œuvres d'art — notre regard transversal nous permet d'assembler des univers cohérents et singuliers, porteurs d'une identité forte.",
+      cms.curation_p1 || "Notre mission de curation va bien au-delà de la simple sélection. Nous fouillons marchés, ventes aux enchères, ateliers d'artisans et collections privées pour dénicher les pièces qui feront la différence dans votre projet.",
+      cms.curation_p2 || "Mobilier ancien et contemporain, objets de curiosité, textiles rares, œuvres d'art — notre regard transversal nous permet d'assembler des univers cohérents et singuliers, porteurs d'une identité forte.",
     ],
-    images: [
-      "/images/projet1.jpg",
-      "/images/projet2.webp",
-      "/images/projet3.jpg",
-      "/images/projet4.webp",
-      "/images/projet1.jpg",
-    ],
+    fallbackImages: ["/images/projet1.jpg", "/images/projet2.webp", "/images/projet3.jpg"],
   },
   {
     id: "conciergerie",
-    label: "CONCIERGERIE ET PROPRIÉTÉ",
-    title: "Conciergerie et Propriété",
-    intro: "Un interlocuteur unique pour la gestion complète de votre patrimoine.",
+    label: cms.conciergerie_label || "CONCIERGERIE ET PROPRIÉTÉ",
+    title: cms.conciergerie_titre || "Conciergerie et Propriété",
+    intro: cms.conciergerie_intro || "Un interlocuteur unique pour la gestion complète de votre patrimoine.",
     body: [
-      "Nous prenons en charge la gestion de vos espaces et de vos biens avec la même exigence que si c'était les nôtres. De l'entretien courant à la coordination de travaux, nous orchestrons chaque détail.",
-      "Disponibles, réactifs et discrets, nous sommes votre relais de confiance sur place, garantissant que votre propriété est toujours dans un état impeccable.",
+      cms.conciergerie_p1 || "Nous prenons en charge la gestion de vos espaces et de vos biens avec la même exigence que si c'était les nôtres. De l'entretien courant à la coordination de travaux, nous orchestrons chaque détail.",
+      cms.conciergerie_p2 || "Disponibles, réactifs et discrets, nous sommes votre relais de confiance sur place, garantissant que votre propriété est toujours dans un état impeccable.",
     ],
-    images: [
-      "/images/projet2.webp",
-      "/images/projet3.jpg",
-      "/images/projet4.webp",
-      "/images/projet1.jpg",
-      "/images/projet2.webp",
-    ],
+    fallbackImages: ["/images/projet2.webp", "/images/projet3.jpg", "/images/projet4.webp"],
   },
   {
     id: "events",
-    label: "EVENTS ET SCÉNOGRAPHIE",
-    title: "Events et Scénographie",
-    intro: "Transformer un espace en expérience mémorable.",
+    label: cms.events_label || "EVENTS ET SCÉNOGRAPHIE",
+    title: cms.events_titre || "Events et Scénographie",
+    intro: cms.events_intro || "Transformer un espace en expérience mémorable.",
     body: [
-      "Chaque événement est une opportunité de raconter une histoire. Nous concevons des scénographies qui mêlent mobilier, lumière, matière et narration pour créer des atmosphères inoubliables.",
-      "Soirées privées, lancements de marque, expositions, salons — notre équipe maîtrise toutes les échelles et tous les types de configurations, des plus intimes aux plus spectaculaires.",
+      cms.events_p1 || "Chaque événement est une opportunité de raconter une histoire. Nous concevons des scénographies qui mêlent mobilier, lumière, matière et narration pour créer des atmosphères inoubliables.",
+      cms.events_p2 || "Soirées privées, lancements de marque, expositions, salons — notre équipe maîtrise toutes les échelles et tous les types de configurations, des plus intimes aux plus spectaculaires.",
     ],
-    images: [
-      "/images/projet3.jpg",
-      "/images/projet4.webp",
-      "/images/projet1.jpg",
-      "/images/projet2.webp",
-      "/images/projet3.jpg",
-    ],
+    fallbackImages: ["/images/projet3.jpg", "/images/projet4.webp", "/images/projet1.jpg"],
   },
   {
     id: "intendance",
-    label: "INTENDANCE ET LOGISTIQUE",
-    title: "Intendance et Logistique",
-    intro: "Les coulisses parfaites pour que l'essentiel brille.",
+    label: cms.intendance_label || "INTENDANCE ET LOGISTIQUE",
+    title: cms.intendance_titre || "Intendance et Logistique",
+    intro: cms.intendance_intro || "Les coulisses parfaites pour que l'essentiel brille.",
     body: [
-      "La logistique est souvent le parent pauvre des projets ambitieux. Chez Atipics, nous en avons fait une spécialité. Transport, emballage, stockage, installation — nous gérons l'invisible pour que le visible soit irréprochable.",
-      "Notre réseau de transporteurs spécialisés, d'emballeurs experts et de techniciens d'installation garantit que chaque pièce arrive à destination dans les conditions idéales.",
+      cms.intendance_p1 || "La logistique est souvent le parent pauvre des projets ambitieux. Chez Atipics, nous en avons fait une spécialité. Transport, emballage, stockage, installation — nous gérons l'invisible pour que le visible soit irréprochable.",
+      cms.intendance_p2 || "Notre réseau de transporteurs spécialisés, d'emballeurs experts et de techniciens d'installation garantit que chaque pièce arrive à destination dans les conditions idéales.",
     ],
-    images: [
-      "/images/projet4.webp",
-      "/images/projet1.jpg",
-      "/images/projet2.webp",
-      "/images/projet3.jpg",
-      "/images/projet4.webp",
-    ],
+    fallbackImages: ["/images/projet4.webp", "/images/projet1.jpg", "/images/projet2.webp"],
   },
   {
     id: "valorisation",
-    label: "VALORISATION DE COLLECTIONS",
-    title: "Valorisation de Collections",
-    intro: "Révéler le potentiel de ce que vous possédez déjà.",
+    label: cms.valorisation_label || "VALORISATION DE COLLECTIONS",
+    title: cms.valorisation_titre || "Valorisation de Collections",
+    intro: cms.valorisation_intro || "Révéler le potentiel de ce que vous possédez déjà.",
     body: [
-      "Vous possédez une collection, un héritage, un ensemble de pièces dont vous ne savez que faire ? Nous intervenons pour inventorier, expertiser, documenter et valoriser ce patrimoine.",
-      "Qu'il s'agisse de le mettre en scène dans votre intérieur, de le proposer à la vente dans les meilleures conditions ou de le transmettre, nous vous accompagnons à chaque étape avec rigueur et passion.",
+      cms.valorisation_p1 || "Vous possédez une collection, un héritage, un ensemble de pièces dont vous ne savez que faire ? Nous intervenons pour inventorier, expertiser, documenter et valoriser ce patrimoine.",
+      cms.valorisation_p2 || "Qu'il s'agisse de le mettre en scène dans votre intérieur, de le proposer à la vente dans les meilleures conditions ou de le transmettre, nous vous accompagnons à chaque étape avec rigueur et passion.",
     ],
-    images: [
-      "/images/projet1.jpg",
-      "/images/projet3.jpg",
-      "/images/projet2.webp",
-      "/images/projet4.webp",
-      "/images/projet1.jpg",
-    ],
+    fallbackImages: ["/images/projet1.jpg", "/images/projet3.jpg", "/images/projet2.webp"],
   },
 ];
 ---
@@ -118,11 +93,11 @@ const expertises = [
     <section class="page-head">
       <div class="container">
         <div class="label-row">
-          <span class="section-stamp">EXPERTISES</span>
+          <span class="section-stamp">{pageLabel}</span>
           <div class="rule"></div>
         </div>
-        <h1 class="page-head__title">Savoir Faire</h1>
-        <p class="page-head__sub">Cinq domaines d'expertise complémentaires, un fil conducteur : l'exigence et la passion du travail bien fait.</p>
+        <h1 class="page-head__title">{pageTitre}</h1>
+        <p class="page-head__sub">{pageSousTitre}</p>
       </div>
     </section>
 
@@ -130,12 +105,10 @@ const expertises = [
     {expertises.map((e, i) => (
       <section class:list={["expertise-block", { "expertise-block--alt": i % 2 !== 0 }]} id={e.id}>
         <div class="container">
-          <!-- Label row -->
           <div class="label-row">
             <span class="section-stamp">{e.label}</span>
             <div class="rule"></div>
           </div>
-          <!-- Grid: texte gauche, carousel droite -->
           <div class="expertise-grid">
             <div class="expertise-text">
               <h2 class="expertise-title">{e.title}</h2>
@@ -144,7 +117,7 @@ const expertises = [
             </div>
             <div class="expertise-carousel" data-carousel>
               <div class="ecarousel__track" data-track>
-                {(imagesBySection[e.id]?.length > 0 ? imagesBySection[e.id] : e.images).map((img, j) => (
+                {(imagesBySection[e.id]?.length > 0 ? imagesBySection[e.id] : e.fallbackImages).map((img: string, j: number) => (
                   <div class="ecarousel__slide" aria-hidden={j !== 0}>
                     <img src={img} alt={`${e.title} ${j + 1}`} class="ecarousel__img" loading="lazy" />
                   </div>
