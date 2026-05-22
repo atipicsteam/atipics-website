@@ -84,7 +84,11 @@ export async function fetchSiteNav(): Promise<SiteNav | null> {
       label: item.label,
       href: item.href,
       sub: subRaw
-        .filter((s) => s.parent === item.id)
+        .filter((s) => {
+          // Sécurité : extrait l'ID que ce soit un nombre brut ou un objet relationnel Directus
+          const parentId = s.parent && typeof s.parent === "object" ? (s.parent as any).id : s.parent;
+          return parentId === item.id;
+        })
         .map((s) => ({ label: s.label, href: s.href })),
     }));
 
