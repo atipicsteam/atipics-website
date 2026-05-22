@@ -56,6 +56,35 @@ interface ParamDirectus {
   adresse: string;
 }
 
+export interface AgencePageDirectus {
+  bandeau_image?: string;
+  bandeau_label?: string;
+  bandeau_titre?: string;
+  intro?: string;
+  manifeste_label?: string;
+  manifeste_titre?: string;
+  manifeste_p1?: string;
+  manifeste_p2?: string;
+  manifeste_p3?: string;
+  reseaux_label?: string;
+  reseaux_titre?: string;
+  reseaux_p1?: string;
+  reseaux_p2?: string;
+  reseaux_p3?: string;
+  reseaux_p4?: string;
+}
+
+export async function fetchAgencePage(): Promise<AgencePageDirectus> {
+  try {
+    const res = await fetch(`${DIRECTUS_API_URL}/items/agence_page`);
+    if (!res.ok) return {};
+    const json = await res.json();
+    return json.data ?? {};
+  } catch {
+    return {};
+  }
+}
+
 export interface NavItem {
   label: string;
   href: string;

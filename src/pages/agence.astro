@@ -3,19 +3,19 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { site } from "../site.config";
-import { fetchCollection, fileUrl } from "../lib/directus";
+import { fetchAgencePage, fetchCollection, fileUrl } from "../lib/directus";
 
-interface Parametres { bandeau_agence: string; }
 interface AgenceImageDirectus { id: number; section: string; image: string; }
 
-const [params, rawAgenceImages] = await Promise.all([
-  fetchCollection<Parametres>("parametres"),
+const [cms, rawAgenceImages] = await Promise.all([
+  fetchAgencePage(),
   fetchCollection<AgenceImageDirectus>("agence_images", { sort: "id" }),
 ]);
 
-const bandeauAgence = params[0]?.bandeau_agence
-  ? fileUrl(params[0].bandeau_agence)
-  : "/images/projet1.jpg";
+const bandeauAgence = cms.bandeau_image ? fileUrl(cms.bandeau_image) : "/images/projet1.jpg";
+const bandeauLabel = cms.bandeau_label || "L'Agence";
+const bandeauTitre = cms.bandeau_titre || "Atipics";
+const intro = cms.intro || "Ressourcerie éclectique et polyvalente — dix ans de savoir-faire au service de projets singuliers, pour particuliers, collectionneurs et professionnels.";
 
 const agenceImages: Record<string, string[]> = {};
 for (const item of rawAgenceImages) {
@@ -23,6 +23,34 @@ for (const item of rawAgenceImages) {
   if (!agenceImages[item.section]) agenceImages[item.section] = [];
   agenceImages[item.section].push(fileUrl(item.image));
 }
+
+const sections = [
+  {
+    slug: "manifeste",
+    label: cms.manifeste_label || "MANIFESTE",
+    titre: cms.manifeste_titre || "Une agence hors des sentiers battus",
+    paragraphes: [
+      cms.manifeste_p1 || "Atipics est née d'une conviction : chaque espace, chaque objet, chaque projet mérite une attention singulière. Nous cultivons l'art de la trouvaille, du détail inattendu, du savoir-faire transmis.",
+      cms.manifeste_p2 || "Curateurs, logisticiens, scénographes — nous sommes avant tout des passionnés animés par la conviction que les objets ont une histoire, et que cette histoire mérite d'être racontée.",
+      cms.manifeste_p3 || "Notre ancrage au Village Atipics, véritable hub de créativité et de compétences, nous permet d'offrir un écosystème complet, du sourcing à la mise en valeur finale.",
+    ].filter(Boolean),
+    reverse: false,
+    fallbackImg: "/images/projet2.webp",
+  },
+  {
+    slug: "reseaux",
+    label: cms.reseaux_label || "RÉSEAUX",
+    titre: cms.reseaux_titre || "Un réseau d'exception",
+    paragraphes: [
+      cms.reseaux_p1 || "Artisans, antiquaires, architectes, artistes — notre carnet d'adresses est le fruit de dix années de rencontres et de confiance mutuelle. Un réseau humain, construit sur la durée.",
+      cms.reseaux_p2 || "Ébénistes, tapissiers, ferronniers, doreurs — des mains expertes qui perpétuent les savoir-faire. Un accès privilégié aux meilleures sources, en France et à l'international.",
+      cms.reseaux_p3 || "Des collaborations croisées avec architectes et designers pour des projets qui mêlent structure, espace et objet. Une discrétion absolue pour accompagner les projets les plus sensibles.",
+      cms.reseaux_p4 || `Pour toute demande, contactez-nous à <a href="mailto:${site.contact.email}" class="text-link">${site.contact.email}</a>.`,
+    ].filter(Boolean),
+    reverse: true,
+    fallbackImg: "/images/projet3.jpg",
+  },
+];
 ---
 
 <Layout title={`Agence Atipics — ${site.name}`} description="Manifeste et réseaux de l'Agence Atipics">
@@ -34,8 +62,8 @@ for (const item of rawAgenceImages) {
       <img src={bandeauAgence} alt="Atipics" class="bandeau__img" />
       <div class="bandeau__overlay">
         <div class="container bandeau__text">
-          <p class="bandeau__label">L'Agence</p>
-          <h1 class="bandeau__title">Atipics</h1>
+          <p class="bandeau__label">{bandeauLabel}</p>
+          <h1 class="bandeau__title">{bandeauTitre}</h1>
         </div>
       </div>
     </section>
@@ -43,90 +71,81 @@ for (const item of rawAgenceImages) {
     <!-- Intro -->
     <section class="intro-section">
       <div class="container">
-        <p class="intro-desc">Ressourcerie éclectique et polyvalente — dix ans de savoir-faire au service de projets singuliers, pour particuliers, collectionneurs et professionnels.</p>
+        <p class="intro-desc">{agenceIntro}</p>
       </div>
     </section>
 
-    <!-- Manifeste -->
-    <section class="split-block" id="manifeste">
-      <div class="container">
-        <div class="label-row">
-          <span class="stamp">MANIFESTE</span>
-          <div class="rule"></div>
-        </div>
-        <div class="split-grid">
-          <div class="split-text">
-            <h2 class="split-title">Une agence hors<br/>des sentiers battus</h2>
-            <p class="split-p">Atipics est née d'une conviction : chaque espace, chaque objet, chaque projet mérite une attention singulière. Nous cultivons l'art de la trouvaille, du détail inattendu, du savoir-faire transmis.</p>
-            <p class="split-p">Curateurs, logisticiens, scénographes — nous sommes avant tout des passionnés animés par la conviction que les objets ont une histoire, et que cette histoire mérite d'être racontée.</p>
-            <p class="split-p">Notre ancrage au Village Atipics, véritable hub de créativité et de compétences, nous permet d'offrir un écosystème complet, du sourcing à la mise en valeur finale.</p>
-          </div>
-          <div class="split-img-col">
-            {agenceImages["manifeste"]?.length > 0 ? (
-              <div class="acarousel" data-acarousel>
-                <div class="acarousel__track">
-                  {agenceImages["manifeste"].map((src, j) => (
-                    <div class:list={["acarousel__slide", { "is-active": j === 0 }]} aria-hidden={j !== 0}>
-                      <img src={src} alt={`Manifeste ${j + 1}`} class="split-img" loading="lazy" />
+    <!-- Sections dynamiques -->
+    {sections.map((s) => {
+      const imgs = agenceImages[s.slug] ?? [];
+      const paragraphes = [s.paragraphe_1, s.paragraphe_2, s.paragraphe_3, s.paragraphe_4].filter(Boolean) as string[];
+      return (
+        <section class:list={["split-block", { "split-block--alt": s.reverse }]} id={s.slug}>
+          <div class="container">
+            <div class="label-row">
+              <span class="stamp">{s.label}</span>
+              <div class="rule"></div>
+            </div>
+            <div class:list={["split-grid", { "split-grid--reverse": s.reverse }]}>
+              {s.reverse && (
+                <div class="split-img-col">
+                  {imgs.length > 0 ? (
+                    <div class="acarousel" data-acarousel>
+                      <div class="acarousel__track">
+                        {imgs.map((src, j) => (
+                          <div class:list={["acarousel__slide", { "is-active": j === 0 }]} aria-hidden={j !== 0}>
+                            <img src={src} alt={`${s.label} ${j + 1}`} class="split-img" loading="lazy" />
+                          </div>
+                        ))}
+                      </div>
+                      {imgs.length > 1 && (
+                        <>
+                          <button class="acarousel__btn acarousel__btn--prev" aria-label="Précédent"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                          <button class="acarousel__btn acarousel__btn--next" aria-label="Suivant"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                          <div class="acarousel__counter" data-acounter></div>
+                        </>
+                      )}
                     </div>
-                  ))}
+                  ) : (
+                    <img src="/images/projet3.jpg" alt={s.titre} class="split-img" loading="lazy" />
+                  )}
                 </div>
-                {agenceImages["manifeste"].length > 1 && (
-                  <>
-                    <button class="acarousel__btn acarousel__btn--prev" aria-label="Précédent"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                    <button class="acarousel__btn acarousel__btn--next" aria-label="Suivant"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                    <div class="acarousel__counter" data-acounter></div>
-                  </>
-                )}
+              )}
+              <div class="split-text">
+                <h2 class="split-title" set:html={s.titre} />
+                {paragraphes.map((p) => (
+                  <p class="split-p" set:html={p} />
+                ))}
               </div>
-            ) : (
-              <img src="/images/projet2.webp" alt="Manifeste Atipics" class="split-img" loading="lazy" />
-            )}
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Réseaux -->
-    <section class="split-block split-block--alt" id="reseaux">
-      <div class="container">
-        <div class="label-row">
-          <span class="stamp">RÉSEAUX</span>
-          <div class="rule"></div>
-        </div>
-        <div class="split-grid split-grid--reverse">
-          <div class="split-img-col">
-            {agenceImages["reseaux"]?.length > 0 ? (
-              <div class="acarousel" data-acarousel>
-                <div class="acarousel__track">
-                  {agenceImages["reseaux"].map((src, j) => (
-                    <div class:list={["acarousel__slide", { "is-active": j === 0 }]} aria-hidden={j !== 0}>
-                      <img src={src} alt={`Réseaux ${j + 1}`} class="split-img" loading="lazy" />
+              {!s.reverse && (
+                <div class="split-img-col">
+                  {imgs.length > 0 ? (
+                    <div class="acarousel" data-acarousel>
+                      <div class="acarousel__track">
+                        {imgs.map((src, j) => (
+                          <div class:list={["acarousel__slide", { "is-active": j === 0 }]} aria-hidden={j !== 0}>
+                            <img src={src} alt={`${s.label} ${j + 1}`} class="split-img" loading="lazy" />
+                          </div>
+                        ))}
+                      </div>
+                      {imgs.length > 1 && (
+                        <>
+                          <button class="acarousel__btn acarousel__btn--prev" aria-label="Précédent"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                          <button class="acarousel__btn acarousel__btn--next" aria-label="Suivant"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                          <div class="acarousel__counter" data-acounter></div>
+                        </>
+                      )}
                     </div>
-                  ))}
+                  ) : (
+                    <img src="/images/projet2.webp" alt={s.titre} class="split-img" loading="lazy" />
+                  )}
                 </div>
-                {agenceImages["reseaux"].length > 1 && (
-                  <>
-                    <button class="acarousel__btn acarousel__btn--prev" aria-label="Précédent"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                    <button class="acarousel__btn acarousel__btn--next" aria-label="Suivant"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                    <div class="acarousel__counter" data-acounter></div>
-                  </>
-                )}
-              </div>
-            ) : (
-              <img src="/images/projet3.jpg" alt="Réseaux Atipics" class="split-img" loading="lazy" />
-            )}
+              )}
+            </div>
           </div>
-          <div class="split-text">
-            <h2 class="split-title">Un réseau<br/>d'exception</h2>
-            <p class="split-p">Artisans, antiquaires, architectes, artistes — notre carnet d'adresses est le fruit de dix années de rencontres et de confiance mutuelle. Un réseau humain, construit sur la durée.</p>
-            <p class="split-p">Ébénistes, tapissiers, ferronniers, doreurs — des mains expertes qui perpétuent les savoir-faire. Un accès privilégié aux meilleures sources, en France et à l'international.</p>
-            <p class="split-p">Des collaborations croisées avec architectes et designers pour des projets qui mêlent structure, espace et objet. Une discrétion absolue pour accompagner les projets les plus sensibles.</p>
-            <p class="split-p">Pour toute demande, contactez-nous à <a href={`mailto:${site.contact.email}`} class="text-link">{site.contact.email}</a>.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+        </section>
+      );
+    })}
 
   </main>
   <Footer />
@@ -329,7 +348,7 @@ for (const item of rawAgenceImages) {
     const next = carousel.querySelector('.acarousel__btn--next');
     const counter = carousel.querySelector('[data-acounter]');
     let cur = 0;
-    function go(n) {
+    function go(n: number) {
       slides[cur].classList.remove('is-active');
       slides[cur].setAttribute('aria-hidden', 'true');
       cur = ((n % slides.length) + slides.length) % slides.length;
