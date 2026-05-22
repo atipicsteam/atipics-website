@@ -78,7 +78,7 @@ const sections = [
     <!-- Sections dynamiques -->
     {sections.map((s) => {
       const imgs = agenceImages[s.slug] ?? [];
-      const paragraphes = [s.paragraphe_1, s.paragraphe_2, s.paragraphe_3, s.paragraphe_4].filter(Boolean) as string[];
+      const paragraphes = s.paragraphes;
       return (
         <section class:list={["split-block", { "split-block--alt": s.reverse }]} id={s.slug}>
           <div class="container">
