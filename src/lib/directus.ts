@@ -1,6 +1,6 @@
 const DIRECTUS_API_URL = "http://127.0.0.1:8055";
 
-const DIRECTUS_ASSETS_URL = "http://100.66.112.125:8055"; 
+const DIRECTUS_ASSETS_URL = "https://admin-demo.atipics.art";
 
 export async function fetchCollection<T>(
   collection: string,
