@@ -79,7 +79,8 @@ export async function fetchAgencePage(): Promise<AgencePageDirectus> {
     const res = await fetch(`${DIRECTUS_API_URL}/items/agence_page`);
     if (!res.ok) return {};
     const json = await res.json();
-    return json.data ?? {};
+    const data = json.data;
+    return (Array.isArray(data) ? data[0] : data) ?? {};
   } catch {
     return {};
   }
