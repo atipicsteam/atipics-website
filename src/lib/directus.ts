@@ -56,6 +56,30 @@ interface ParamDirectus {
   adresse: string;
   bandeau_village?: string;
   bandeau_agence?: string;
+  font?: string;
+}
+
+export interface FontConfig { family: string; url: string | null; }
+
+export const FONTS: Record<string, FontConfig> = {
+  helvetica: { family: "'Helvetica Neue', Helvetica, Arial, sans-serif", url: null },
+  inter:     { family: "'Inter', sans-serif",             url: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" },
+  playfair:  { family: "'Playfair Display', serif",       url: "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;700&display=swap" },
+  cormorant: { family: "'Cormorant Garamond', serif",     url: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&display=swap" },
+  "dm-sans": { family: "'DM Sans', sans-serif",           url: "https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" },
+  josefin:   { family: "'Josefin Sans', sans-serif",      url: "https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap" },
+};
+
+export async function fetchFont(): Promise<FontConfig> {
+  try {
+    const res = await fetch(`${DIRECTUS_API_URL}/items/parametres`);
+    if (!res.ok) return FONTS.helvetica;
+    const json = await res.json();
+    const data = Array.isArray(json.data) ? json.data[0] : json.data;
+    return FONTS[data?.font ?? ""] ?? FONTS.helvetica;
+  } catch {
+    return FONTS.helvetica;
+  }
 }
 
 export interface AgencePageDirectus {

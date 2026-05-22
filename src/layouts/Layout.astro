@@ -1,5 +1,7 @@
 ---
 import { site } from "../site.config";
+import { fetchFont } from "../lib/directus";
+const font = await fetchFont();
 interface Props {
   title?: string;
   description?: string;
@@ -75,6 +77,10 @@ const socials = [
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={ogImage} />
+    {font.url && <link rel="stylesheet" href={font.url} />}
+    <style define:vars={{ fontFamily: font.family }}>
+      :root { --font: var(--fontFamily); }
+    </style>
   </head>
   <body>
     <slot />
