@@ -3,7 +3,14 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { site } from "../site.config";
-const { contact } = site;
+import { fetchContactData } from "../lib/directus";
+
+const { page, info } = await fetchContactData();
+
+const rdvTexte = page.rdv_texte || "Les visites sont sur rendez-vous uniquement, du lundi au vendredi, de 10h à 17h.";
+const email    = info.email     || site.contact.email;
+const tel      = info.telephone || "+33 6 00 00 00 00";
+const adresse  = info.adresse   || "Village Atipics\nZone Artisanale\nFrance";
 ---
 
 <Layout title={`Contact — ${site.name}`} description="Contactez l'Agence Atipics">
@@ -121,26 +128,22 @@ const { contact } = site;
 
           <div class="info-block">
             <p class="info-label">PRENDRE RENDEZ-VOUS</p>
-            <p class="info-text">Les visites sont sur rendez-vous uniquement,<br/>du lundi au vendredi, de 10h à 17h.</p>
+            <p class="info-text">{rdvTexte}</p>
           </div>
 
           <div class="info-block">
             <p class="info-label">EMAIL</p>
-            <a href={`mailto:${contact.email}`} class="info-link">{contact.email}</a>
+            <a href={`mailto:${email}`} class="info-link">{email}</a>
           </div>
 
           <div class="info-block">
             <p class="info-label">TÉLÉPHONE</p>
-            <a href="tel:+33600000000" class="info-link">+33 6 00 00 00 00</a>
+            <a href={`tel:${tel.replace(/\s/g, "")}`} class="info-link">{tel}</a>
           </div>
 
           <div class="info-block">
             <p class="info-label">NOUS TROUVER</p>
-            <p class="info-text">
-              Village Atipics<br/>
-              Zone Artisanale<br/>
-              France
-            </p>
+            <p class="info-text" set:html={adresse.replace(/\n/g, "<br/>")} />
           </div>
 
           <a href="/village" class="info-btn">

@@ -54,6 +54,8 @@ interface ParamDirectus {
   email: string;
   telephone: string;
   adresse: string;
+  bandeau_village?: string;
+  bandeau_agence?: string;
 }
 
 export interface AgencePageDirectus {
@@ -97,6 +99,35 @@ export interface VillagePageDirectus {
   studiodesign_label?: string; studiodesign_titre?: string; studiodesign_p1?: string; studiodesign_p2?: string; studiodesign_p3?: string;
   atelier_label?: string; atelier_titre?: string; atelier_p1?: string; atelier_p2?: string; atelier_p3?: string;
   form_intro?: string;
+}
+
+export interface ContactPageDirectus {
+  rdv_texte?: string;
+}
+
+export interface ContactInfoDirectus {
+  email: string;
+  telephone: string;
+  adresse: string;
+}
+
+export async function fetchContactData(): Promise<{ page: ContactPageDirectus; info: ContactInfoDirectus }> {
+  try {
+    const [pageRes, paramRes] = await Promise.all([
+      fetch(`${DIRECTUS_API_URL}/items/contact_page`),
+      fetch(`${DIRECTUS_API_URL}/items/parametres`),
+    ]);
+    const pageJson = pageRes.ok ? await pageRes.json() : { data: {} };
+    const paramJson = paramRes.ok ? await paramRes.json() : { data: [] };
+    const pageData = pageJson.data;
+    const paramData = Array.isArray(paramJson.data) ? paramJson.data[0] : paramJson.data;
+    return {
+      page: (Array.isArray(pageData) ? pageData[0] : pageData) ?? {},
+      info: paramData ?? {},
+    };
+  } catch {
+    return { page: {}, info: { email: "", telephone: "", adresse: "" } };
+  }
 }
 
 export async function fetchVillagePage(): Promise<VillagePageDirectus> {
