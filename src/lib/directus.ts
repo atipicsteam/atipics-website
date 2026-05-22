@@ -85,9 +85,12 @@ export async function fetchSiteNav(): Promise<SiteNav | null> {
       href: item.href,
       sub: subRaw
         .filter((s) => {
-          // Sécurité : extrait l'ID que ce soit un nombre brut ou un objet relationnel Directus
-          const parentId = s.parent && typeof s.parent === "object" ? (s.parent as any).id : s.parent;
-          return parentId === item.id;
+          // La magie est ici : on extrait l'ID, qu'il soit dans un tableau [1] ou un objet {id: 1}
+          let parentId = s.parent;
+          if (Array.isArray(s.parent)) parentId = s.parent[0];
+          if (typeof s.parent === 'object' && s.parent !== null && 'id' in s.parent) parentId = (s.parent as any).id;
+          
+          return String(parentId) === String(item.id);
         })
         .map((s) => ({ label: s.label, href: s.href })),
     }));
@@ -98,7 +101,8 @@ export async function fetchSiteNav(): Promise<SiteNav | null> {
       footerLinks: footerRaw.map((l) => ({ label: l.label, href: l.href })),
       email: paramRaw[0]?.email || "contact@atipics.fr",
     };
-  } catch {
+  } catch (e) {
+    console.error("Erreur fetchSiteNav:", e);
     return null;
   }
 }
