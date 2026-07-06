@@ -1,4 +1,5 @@
 import { config, fields, collection, singleton } from '@keystatic/core';
+import React from 'react';
 
 export default config({
   storage: {
@@ -6,7 +7,10 @@ export default config({
     repo: 'atipicsteam/atipics-website',
   },
   ui: {
-    brand: { name: 'Atipics' },
+    brand: { 
+      name: 'Atipics',
+      mark: () => <img src="/favicon.svg" alt="Atipics" style={{ height: 24 }} />
+    },
     navigation: {
       'Contenu Principal': ['projets', 'journal', 'carousel'],
       'Pages': ['agence_page', 'savoir_faire_page', 'village_page', 'contact_page'],
