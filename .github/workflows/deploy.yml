@@ -29,6 +29,8 @@ jobs:
         with:
           # Spécifie le gestionnaire de paquets
           package-manager: npm
+          # Astro 5 nécessite Node 22+
+          node-version: 22
 
   deploy:
     needs: build
