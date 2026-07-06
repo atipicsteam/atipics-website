@@ -246,7 +246,6 @@ export default config({
               directory: 'public/images/carousel',
               publicPath: '/images/carousel/',
             }),
-            bg: fields.text({ label: 'Couleur de fond (ex: #2E4D3F)' }),
           }),
           { label: 'Slides', itemLabel: props => props.fields.title.value || 'Nouveau slide' }
         )
