@@ -101,6 +101,8 @@ export default config({
             { label: 'Cormorant Garamond', value: 'cormorant' },
             { label: 'DM Sans', value: 'dm-sans' },
             { label: 'Josefin Sans', value: 'josefin' },
+            { label: 'Manrope', value: 'manrope' },
+            { label: 'EB Garamond', value: 'eb-garamond' },
           ],
           defaultValue: 'helvetica',
         }),
