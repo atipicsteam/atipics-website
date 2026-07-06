@@ -3,27 +3,17 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { site } from "../site.config";
-import { fetchVillagePage, fetchCollection, fileUrl } from "../lib/directus";
+import cms from "../content/pages/village.json";
 
-interface VillageImageDirectus { id: number; section: string; image: string; }
-
-const [cms, rawVillageImages] = await Promise.all([
-  fetchVillagePage(),
-  fetchCollection<VillageImageDirectus>("village_images", { sort: "id" }),
-]);
-
-const bandeauVillage = cms.bandeau_image ? fileUrl(cms.bandeau_image) : "/images/droneImageBandeau.jpg";
+const bandeauVillage = cms.bandeau_image ? `/images/${cms.bandeau_image}` : "/images/droneImageBandeau.jpg";
 const bandeauLabel   = cms.bandeau_label || "Le Village";
 const bandeauTitre   = cms.bandeau_titre || "Village Atipics";
 const intro          = cms.intro         || "Un écosystème complet réunissant sous un même toit tous les outils et les expertises nécessaires à vos projets les plus ambitieux — entrepôt, studio de création et atelier de restauration.";
 const formIntro      = cms.form_intro    || "Vous souhaitez visiter le Village, collaborer avec nous ou en savoir plus sur nos espaces ? Remplissez le formulaire ci-dessous, nous reviendrons vers vous rapidement.";
 
 const villageImages: Record<string, string[]> = {};
-for (const item of rawVillageImages) {
-  if (!item.section || !item.image) continue;
-  if (!villageImages[item.section]) villageImages[item.section] = [];
-  villageImages[item.section].push(fileUrl(item.image));
-}
+// Les images du carrousel ne sont plus sur directus, on utilise un fallback pour l'instant.
+
 
 const espaces = [
   {

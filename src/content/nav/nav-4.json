@@ -1,0 +1,27 @@
+{
+  "label": "Savoir Faire",
+  "href": "/savoir-faire",
+  "sort": 0,
+  "sub": [
+    {
+      "label": "Curation et Sourcing",
+      "href": "/savoir-faire#curation"
+    },
+    {
+      "label": "Conciergerie et Propriété",
+      "href": "/savoir-faire#conciergerie"
+    },
+    {
+      "label": "Events et Scénographie",
+      "href": "/savoir-faire#events"
+    },
+    {
+      "label": "Intendance et Logistique",
+      "href": "/savoir-faire#intendance"
+    },
+    {
+      "label": "Valorisation de Collections",
+      "href": "/savoir-faire#valorisation"
+    }
+  ]
+}

@@ -1,14 +1,11 @@
 ---
 import { site } from "../site.config";
-import { fetchSiteNav } from "../lib/directus";
 
 interface Props { fixed?: boolean; }
 const { fixed = false } = Astro.props;
 
-const siteNav = await fetchSiteNav();
-const footerLinks = (siteNav?.footerLinks && siteNav.footerLinks.length > 0)
-  ? siteNav.footerLinks
-  : site.footer.links;
+// Nous n'avons pas migré footer_liens car non présents dans la migration, on utilise les valeurs par défaut.
+const footerLinks = site.footer.links;
 ---
 
 <footer class:list={["footer", { "footer--fixed": fixed }]}>

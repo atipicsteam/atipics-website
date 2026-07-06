@@ -3,26 +3,16 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { site } from "../site.config";
-import { fetchAgencePage, fetchCollection, fileUrl } from "../lib/directus";
+import cms from "../content/pages/agence.json";
 
-interface AgenceImageDirectus { id: number; section: string; image: string; }
-
-const [cms, rawAgenceImages] = await Promise.all([
-  fetchAgencePage(),
-  fetchCollection<AgenceImageDirectus>("agence_images", { sort: "id" }),
-]);
-
-const bandeauAgence = cms.bandeau_image ? fileUrl(cms.bandeau_image) : "/images/projet1.jpg";
+const bandeauAgence = cms.bandeau_image ? `/images/${cms.bandeau_image}` : "/images/projet1.jpg";
 const bandeauLabel = cms.bandeau_label || "L'Agence";
 const bandeauTitre = cms.bandeau_titre || "Atipics";
 const intro = cms.intro || "Ressourcerie éclectique et polyvalente — dix ans de savoir-faire au service de projets singuliers, pour particuliers, collectionneurs et professionnels.";
 
 const agenceImages: Record<string, string[]> = {};
-for (const item of rawAgenceImages) {
-  if (!item.section || !item.image) continue;
-  if (!agenceImages[item.section]) agenceImages[item.section] = [];
-  agenceImages[item.section].push(fileUrl(item.image));
-}
+// Les images de section (carrousel) n'ont pas été migrées, on utilise un fallback pour le moment.
+
 
 const sections = [
   {

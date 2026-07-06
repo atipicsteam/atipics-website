@@ -1,0 +1,19 @@
+{
+  "label": "Village Atipics",
+  "href": "/village",
+  "sort": 0,
+  "sub": [
+    {
+      "label": "Entrepôt",
+      "href": "/village#entrepot"
+    },
+    {
+      "label": "Studio Design",
+      "href": "/village#studiodesign"
+    },
+    {
+      "label": "Atelier",
+      "href": "/village#atelier"
+    }
+  ]
+}

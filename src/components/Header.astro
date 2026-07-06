@@ -1,10 +1,13 @@
 ---
 import { site } from "../site.config";
-import { fetchSiteNav } from "../lib/directus";
+import parametres from "../content/parametres/index.json";
 
-const siteNav = await fetchSiteNav();
-const name = siteNav?.name || site.name;
-const navItems = (siteNav?.nav && siteNav.nav.length > 0) ? siteNav.nav : site.nav;
+const name = parametres.nom_site || site.name;
+const rawNav = import.meta.glob('../content/nav/*.json', { eager: true });
+let navItems = Object.values(rawNav).map((mod: any) => mod.default || mod).sort((a: any, b: any) => a.sort - b.sort);
+if (!navItems || navItems.length === 0) {
+  navItems = site.nav;
+}
 const currentPath = Astro.url.pathname;
 ---
 
