@@ -2,16 +2,18 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { site } from "../site.config";
 import cms from "../content/pages/agence.json";
+import parametres from "../content/parametres/index.json";
 
 const bandeauAgence = cms.bandeau_image ? `/images/${cms.bandeau_image}` : "/images/projet1.jpg";
 const bandeauLabel = cms.bandeau_label || "L'Agence";
 const bandeauTitre = cms.bandeau_titre || "Atipics";
 const intro = cms.intro || "Ressourcerie éclectique et polyvalente — dix ans de savoir-faire au service de projets singuliers, pour particuliers, collectionneurs et professionnels.";
 
-const agenceImages: Record<string, string[]> = {};
-// Les images de section (carrousel) n'ont pas été migrées, on utilise un fallback pour le moment.
+const agenceImages: Record<string, string[]> = {
+  manifeste: cms.manifeste_images || [],
+  reseaux: cms.reseaux_images || [],
+};
 
 
 const sections = [
@@ -35,7 +37,7 @@ const sections = [
       cms.reseaux_p1 || "Artisans, antiquaires, architectes, artistes — notre carnet d'adresses est le fruit de dix années de rencontres et de confiance mutuelle. Un réseau humain, construit sur la durée.",
       cms.reseaux_p2 || "Ébénistes, tapissiers, ferronniers, doreurs — des mains expertes qui perpétuent les savoir-faire. Un accès privilégié aux meilleures sources, en France et à l'international.",
       cms.reseaux_p3 || "Des collaborations croisées avec architectes et designers pour des projets qui mêlent structure, espace et objet. Une discrétion absolue pour accompagner les projets les plus sensibles.",
-      cms.reseaux_p4 || `Pour toute demande, contactez-nous à <a href="mailto:${site.contact.email}" class="text-link">${site.contact.email}</a>.`,
+      cms.reseaux_p4 || `Pour toute demande, contactez-nous à <a href="mailto:${parametres.email}" class="text-link">${parametres.email}</a>.`,
     ].filter(Boolean),
     reverse: true,
     fallbackImg: "/images/projet3.jpg",
@@ -43,7 +45,7 @@ const sections = [
 ];
 ---
 
-<Layout title={`Agence Atipics — ${site.name}`} description="Manifeste et réseaux de l'Agence Atipics">
+<Layout title={`Agence Atipics — ${parametres.nom_site}`} description="Manifeste et réseaux de l'Agence Atipics">
   <Header />
   <main style="padding-top: var(--nav-h);">
 

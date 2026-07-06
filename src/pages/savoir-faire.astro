@@ -2,11 +2,16 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { site } from "../site.config";
 import cms from "../content/pages/savoir-faire.json";
+import parametres from "../content/parametres/index.json";
 
-const imagesBySection: Record<string, string[]> = {};
-// Les images du carrousel de chaque expertise ne sont plus sur directus, on utilise les fallbacks.
+const imagesBySection: Record<string, string[]> = {
+  curation: cms.curation_images || [],
+  conciergerie: cms.conciergerie_images || [],
+  events: cms.events_images || [],
+  intendance: cms.intendance_images || [],
+  valorisation: cms.valorisation_images || [],
+};
 
 
 const pageLabel    = cms.page_label     || "EXPERTISES";
@@ -75,7 +80,7 @@ const expertises = [
 ];
 ---
 
-<Layout title={`Savoir Faire — ${site.name}`} description="Les expertises de l'Agence Atipics">
+<Layout title={`Savoir Faire — ${parametres.nom_site}`} description="Les expertises de l'Agence Atipics">
   <Header />
   <main style="padding-top: var(--nav-h);">
 
@@ -142,7 +147,7 @@ const expertises = [
             <h2 class="form-intro__title">Parlons de votre projet</h2>
             <p class="form-intro__text">Vous avez un besoin précis — sourcing, scénographie, logistique, valorisation de collection ? Décrivez-nous votre mission et nous reviendrons vers vous avec une proposition adaptée.</p>
             <p class="form-intro__text">Ce formulaire est dédié aux demandes de <strong>prestation et de collaboration</strong>. Pour une visite du Village ou une question générale, utilisez le formulaire de contact.</p>
-            <p class="form-intro__text">Contact direct : <a href={`mailto:${site.contact.email}`} class="form-intro__link">{site.contact.email}</a></p>
+            <p class="form-intro__text">Contact direct : <a href={`mailto:${parametres.email}`} class="form-intro__link">{parametres.email}</a></p>
           </div>
           <form class="sf-form" name="savoir-faire-mission" method="POST">
             <div class="sf-row">

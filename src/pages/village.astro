@@ -2,8 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { site } from "../site.config";
 import cms from "../content/pages/village.json";
+import parametres from "../content/parametres/index.json";
 
 const bandeauVillage = cms.bandeau_image ? `/images/${cms.bandeau_image}` : "/images/droneImageBandeau.jpg";
 const bandeauLabel   = cms.bandeau_label || "Le Village";
@@ -11,8 +11,11 @@ const bandeauTitre   = cms.bandeau_titre || "Village Atipics";
 const intro          = cms.intro         || "Un écosystème complet réunissant sous un même toit tous les outils et les expertises nécessaires à vos projets les plus ambitieux — entrepôt, studio de création et atelier de restauration.";
 const formIntro      = cms.form_intro    || "Vous souhaitez visiter le Village, collaborer avec nous ou en savoir plus sur nos espaces ? Remplissez le formulaire ci-dessous, nous reviendrons vers vous rapidement.";
 
-const villageImages: Record<string, string[]> = {};
-// Les images du carrousel ne sont plus sur directus, on utilise un fallback pour l'instant.
+const villageImages: Record<string, string[]> = {
+  entrepot: cms.entrepot_images || [],
+  studiodesign: cms.studiodesign_images || [],
+  atelier: cms.atelier_images || [],
+};
 
 
 const espaces = [
@@ -55,7 +58,7 @@ const espaces = [
 ];
 ---
 
-<Layout title={`Village Atipics — ${site.name}`} description="L'Entrepôt, le Studio Design et l'Atelier du Village Atipics">
+<Layout title={`Village Atipics — ${parametres.nom_site}`} description="L'Entrepôt, le Studio Design et l'Atelier du Village Atipics">
   <Header />
   <main style="padding-top: var(--nav-h);">
 
@@ -133,7 +136,7 @@ const espaces = [
         <div class="form-layout">
           <div class="form-intro">
             <p class="form-intro__text">{formIntro}</p>
-            <p class="form-intro__text">Pour toute question urgente, vous pouvez nous écrire directement à <a href={`mailto:${site.contact.email}`} class="form-intro__link">{site.contact.email}</a>.</p>
+            <p class="form-intro__text">Pour toute question urgente, vous pouvez nous écrire directement à <a href={`mailto:${parametres.email}`} class="form-intro__link">{parametres.email}</a>.</p>
           </div>
           <form class="vform" name="village-contact" method="POST">
             <div class="vform__row">

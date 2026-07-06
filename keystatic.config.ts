@@ -94,6 +94,7 @@ export default config({
       format: { data: 'json' },
       schema: {
         nom_site: fields.text({ label: 'Nom du site' }),
+        description_site: fields.text({ label: 'Description SEO du site', multiline: true }),
         email: fields.text({ label: 'Email' }),
         telephone: fields.text({ label: 'Téléphone' }),
         adresse: fields.text({ label: 'Adresse', multiline: true }),
@@ -131,12 +132,20 @@ export default config({
         manifeste_p1: fields.text({ label: 'Paragraphe 1', multiline: true }),
         manifeste_p2: fields.text({ label: 'Paragraphe 2', multiline: true }),
         manifeste_p3: fields.text({ label: 'Paragraphe 3', multiline: true }),
+        manifeste_images: fields.array(
+          fields.image({ label: 'Image', directory: 'public/images/agence', publicPath: '/images/agence/' }),
+          { label: 'Images Manifeste', itemLabel: props => 'Image' }
+        ),
         reseaux_label: fields.text({ label: 'Label Réseaux' }),
         reseaux_titre: fields.text({ label: 'Titre Réseaux' }),
         reseaux_p1: fields.text({ label: 'Paragraphe Réseaux 1', multiline: true }),
         reseaux_p2: fields.text({ label: 'Paragraphe Réseaux 2', multiline: true }),
         reseaux_p3: fields.text({ label: 'Paragraphe Réseaux 3', multiline: true }),
         reseaux_p4: fields.text({ label: 'Paragraphe Réseaux 4', multiline: true }),
+        reseaux_images: fields.array(
+          fields.image({ label: 'Image', directory: 'public/images/agence', publicPath: '/images/agence/' }),
+          { label: 'Images Réseaux', itemLabel: props => 'Image' }
+        ),
       },
     }),
     savoir_faire_page: singleton({
@@ -153,30 +162,35 @@ export default config({
         curation_intro: fields.text({ label: 'Curation - Intro', multiline: true }),
         curation_p1: fields.text({ label: 'Curation - P1', multiline: true }),
         curation_p2: fields.text({ label: 'Curation - P2', multiline: true }),
+        curation_images: fields.array(fields.image({ label: 'Image', directory: 'public/images/savoir', publicPath: '/images/savoir/' }), { label: 'Images Curation' }),
 
         conciergerie_label: fields.text({ label: 'Conciergerie - Label' }),
         conciergerie_titre: fields.text({ label: 'Conciergerie - Titre' }),
         conciergerie_intro: fields.text({ label: 'Conciergerie - Intro', multiline: true }),
         conciergerie_p1: fields.text({ label: 'Conciergerie - P1', multiline: true }),
         conciergerie_p2: fields.text({ label: 'Conciergerie - P2', multiline: true }),
+        conciergerie_images: fields.array(fields.image({ label: 'Image', directory: 'public/images/savoir', publicPath: '/images/savoir/' }), { label: 'Images Conciergerie' }),
 
         events_label: fields.text({ label: 'Events - Label' }),
         events_titre: fields.text({ label: 'Events - Titre' }),
         events_intro: fields.text({ label: 'Events - Intro', multiline: true }),
         events_p1: fields.text({ label: 'Events - P1', multiline: true }),
         events_p2: fields.text({ label: 'Events - P2', multiline: true }),
+        events_images: fields.array(fields.image({ label: 'Image', directory: 'public/images/savoir', publicPath: '/images/savoir/' }), { label: 'Images Events' }),
 
         intendance_label: fields.text({ label: 'Intendance - Label' }),
         intendance_titre: fields.text({ label: 'Intendance - Titre' }),
         intendance_intro: fields.text({ label: 'Intendance - Intro', multiline: true }),
         intendance_p1: fields.text({ label: 'Intendance - P1', multiline: true }),
         intendance_p2: fields.text({ label: 'Intendance - P2', multiline: true }),
+        intendance_images: fields.array(fields.image({ label: 'Image', directory: 'public/images/savoir', publicPath: '/images/savoir/' }), { label: 'Images Intendance' }),
 
         valorisation_label: fields.text({ label: 'Valorisation - Label' }),
         valorisation_titre: fields.text({ label: 'Valorisation - Titre' }),
         valorisation_intro: fields.text({ label: 'Valorisation - Intro', multiline: true }),
         valorisation_p1: fields.text({ label: 'Valorisation - P1', multiline: true }),
         valorisation_p2: fields.text({ label: 'Valorisation - P2', multiline: true }),
+        valorisation_images: fields.array(fields.image({ label: 'Image', directory: 'public/images/savoir', publicPath: '/images/savoir/' }), { label: 'Images Valorisation' }),
 
         form_titre: fields.text({ label: 'Formulaire - Titre' }),
         form_intro_1: fields.text({ label: 'Formulaire - Intro 1', multiline: true }),
@@ -201,16 +215,21 @@ export default config({
         entrepot_p1: fields.text({ label: 'Entrepôt - P1', multiline: true }),
         entrepot_p2: fields.text({ label: 'Entrepôt - P2', multiline: true }),
         entrepot_p3: fields.text({ label: 'Entrepôt - P3', multiline: true }),
+        entrepot_images: fields.array(fields.image({ label: 'Image', directory: 'public/images/village', publicPath: '/images/village/' }), { label: 'Images Entrepôt' }),
+
         studiodesign_label: fields.text({ label: 'Studio Design - Label' }),
         studiodesign_titre: fields.text({ label: 'Studio Design - Titre' }),
         studiodesign_p1: fields.text({ label: 'Studio Design - P1', multiline: true }),
         studiodesign_p2: fields.text({ label: 'Studio Design - P2', multiline: true }),
         studiodesign_p3: fields.text({ label: 'Studio Design - P3', multiline: true }),
+        studiodesign_images: fields.array(fields.image({ label: 'Image', directory: 'public/images/village', publicPath: '/images/village/' }), { label: 'Images Studio Design' }),
+
         atelier_label: fields.text({ label: 'Atelier - Label' }),
         atelier_titre: fields.text({ label: 'Atelier - Titre' }),
         atelier_p1: fields.text({ label: 'Atelier - P1', multiline: true }),
         atelier_p2: fields.text({ label: 'Atelier - P2', multiline: true }),
         atelier_p3: fields.text({ label: 'Atelier - P3', multiline: true }),
+        atelier_images: fields.array(fields.image({ label: 'Image', directory: 'public/images/village', publicPath: '/images/village/' }), { label: 'Images Atelier' }),
         form_intro: fields.text({ label: 'Introduction formulaire', multiline: true }),
       },
     }),
