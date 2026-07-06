@@ -10,6 +10,17 @@ const rdvTexte = contactPage.rdv_texte || "Les visites sont sur rendez-vous uniq
 const email    = parametres.email     || site.contact.email;
 const tel      = parametres.telephone || "+33 6 00 00 00 00";
 const adresse  = parametres.adresse   || "Village Atipics\nZone Artisanale\nFrance";
+
+const form_tab_message = contactPage.form_tab_message || "Message";
+const form_tab_mission = contactPage.form_tab_mission || "Confier une mission";
+const form_titre_message = contactPage.form_titre_message || "ENVOYER UN MESSAGE";
+const form_titre_mission = contactPage.form_titre_mission || "CONFIER UNE MISSION";
+
+const info_rdv_label = contactPage.info_rdv_label || "PRENDRE RENDEZ-VOUS";
+const info_email_label = contactPage.info_email_label || "EMAIL";
+const info_tel_label = contactPage.info_tel_label || "TÉLÉPHONE";
+const info_adresse_label = contactPage.info_adresse_label || "NOUS TROUVER";
+const info_bouton_label = contactPage.info_bouton_label || "VISITER LE VILLAGE";
 ---
 
 <Layout title={`Contact — ${site.name}`} description="Contactez l'Agence Atipics">
@@ -25,13 +36,13 @@ const adresse  = parametres.adresse   || "Village Atipics\nZone Artisanale\nFran
           <!-- Titre + switch -->
           <div class="form-header">
             <div class="label-row">
-              <span class="stamp" id="form-stamp">ENVOYER UN MESSAGE</span>
+              <span class="stamp" id="form-stamp">{form_titre_message}</span>
               <div class="rule"></div>
             </div>
-            <div class="form-tabs" role="group" aria-label="Type de contact">
-              <button class="tab tab--active" data-tab="message">Message</button>
+            <div class="form-tabs" role="group" aria-label="Type de contact" data-label-message={form_titre_message} data-label-mission={form_titre_mission}>
+              <button class="tab tab--active" data-tab="message">{form_tab_message}</button>
               <span class="tab-sep" aria-hidden="true">/</span>
-              <button class="tab" data-tab="mission">Confier une mission</button>
+              <button class="tab" data-tab="mission">{form_tab_mission}</button>
             </div>
           </div>
 
@@ -126,27 +137,27 @@ const adresse  = parametres.adresse   || "Village Atipics\nZone Artisanale\nFran
         <div class="col-info">
 
           <div class="info-block">
-            <p class="info-label">PRENDRE RENDEZ-VOUS</p>
+            <p class="info-label">{info_rdv_label}</p>
             <p class="info-text">{rdvTexte}</p>
           </div>
 
           <div class="info-block">
-            <p class="info-label">EMAIL</p>
+            <p class="info-label">{info_email_label}</p>
             <a href={`mailto:${email}`} class="info-link">{email}</a>
           </div>
 
           <div class="info-block">
-            <p class="info-label">TÉLÉPHONE</p>
+            <p class="info-label">{info_tel_label}</p>
             <a href={`tel:${tel.replace(/\s/g, "")}`} class="info-link">{tel}</a>
           </div>
 
           <div class="info-block">
-            <p class="info-label">NOUS TROUVER</p>
+            <p class="info-label">{info_adresse_label}</p>
             <p class="info-text" set:html={adresse.replace(/\n/g, "<br/>")} />
           </div>
 
           <a href="/village" class="info-btn">
-            VISITER LE VILLAGE <span aria-hidden="true">→</span>
+            {info_bouton_label} <span aria-hidden="true">→</span>
           </a>
 
         </div>
@@ -160,13 +171,14 @@ const adresse  = parametres.adresse   || "Village Atipics\nZone Artisanale\nFran
 
 <script>
   const tabs = document.querySelectorAll<HTMLButtonElement>(".tab");
+  const formTabsContainer = document.querySelector(".form-tabs") as HTMLElement;
   const formMessage = document.getElementById("form-message");
   const formMission = document.getElementById("form-mission");
   const stamp = document.getElementById("form-stamp");
 
   const labels: Record<string, string> = {
-    message: "ENVOYER UN MESSAGE",
-    mission: "CONFIER UNE MISSION",
+    message: formTabsContainer?.dataset.labelMessage ?? "ENVOYER UN MESSAGE",
+    mission: formTabsContainer?.dataset.labelMission ?? "CONFIER UNE MISSION",
   };
 
   tabs.forEach((tab) => {

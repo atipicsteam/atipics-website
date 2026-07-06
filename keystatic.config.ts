@@ -6,7 +6,12 @@ export default config({
     repo: 'atipicsteam/atipics-website',
   },
   ui: {
-    brand: { name: 'Atipics' }
+    brand: { name: 'Atipics' },
+    navigation: {
+      'Contenu Principal': ['projets', 'journal', 'carousel'],
+      'Pages': ['agence_page', 'savoir_faire_page', 'village_page', 'contact_page'],
+      'Configuration': ['parametres', 'theme', 'nav_principale', 'footer'],
+    }
   },
   collections: {
     projets: collection({
@@ -214,7 +219,16 @@ export default config({
       path: 'src/content/pages/contact',
       format: { data: 'json' },
       schema: {
+        form_tab_message: fields.text({ label: 'Onglet Message', defaultValue: 'Message' }),
+        form_tab_mission: fields.text({ label: 'Onglet Mission', defaultValue: 'Confier une mission' }),
+        form_titre_message: fields.text({ label: 'Titre Formulaire', defaultValue: 'ENVOYER UN MESSAGE' }),
+        form_titre_mission: fields.text({ label: 'Titre Mission', defaultValue: 'CONFIER UNE MISSION' }),
+        info_rdv_label: fields.text({ label: 'Label RDV', defaultValue: 'PRENDRE RENDEZ-VOUS' }),
         rdv_texte: fields.text({ label: 'Texte RDV', multiline: true }),
+        info_email_label: fields.text({ label: 'Label Email', defaultValue: 'EMAIL' }),
+        info_tel_label: fields.text({ label: 'Label Téléphone', defaultValue: 'TÉLÉPHONE' }),
+        info_adresse_label: fields.text({ label: 'Label Adresse', defaultValue: 'NOUS TROUVER' }),
+        info_bouton_label: fields.text({ label: 'Label Bouton Village', defaultValue: 'VISITER LE VILLAGE' }),
       },
     }),
     theme: singleton({

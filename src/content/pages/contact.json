@@ -1,3 +1,12 @@
 {
-  "rdv_texte": "Les visites sont sur rendez-vous uniquement, du lundi au vendredi, de 10h à 17h."
+  "form_tab_message": "Message",
+  "form_tab_mission": "Confier une mission",
+  "form_titre_message": "ENVOYER UN MESSAGE",
+  "form_titre_mission": "CONFIER UNE MISSION",
+  "info_rdv_label": "PRENDRE RENDEZ-VOUS",
+  "rdv_texte": "Les visites sont sur rendez-vous uniquement, du lundi au vendredi, de 10h à 17h.",
+  "info_email_label": "EMAIL",
+  "info_tel_label": "TÉLÉPHONE",
+  "info_adresse_label": "NOUS TROUVER",
+  "info_bouton_label": "VISITER LE VILLAGE"
 }
