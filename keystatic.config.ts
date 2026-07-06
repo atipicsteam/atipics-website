@@ -63,6 +63,24 @@ export default config({
         ),
       },
     }),
+    journal: collection({
+      label: 'Journal',
+      slugField: 'title',
+      path: 'src/content/journal/*',
+      format: { data: 'json' },
+      schema: {
+        title: fields.text({ label: 'Titre de l\'article' }),
+        date: fields.date({ label: 'Date' }),
+        dateLabel: fields.text({ label: 'Label de la date (ex: 10 Avril 2026)' }),
+        category: fields.text({ label: 'Catégorie' }),
+        excerpt: fields.text({ label: 'Extrait', multiline: true }),
+        cover: fields.image({
+          label: 'Image de couverture',
+          directory: 'public/images/journal',
+          publicPath: '/images/journal/',
+        }),
+      },
+    }),
   },
   singletons: {
     parametres: singleton({
@@ -196,6 +214,56 @@ export default config({
       schema: {
         rdv_texte: fields.text({ label: 'Texte RDV', multiline: true }),
       },
+    }),
+    theme: singleton({
+      label: 'Thème et Couleurs',
+      path: 'src/content/theme/index',
+      format: { data: 'json' },
+      schema: {
+        c_bg: fields.text({ label: 'Couleur de fond (ex: #FAFAF8)', defaultValue: '#FAFAF8' }),
+        c_text: fields.text({ label: 'Couleur du texte (ex: #1A1A18)', defaultValue: '#1A1A18' }),
+        c_accent: fields.text({ label: 'Couleur d\'accent (ex: #2E4D3F)', defaultValue: '#2E4D3F' }),
+        c_accent_lt: fields.text({ label: 'Couleur d\'accent clair (ex: #4A7A65)', defaultValue: '#4A7A65' }),
+        c_muted: fields.text({ label: 'Couleur muette (ex: #888884)', defaultValue: '#888884' }),
+        c_border: fields.text({ label: 'Couleur de bordure (ex: #E4E1DA)', defaultValue: '#E4E1DA' }),
+        c_surface: fields.text({ label: 'Couleur de surface (ex: #F0EDE7)', defaultValue: '#F0EDE7' }),
+      },
+    }),
+    carousel: singleton({
+      label: 'Carousel Accueil',
+      path: 'src/content/carousel/index',
+      format: { data: 'json' },
+      schema: {
+        slides: fields.array(
+          fields.object({
+            title: fields.text({ label: 'Titre' }),
+            category: fields.text({ label: 'Catégorie' }),
+            year: fields.text({ label: 'Année' }),
+            image: fields.image({
+              label: 'Image',
+              directory: 'public/images/carousel',
+              publicPath: '/images/carousel/',
+            }),
+            bg: fields.text({ label: 'Couleur de fond (ex: #2E4D3F)' }),
+          }),
+          { label: 'Slides', itemLabel: props => props.fields.title.value || 'Nouveau slide' }
+        )
+      }
+    }),
+    footer: singleton({
+      label: 'Pied de page',
+      path: 'src/content/footer/index',
+      format: { data: 'json' },
+      schema: {
+        legal: fields.text({ label: 'Texte légal', defaultValue: '© 2026 Atipics — Ressourcerie éclectique et polyvalente' }),
+        links: fields.array(
+          fields.object({
+            label: fields.text({ label: 'Label du lien' }),
+            href: fields.text({ label: 'URL' }),
+          }),
+          { label: 'Liens rapides', itemLabel: props => props.fields.label.value || 'Nouveau lien' }
+        )
+      }
     }),
   },
 });

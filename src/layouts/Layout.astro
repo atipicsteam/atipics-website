@@ -1,6 +1,7 @@
 ---
 import { site } from "../site.config";
 import parametres from "../content/parametres/index.json";
+import theme from "../content/theme/index.json";
 
 export interface FontConfig { family: string; url: string | null; }
 
@@ -91,8 +92,26 @@ const socials = [
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={ogImage} />
     {font.url && <link rel="stylesheet" href={font.url} />}
-    <style define:vars={{ fontFamily: font.family }}>
-      :root { --font: var(--fontFamily); }
+    <style define:vars={{ 
+      fontFamily: font.family,
+      cBg: theme.c_bg,
+      cText: theme.c_text,
+      cAccent: theme.c_accent,
+      cAccentLt: theme.c_accent_lt,
+      cMuted: theme.c_muted,
+      cBorder: theme.c_border,
+      cSurface: theme.c_surface
+    }}>
+      :root { 
+        --font: var(--fontFamily); 
+        --c-bg: var(--cBg);
+        --c-text: var(--cText);
+        --c-accent: var(--cAccent);
+        --c-accent-lt: var(--cAccentLt);
+        --c-muted: var(--cMuted);
+        --c-border: var(--cBorder);
+        --c-surface: var(--cSurface);
+      }
     </style>
   </head>
   <body>
@@ -105,14 +124,6 @@ const socials = [
      VARIABLES — modifiez ici pour changer les couleurs
   ═══════════════════════════════════════════════════ */
   :root {
-    /* --- Couleurs --- */
-    --c-bg:        #FAFAF8;
-    --c-text:      #1A1A18;
-    --c-accent:    #2E4D3F;
-    --c-accent-lt: #4A7A65;
-    --c-muted:     #888884;
-    --c-border:    #E4E1DA;
-    --c-surface:   #F0EDE7;
 
     /* --- Typographie --- */
     --font:       'Helvetica Neue', Helvetica, Arial, sans-serif;

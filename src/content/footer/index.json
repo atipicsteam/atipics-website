@@ -1,0 +1,8 @@
+{
+  "legal": "© 2026 Atipics — Ressourcerie éclectique et polyvalente",
+  "links": [
+    { "label": "Projets", "href": "/projets" },
+    { "label": "Journal", "href": "/journal" },
+    { "label": "Contact", "href": "/contact" }
+  ]
+}

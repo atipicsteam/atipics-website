@@ -1,11 +1,11 @@
 ---
-import { site } from "../site.config";
+import footerData from "../content/footer/index.json";
 
 interface Props { fixed?: boolean; }
 const { fixed = false } = Astro.props;
 
-// Nous n'avons pas migré footer_liens car non présents dans la migration, on utilise les valeurs par défaut.
-const footerLinks = site.footer.links;
+const footerLinks = footerData.links;
+const footerLegal = footerData.legal;
 ---
 
 <footer class:list={["footer", { "footer--fixed": fixed }]}>
@@ -35,7 +35,7 @@ const footerLinks = site.footer.links;
           <span>EN</span>
         </button>
       </div>
-      <span class="footer__copyright">© 2026 Atipics</span>
+      <span class="footer__copyright">{footerLegal}</span>
     </div>
 
   </div>

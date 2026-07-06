@@ -1,0 +1,32 @@
+{
+  "slides": [
+    {
+      "title": "Projet A",
+      "category": "Artisanat",
+      "year": "2024",
+      "image": "/images/projet1.jpg",
+      "bg": "#2E4D3F"
+    },
+    {
+      "title": "Projet B",
+      "category": "Design circulaire",
+      "year": "2024",
+      "image": "/images/projet2.webp",
+      "bg": "#4D3E2E"
+    },
+    {
+      "title": "Projet C",
+      "category": "Architecture",
+      "year": "2023",
+      "image": "/images/projet3.jpg",
+      "bg": "#3E2E4D"
+    },
+    {
+      "title": "Projet D",
+      "category": "Textile",
+      "year": "2023",
+      "image": "/images/projet4.webp",
+      "bg": "#1A2E26"
+    }
+  ]
+}

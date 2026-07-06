@@ -4,65 +4,9 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { site } from "../site.config";
 
-// Fallback sur les articles statiques (la collection n'a pas été migrée depuis Directus)
-const articlesFallback = [
-  {
-    id: "sourcing-marche-biennale",
-    date: "2026-04-10",
-    dateLabel: "10 Avril 2026",
-    category: "SOURCING",
-    title: "Biennale des Antiquaires — nos coups de cœur",
-    excerpt: "Retour sur notre visite de la dernière Biennale. Quelques pièces rares qui ont retenu notre attention et rejoindront bientôt nos collections.",
-    cover: "/images/projet1.jpg",
-  },
-  {
-    id: "scenographie-lvmh",
-    date: "2026-03-22",
-    dateLabel: "22 Mars 2026",
-    category: "SCÉNOGRAPHIE",
-    title: "Mise en scène d'un espace LVMH",
-    excerpt: "Comment nous avons composé une atmosphère entre passé et présent pour un espace événementiel de la maison LVMH, en mêlant pièces vintage et mobilier contemporain.",
-    cover: "/images/projet2.webp",
-  },
-  {
-    id: "atelier-restauration-tapisserie",
-    date: "2026-02-14",
-    dateLabel: "14 Février 2026",
-    category: "ATELIER",
-    title: "L'art de la restauration en tapisserie",
-    excerpt: "Rencontre avec notre tapissier partenaire, qui perpétue un savoir-faire ancestral dans l'atelier du Village. Un processus minutieux, fascinant à observer.",
-    cover: "/images/projet3.jpg",
-  },
-  {
-    id: "collection-textile-hotel",
-    date: "2025-12-05",
-    dateLabel: "5 Décembre 2025",
-    category: "CURATION",
-    title: "Curation d'une collection textile pour un hôtel de luxe",
-    excerpt: "Six mois de recherche pour constituer une collection de textiles uniques tissés à la main. Le résultat : une identité visuelle et sensorielle forte, reconnaissable dès l'entrée.",
-    cover: "/images/projet4.webp",
-  },
-  {
-    id: "village-drone",
-    date: "2025-10-18",
-    dateLabel: "18 Octobre 2025",
-    category: "VILLAGE",
-    title: "Le Village Atipics vu du ciel",
-    excerpt: "Une session de prises de vue en drone pour immortaliser notre espace. L'occasion de redécouvrir notre lieu de travail avec un autre regard, plus large, plus aérien.",
-    cover: "/images/droneImageBandeau.jpg",
-  },
-  {
-    id: "sourcing-bresil",
-    date: "2025-09-03",
-    dateLabel: "3 Septembre 2025",
-    category: "SOURCING",
-    title: "Sourcing au Brésil — design moderniste",
-    excerpt: "Un voyage de sourcing à São Paulo et Rio à la recherche de mobilier moderniste brésilien. Des pièces exceptionnelles signées des grands noms du design tropical.",
-    cover: "/images/projet1.jpg",
-  },
-];
-
-const articles = articlesFallback;
+// Charger tous les articles générés par Keystatic
+const rawArticles = import.meta.glob('../content/journal/*.json', { eager: true });
+const articles = Object.values(rawArticles).map((mod: any) => mod.default).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 ---
 
 <Layout title={`Journal — ${site.name}`} description="Actualités, découvertes et réflexions de l'Agence Atipics">
