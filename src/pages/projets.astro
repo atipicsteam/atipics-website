@@ -115,6 +115,21 @@ const projets = Object.values(projetsData).map((p: any) => p.default || p);
     return img;
   }
 
+  function renderAstToHtml(ast) {
+    if (!Array.isArray(ast)) return ast || '';
+    return ast.map(node => {
+      if (node.type === 'paragraph') {
+        return '<p>' + node.children.map(child => {
+          let text = child.text || '';
+          if (child.bold) text = '<strong>' + text + '</strong>';
+          if (child.italic) text = '<em>' + text + '</em>';
+          return text;
+        }).join('') + '</p>';
+      }
+      return '';
+    }).join('');
+  }
+
   function renderMedia(idx) {
     const m = currentProjet.medias[idx];
     mediaWrap.innerHTML = '';
@@ -166,7 +181,7 @@ const projets = Object.values(projetsData).map((p: any) => p.default || p);
         <h2 class="lb-meta__title">${projet.title}</h2>
         <span class="lb-meta__tag">${projet.category} — ${projet.year}</span>
       </div>
-      ${projet.description ? `<p class="lb-meta__desc">${projet.description}</p>` : ''}
+      ${projet.description ? `<div class="lb-meta__desc">${renderAstToHtml(projet.description)}</div>` : ''}
       <div class="lb-meta__share">
         <span class="lb-meta__share-label">Partager</span>
         <a href="https://instagram.com/atipics" target="_blank" rel="noopener" class="lb-share-btn" aria-label="Instagram" style="--c:#E1306C"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg></a>

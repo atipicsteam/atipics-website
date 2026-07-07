@@ -4,6 +4,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import contactPage from "../content/pages/contact.json";
 import parametres from "../content/parametres/index.json";
+import RichText from "../components/RichText.tsx";
 
 const rdvTexte = contactPage.rdv_texte || "Les visites sont sur rendez-vous uniquement, du lundi au vendredi, de 10h à 17h.";
 const email    = parametres.email     || "contact@atipics.fr";
@@ -137,7 +138,7 @@ const info_bouton_label = contactPage.info_bouton_label || "VISITER LE VILLAGE";
 
           <div class="info-block">
             <p class="info-label">{info_rdv_label}</p>
-            <p class="info-text">{rdvTexte}</p>
+            <RichText document={rdvTexte} className="info-text" />
           </div>
 
           <div class="info-block">

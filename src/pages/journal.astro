@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import parametres from "../content/parametres/index.json";
+import RichText from "../components/RichText.tsx";
 
 // Charger tous les articles générés par Keystatic
 const rawArticles = import.meta.glob('../content/journal/*.json', { eager: true });
@@ -41,7 +42,7 @@ const articles = Object.values(rawArticles).map((mod: any) => mod.default).sort(
                   <time class="art-card__date" datetime={a.date}>{a.dateLabel}</time>
                 </div>
                 <h2 class="art-card__title">{a.title}</h2>
-                <p class="art-card__excerpt">{a.excerpt}</p>
+                <RichText document={a.excerpt} className="art-card__excerpt" />
                 <div class="art-card__share">
                   <span class="art-card__share-label">Partager</span>
                   <a href="https://instagram.com/atipics" target="_blank" rel="noopener" class="art-card__share-btn" aria-label="Instagram" style="--c:#E1306C" onclick="event.stopPropagation()">

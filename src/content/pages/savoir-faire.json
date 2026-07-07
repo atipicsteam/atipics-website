@@ -4,32 +4,185 @@
   "page_sous_titre": "Plusieurs domaines d'expertise complémentaires, un fil conducteur :\nl'exigence et la passion du travail bien fait.",
   "curation_label": "CURATION ET SOURCING",
   "curation_titre": "",
-  "curation_intro": "L'art de trouver ce qui n'existe pas encore sur le marché.",
-  "curation_p1": "L'art de trouver ce qui n'existe pas encore sur le marché.\n\nNotre mission de curation va bien au-delà de la simple sélection. Nous fouillons marchés, ventes aux enchères, ateliers d'artisans et collections privées pour dénicher les pièces qui feront la différence dans votre projet.",
-  "curation_p2": "Mobilier ancien et contemporain, objets de curiosité, textiles rares, œuvres d'art — notre regard transversal nous permet d'assembler des univers cohérents et singuliers, porteurs d'une identité forte.",
+  "curation_intro": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "L'art de trouver ce qui n'existe pas encore sur le marché."
+        }
+      ]
+    }
+  ],
+  "curation_p1": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "L'art de trouver ce qui n'existe pas encore sur le marché.\n\nNotre mission de curation va bien au-delà de la simple sélection. Nous fouillons marchés, ventes aux enchères, ateliers d'artisans et collections privées pour dénicher les pièces qui feront la différence dans votre projet."
+        }
+      ]
+    }
+  ],
+  "curation_p2": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Mobilier ancien et contemporain, objets de curiosité, textiles rares, œuvres d'art — notre regard transversal nous permet d'assembler des univers cohérents et singuliers, porteurs d'une identité forte."
+        }
+      ]
+    }
+  ],
   "conciergerie_label": "",
   "conciergerie_titre": "Conciergerie et Propriété",
-  "conciergerie_intro": "Un interlocuteur unique pour la gestion complète de votre patrimoine.",
-  "conciergerie_p1": "Nous prenons en charge la gestion de vos espaces et de vos biens avec la même exigence que si c'était les nôtres. De l'entretien courant à la coordination de travaux, nous orchestrons chaque détail.",
-  "conciergerie_p2": "Disponibles, réactifs et discrets, nous sommes votre relais de confiance sur place, garantissant que votre propriété est toujours dans un état impeccable.",
+  "conciergerie_intro": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Un interlocuteur unique pour la gestion complète de votre patrimoine."
+        }
+      ]
+    }
+  ],
+  "conciergerie_p1": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Nous prenons en charge la gestion de vos espaces et de vos biens avec la même exigence que si c'était les nôtres. De l'entretien courant à la coordination de travaux, nous orchestrons chaque détail."
+        }
+      ]
+    }
+  ],
+  "conciergerie_p2": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Disponibles, réactifs et discrets, nous sommes votre relais de confiance sur place, garantissant que votre propriété est toujours dans un état impeccable."
+        }
+      ]
+    }
+  ],
   "events_label": "",
   "events_titre": "Events et Scénographie",
-  "events_intro": "Transformer un espace en expérience mémorable.",
-  "events_p1": "Chaque événement est une opportunité de raconter une histoire. Nous concevons des scénographies qui mêlent mobilier, lumière, matière et narration pour créer des atmosphères inoubliables.",
-  "events_p2": "Soirées privées, lancements de marque, expositions, salons — notre équipe maîtrise toutes les échelles et tous les types de configurations, des plus intimes aux plus spectaculaires.",
+  "events_intro": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Transformer un espace en expérience mémorable."
+        }
+      ]
+    }
+  ],
+  "events_p1": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Chaque événement est une opportunité de raconter une histoire. Nous concevons des scénographies qui mêlent mobilier, lumière, matière et narration pour créer des atmosphères inoubliables."
+        }
+      ]
+    }
+  ],
+  "events_p2": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Soirées privées, lancements de marque, expositions, salons — notre équipe maîtrise toutes les échelles et tous les types de configurations, des plus intimes aux plus spectaculaires."
+        }
+      ]
+    }
+  ],
   "intendance_label": "",
   "intendance_titre": "Intendance et Logistique",
-  "intendance_intro": "Les coulisses parfaites pour que l'essentiel brille.",
-  "intendance_p1": "La logistique est souvent le parent pauvre des projets ambitieux. Chez Atipics, nous en avons fait une spécialité. Transport, emballage, stockage, installation — nous gérons l'invisible pour que le visible soit irréprochable.",
-  "intendance_p2": "Notre réseau de transporteurs spécialisés, d'emballeurs experts et de techniciens d'installation garantit que chaque pièce arrive à destination dans les conditions idéales.",
+  "intendance_intro": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Les coulisses parfaites pour que l'essentiel brille."
+        }
+      ]
+    }
+  ],
+  "intendance_p1": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "La logistique est souvent le parent pauvre des projets ambitieux. Chez Atipics, nous en avons fait une spécialité. Transport, emballage, stockage, installation — nous gérons l'invisible pour que le visible soit irréprochable."
+        }
+      ]
+    }
+  ],
+  "intendance_p2": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Notre réseau de transporteurs spécialisés, d'emballeurs experts et de techniciens d'installation garantit que chaque pièce arrive à destination dans les conditions idéales."
+        }
+      ]
+    }
+  ],
   "valorisation_label": "",
   "valorisation_titre": "Valorisation de Collections",
-  "valorisation_intro": "Révéler le potentiel de ce que vous possédez déjà.",
-  "valorisation_p1": "Vous possédez une collection, un héritage, un ensemble de pièces dont vous ne savez que faire ? Nous intervenons pour inventorier, expertiser, documenter et valoriser ce patrimoine.",
-  "valorisation_p2": "Qu'il s'agisse de le mettre en scène dans votre intérieur, de le proposer à la vente dans les meilleures conditions ou de le transmettre, nous vous accompagnons à chaque étape avec rigueur et passion.",
+  "valorisation_intro": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Révéler le potentiel de ce que vous possédez déjà."
+        }
+      ]
+    }
+  ],
+  "valorisation_p1": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Vous possédez une collection, un héritage, un ensemble de pièces dont vous ne savez que faire ? Nous intervenons pour inventorier, expertiser, documenter et valoriser ce patrimoine."
+        }
+      ]
+    }
+  ],
+  "valorisation_p2": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Qu'il s'agisse de le mettre en scène dans votre intérieur, de le proposer à la vente dans les meilleures conditions ou de le transmettre, nous vous accompagnons à chaque étape avec rigueur et passion."
+        }
+      ]
+    }
+  ],
   "form_titre": "aze",
-  "form_intro_1": "aze",
-  "form_intro_2": "aze",
+  "form_intro_1": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "aze"
+        }
+      ]
+    }
+  ],
+  "form_intro_2": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "aze"
+        }
+      ]
+    }
+  ],
   "curation_images": [],
   "conciergerie_images": [],
   "events_images": [],

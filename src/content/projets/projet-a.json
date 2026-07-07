@@ -2,11 +2,32 @@
   "title": "Projet A",
   "category": "Artisanat",
   "year": "2024",
-  "description": "Sélection et mise en scène d'objets artisanaux pour une résidence privée dans le sud de la France. Sourcing, restauration et scénographie sur-mesure.",
+  "description": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Sélection et mise en scène d'objets artisanaux pour une résidence privée dans le sud de la France. Sourcing, restauration et scénographie sur-mesure."
+        }
+      ]
+    }
+  ],
   "cover": "/images/projet1.jpg",
   "medias": [
-    { "type": "image", "src": "/images/projet1.jpg", "alt": "Vue principale" },
-    { "type": "image", "src": "/images/projet2.webp", "alt": "Détail" },
-    { "type": "image", "src": "/images/projet3.jpg", "alt": "Ambiance générale" }
+    {
+      "type": "image",
+      "src": "/images/projet1.jpg",
+      "alt": "Vue principale"
+    },
+    {
+      "type": "image",
+      "src": "/images/projet2.webp",
+      "alt": "Détail"
+    },
+    {
+      "type": "image",
+      "src": "/images/projet3.jpg",
+      "alt": "Ambiance générale"
+    }
   ]
 }

@@ -4,6 +4,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import cms from "../content/pages/savoir-faire.json";
 import parametres from "../content/parametres/index.json";
+import RichText from "../components/RichText.tsx";
 
 const imagesBySection: Record<string, string[]> = {
   curation: cms.curation_images || [],
@@ -107,8 +108,8 @@ const expertises = [
           <div class="expertise-grid">
             <div class="expertise-text">
               <h2 class="expertise-title">{e.title}</h2>
-              <p class="expertise-intro">{e.intro}</p>
-              {e.body.map((p) => <p class="expertise-p">{p}</p>)}
+              <RichText document={e.intro} className="expertise-intro" />
+              {e.body.map((p) => <RichText document={p} className="expertise-p" />)}
             </div>
             <div class="expertise-carousel" data-carousel>
               <div class="ecarousel__track" data-track>
@@ -144,9 +145,9 @@ const expertises = [
         </div>
         <div class="form-layout">
           <div class="form-intro">
-            <h2 class="form-intro__title">Parlons de votre projet</h2>
-            <p class="form-intro__text">Vous avez un besoin précis — sourcing, scénographie, logistique, valorisation de collection ? Décrivez-nous votre mission et nous reviendrons vers vous avec une proposition adaptée.</p>
-            <p class="form-intro__text">Ce formulaire est dédié aux demandes de <strong>prestation et de collaboration</strong>. Pour une visite du Village ou une question générale, utilisez le formulaire de contact.</p>
+            <h2 class="form-intro__title">{formTitre}</h2>
+            <RichText document={formIntro1} className="form-intro__text" />
+            <RichText document={formIntro2} className="form-intro__text" />
             <p class="form-intro__text">Contact direct : <a href={`mailto:${parametres.email}`} class="form-intro__link">{parametres.email}</a></p>
           </div>
           <form class="sf-form" name="savoir-faire-mission" method="POST">

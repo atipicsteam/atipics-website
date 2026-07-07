@@ -2,11 +2,32 @@
   "title": "Projet B",
   "category": "Design circulaire",
   "year": "2024",
-  "description": "Valorisation d'une collection de mobilier des années 70 pour un client collectionneur. Restauration complète, documentation et mise en vente sélective.",
+  "description": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Valorisation d'une collection de mobilier des années 70 pour un client collectionneur. Restauration complète, documentation et mise en vente sélective."
+        }
+      ]
+    }
+  ],
   "cover": "/images/projet2.webp",
   "medias": [
-    { "type": "image", "src": "/images/projet2.webp", "alt": "Vue principale" },
-    { "type": "image", "src": "/images/projet4.webp", "alt": "Détail pièce" },
-    { "type": "image", "src": "/images/projet1.jpg", "alt": "Contexte" }
+    {
+      "type": "image",
+      "src": "/images/projet2.webp",
+      "alt": "Vue principale"
+    },
+    {
+      "type": "image",
+      "src": "/images/projet4.webp",
+      "alt": "Détail pièce"
+    },
+    {
+      "type": "image",
+      "src": "/images/projet1.jpg",
+      "alt": "Contexte"
+    }
   ]
 }

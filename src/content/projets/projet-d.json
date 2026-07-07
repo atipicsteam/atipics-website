@@ -2,11 +2,32 @@
   "title": "Projet D",
   "category": "Textile",
   "year": "2023",
-  "description": "Curation d'une collection textile rare pour un hôtel de luxe. Recherche, acquisition et mise en valeur de pièces uniques tissées à la main.",
+  "description": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Curation d'une collection textile rare pour un hôtel de luxe. Recherche, acquisition et mise en valeur de pièces uniques tissées à la main."
+        }
+      ]
+    }
+  ],
   "cover": "/images/projet4.webp",
   "medias": [
-    { "type": "image", "src": "/images/projet4.webp", "alt": "Vue principale" },
-    { "type": "image", "src": "/images/projet3.jpg", "alt": "Détail tissu" },
-    { "type": "image", "src": "/images/projet2.webp", "alt": "Mise en scène" }
+    {
+      "type": "image",
+      "src": "/images/projet4.webp",
+      "alt": "Vue principale"
+    },
+    {
+      "type": "image",
+      "src": "/images/projet3.jpg",
+      "alt": "Détail tissu"
+    },
+    {
+      "type": "image",
+      "src": "/images/projet2.webp",
+      "alt": "Mise en scène"
+    }
   ]
 }

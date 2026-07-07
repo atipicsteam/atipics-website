@@ -101,7 +101,8 @@ const socials = [
       cAccentLt: theme.c_accent_lt,
       cMuted: theme.c_muted,
       cBorder: theme.c_border,
-      cSurface: theme.c_surface
+      cSurface: theme.c_surface,
+      cHeading: theme.c_heading || theme.c_text
     }}>
       :root { 
         --font: var(--fontFamily); 
@@ -112,6 +113,7 @@ const socials = [
         --c-muted: var(--cMuted);
         --c-border: var(--cBorder);
         --c-surface: var(--cSurface);
+        --c-heading: var(--cHeading);
       }
     </style>
   </head>
@@ -169,6 +171,7 @@ const socials = [
   img, video { display: block; max-width: 100%; }
   a { color: inherit; text-decoration: none; }
   ul, ol { list-style: none; }
+  h1, h2, h3, h4, h5, h6 { color: var(--c-heading); }
 
   .container {
     width: 100%;
