@@ -5,8 +5,8 @@ import Footer from "../components/Footer.astro";
 import parametres from "../content/parametres/index.json";
 
 // Import all projects from Keystatic collection
-const projetsData = await Astro.glob('../content/projets/*.json');
-const projets = projetsData.map(p => p.default || p);
+const projetsData = import.meta.glob('../content/projets/*.json', { eager: true });
+const projets = Object.values(projetsData).map((p: any) => p.default || p);
 ---
 
 <Layout title={`Projets — ${parametres.nom_site}`} description="Réalisations et projets de l'Agence Atipics">
