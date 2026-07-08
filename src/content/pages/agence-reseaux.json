@@ -1,0 +1,50 @@
+{
+  "reseaux_label": "RÉSEAUX",
+  "reseaux_titre": "Un réseau d'exception",
+  "reseaux_p1": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Artisans, antiquaires, architectes, musiciens — notre carnet d'adresses est le fruit de dix années de rencontres et de confiance mutuelle. Un réseau humain, construit sur la durée."
+        }
+      ]
+    }
+  ],
+  "reseaux_p2": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Vast network in France and across Europe that is our foundation on which we build our other services. Luxury transportation, auctioneers, book experts. Musicians, performers, and locations. Carpenters, gold-leaf gilders, stone-masons. "
+        }
+      ]
+    }
+  ],
+  "reseaux_p3": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Des collaborations croisées avec architectes et designers pour des projets qui mêlent structure, espace et objet. Une discrétion absolue pour accompagner les projets les plus sensibles."
+        }
+      ]
+    }
+  ],
+  "reseaux_p4": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": " "
+        }
+      ]
+    }
+  ],
+  "reseaux_images": [],
+  "text_color": "#1A1A18",
+  "font": "inherit",
+  "label_style": "bold",
+  "titre_style": "normal",
+  "texte_style": "normal"
+}

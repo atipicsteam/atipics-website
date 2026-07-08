@@ -2,57 +2,61 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import cms from "../content/pages/agence.json";
+import bandeauData from "../content/pages/agence-bandeau.json";
+import sectionsData from "../content/pages/agence-sections.json";
 import parametres from "../content/parametres/index.json";
 import RichText from "../components/RichText.tsx";
+import { FONTS } from "../layouts/Layout.astro";
+import { optimizePath } from "../lib/image";
 
-const bandeauAgence = cms.bandeau_image ? `/images/${cms.bandeau_image}` : "/images/projet1.jpg";
-const bandeauLabel = cms.bandeau_label || "L'Agence";
-const bandeauTitre = cms.bandeau_titre || "Atipics";
-const intro = cms.intro || "Ressourcerie éclectique et polyvalente — dix ans de savoir-faire au service de projets singuliers, pour particuliers, collectionneurs et professionnels.";
+const bandeauAgence = bandeauData.bandeau_image ? optimizePath(`/images/${bandeauData.bandeau_image}`) : optimizePath("/images/projet1.jpg");
+const bandeauLabel = bandeauData.bandeau_label || "L'Agence";
+const bandeauTitre = bandeauData.bandeau_titre || "Atipics";
+const intro = bandeauData.intro || "Ressourcerie éclectique et polyvalente — dix ans de savoir-faire au service de projets singuliers, pour particuliers, collectionneurs et professionnels.";
 
-const agenceImages: Record<string, string[]> = {
-  manifeste: cms.manifeste_images || [],
-  reseaux: cms.reseaux_images || [],
+const styleMap: Record<string, string> = {
+  normal: 'normal',
+  bold: 'bold',
+  italic: 'italic',
 };
 
+// Bandeau styles
+const bandeauFontKey = bandeauData.font && bandeauData.font !== 'inherit' && FONTS[bandeauData.font] ? bandeauData.font : null;
+const bandeauFont = bandeauFontKey ? FONTS[bandeauFontKey].family : null;
+const bandeauFontUrl = bandeauFontKey ? FONTS[bandeauFontKey].url : null;
+const bandeauColor = bandeauData.text_color || '#ffffff';
+const bandeauLabelStyle = styleMap[bandeauData.label_style] || 'bold';
+const bandeauTitreStyle = styleMap[bandeauData.titre_style] || 'normal';
+const bandeauIntroStyle = styleMap[bandeauData.intro_style] || 'normal';
 
-const sections = [
-  {
-    slug: "manifeste",
-    label: cms.manifeste_label || "MANIFESTE",
-    titre: cms.manifeste_titre || "Une agence hors des sentiers battus",
-    paragraphes: [
-      cms.manifeste_p1 || "Atipics est née d'une conviction : chaque espace, chaque objet, chaque projet mérite une attention singulière. Nous cultivons l'art de la trouvaille, du détail inattendu, du savoir-faire transmis.",
-      cms.manifeste_p2 || "Curateurs, logisticiens, scénographes — nous sommes avant tout des passionnés animés par la conviction que les objets ont une histoire, et que cette histoire mérite d'être racontée.",
-      cms.manifeste_p3 || "Notre ancrage au Village Atipics, véritable hub de créativité et de compétences, nous permet d'offrir un écosystème complet, du sourcing à la mise en valeur finale.",
-    ].filter(Boolean),
-    reverse: false,
-    fallbackImg: "/images/projet2.webp",
-  },
-  {
-    slug: "reseaux",
-    label: cms.reseaux_label || "RÉSEAUX",
-    titre: cms.reseaux_titre || "Un réseau d'exception",
-    paragraphes: [
-      cms.reseaux_p1 || "Artisans, antiquaires, architectes, artistes — notre carnet d'adresses est le fruit de dix années de rencontres et de confiance mutuelle. Un réseau humain, construit sur la durée.",
-      cms.reseaux_p2 || "Ébénistes, tapissiers, ferronniers, doreurs — des mains expertes qui perpétuent les savoir-faire. Un accès privilégié aux meilleures sources, en France et à l'international.",
-      cms.reseaux_p3 || "Des collaborations croisées avec architectes et designers pour des projets qui mêlent structure, espace et objet. Une discrétion absolue pour accompagner les projets les plus sensibles.",
-      cms.reseaux_p4 || `Pour toute demande, contactez-nous à <a href="mailto:${parametres.email}" class="text-link">${parametres.email}</a>.`,
-    ].filter(Boolean),
-    reverse: true,
-    fallbackImg: "/images/projet3.jpg",
-  },
-];
+const sections = (sectionsData.sections || []).map((s: any, i: number) => {
+  const fontKey = s.font && s.font !== 'inherit' && FONTS[s.font] ? s.font : null;
+  return {
+    slug: s.title ? s.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') : `section-${i}`,
+    label: s.label || '',
+    titre: s.title || '',
+    paragraphes: (s.paragraphs || []).filter(Boolean),
+    reverse: i % 2 === 1,
+    fallbackImg: i % 2 === 0 ? "/images/projet2.webp" : "/images/projet3.jpg",
+    images: (s.images || []).map((src: string) => optimizePath(src)),
+    font: fontKey ? FONTS[fontKey].family : null,
+    fontUrl: fontKey ? FONTS[fontKey].url : null,
+    color: s.text_color || '#1A1A18',
+    labelStyle: styleMap[s.label_style] || 'bold',
+    titreStyle: styleMap[s.title_style] || 'normal',
+    textStyle: styleMap[s.text_style] || 'normal',
+  };
+});
 ---
 
 <Layout title={`Agence Atipics — ${parametres.nom_site}`} description="Manifeste et réseaux de l'Agence Atipics">
+  {bandeauFontUrl && <link rel="stylesheet" href={bandeauFontUrl} />}
   <Header />
   <main style="padding-top: var(--nav-h);">
 
     <!-- Bandeau pleine largeur -->
-    <section class="bandeau">
-      <img src={bandeauAgence} alt="Atipics" class="bandeau__img" />
+    <section class="bandeau" style={`${bandeauFont ? `font-family: ${bandeauFont};` : ''}--bandeau-color:${bandeauColor};--bandeau-label-weight:${bandeauLabelStyle === 'bold' ? '700' : '400'};--bandeau-label-style:${bandeauLabelStyle === 'italic' ? 'italic' : 'normal'};--bandeau-titre-weight:${bandeauTitreStyle === 'bold' ? '700' : '200'};--bandeau-titre-style:${bandeauTitreStyle === 'italic' ? 'italic' : 'normal'}`}>
+      <img src={bandeauAgence} alt="Atipics" class="bandeau__img" decoding="async" />
       <div class="bandeau__overlay">
         <div class="container bandeau__text">
           <p class="bandeau__label">{bandeauLabel}</p>
@@ -62,7 +66,7 @@ const sections = [
     </section>
 
     <!-- Intro -->
-    <section class="intro-section">
+    <section class="intro-section" style={`--intro-weight:${bandeauIntroStyle === 'bold' ? '600' : '300'};--intro-style:${bandeauIntroStyle === 'italic' ? 'italic' : 'normal'}`}>
       <div class="container">
         <RichText document={intro} className="intro-desc" />
       </div>
@@ -70,10 +74,11 @@ const sections = [
 
     <!-- Sections dynamiques -->
     {sections.map((s) => {
-      const imgs = agenceImages[s.slug] ?? [];
+      const imgs = s.images ?? [];
       const paragraphes = s.paragraphes;
       return (
-        <section class:list={["split-block", { "split-block--alt": s.reverse }]} id={s.slug}>
+        <section class:list={["split-block", { "split-block--alt": s.reverse }]} id={s.slug} style={`${s.font ? `font-family: ${s.font};` : ''}--section-color:${s.color};--section-label-weight:${s.labelStyle === 'bold' ? '700' : '400'};--section-label-style:${s.labelStyle === 'italic' ? 'italic' : 'normal'};--section-titre-weight:${s.titreStyle === 'bold' ? '700' : '200'};--section-titre-style:${s.titreStyle === 'italic' ? 'italic' : 'normal'};--section-text-weight:${s.textStyle === 'bold' ? '600' : '400'};--section-text-style:${s.textStyle === 'italic' ? 'italic' : 'normal'}`}>
+          {s.fontUrl && <link rel="stylesheet" href={s.fontUrl} />}
           <div class="container">
             <div class="label-row">
               <span class="stamp">{s.label}</span>
@@ -100,7 +105,7 @@ const sections = [
                       )}
                     </div>
                   ) : (
-                    <img src="/images/projet3.jpg" alt={s.titre} class="split-img" loading="lazy" />
+                    <img src={optimizePath("/images/projet3.jpg")} alt={s.titre} class="split-img" loading="lazy" />
                   )}
                 </div>
               )}
@@ -130,7 +135,7 @@ const sections = [
                       )}
                     </div>
                   ) : (
-                    <img src="/images/projet2.webp" alt={s.titre} class="split-img" loading="lazy" />
+                    <img src={optimizePath("/images/projet2.webp")} alt={s.titre} class="split-img" loading="lazy" />
                   )}
                 </div>
               )}
@@ -168,11 +173,12 @@ const sections = [
   }
   .bandeau__text {
     padding-bottom: var(--sp-xl);
-    color: #fff;
+    color: var(--bandeau-color, #fff);
   }
   .bandeau__label {
     font-size: 0.68rem;
-    font-weight: 700;
+    font-weight: var(--bandeau-label-weight, 700);
+    font-style: var(--bandeau-label-style, normal);
     letter-spacing: 0.22em;
     text-transform: uppercase;
     opacity: 0.7;
@@ -180,7 +186,8 @@ const sections = [
   }
   .bandeau__title {
     font-size: clamp(3.5rem, 9vw, 8rem);
-    font-weight: 200;
+    font-weight: var(--bandeau-titre-weight, 200);
+    font-style: var(--bandeau-titre-style, normal);
     letter-spacing: -0.03em;
     line-height: 0.92;
   }
@@ -192,7 +199,8 @@ const sections = [
   }
   .intro-desc {
     font-size: clamp(1rem, 2.2vw, 1.35rem);
-    font-weight: 300;
+    font-weight: var(--intro-weight, 300);
+    font-style: var(--intro-style, normal);
     color: var(--c-muted);
     line-height: 1.75;
     max-width: 64ch;
@@ -208,9 +216,10 @@ const sections = [
   }
   .stamp {
     font-size: 0.68rem;
-    font-weight: 700;
+    font-weight: var(--section-label-weight, 700);
+    font-style: var(--section-label-style, normal);
     letter-spacing: 0.18em;
-    color: var(--c-muted);
+    color: var(--section-color, var(--c-muted));
     white-space: nowrap;
     flex-shrink: 0;
   }
@@ -249,14 +258,18 @@ const sections = [
 
   .split-title {
     font-size: clamp(1.8rem, 3.5vw, 3rem);
-    font-weight: 200;
+    font-weight: var(--section-titre-weight, 200);
+    font-style: var(--section-titre-style, normal);
     letter-spacing: -0.02em;
     line-height: 1.05;
     margin-bottom: var(--sp-md);
+    color: var(--section-color, inherit);
   }
   .split-p {
     font-size: var(--text-sm);
-    color: var(--c-muted);
+    font-weight: var(--section-text-weight, 400);
+    font-style: var(--section-text-style, normal);
+    color: var(--section-color, var(--c-muted));
     line-height: 1.9;
     margin-bottom: 1rem;
     max-width: 48ch;

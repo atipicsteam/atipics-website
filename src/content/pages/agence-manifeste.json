@@ -1,0 +1,40 @@
+{
+  "manifeste_label": "À PROPOS",
+  "manifeste_titre": "Architecte de valeur.",
+  "manifeste_p1": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Une agence de services clé en main.\n "
+        }
+      ]
+    }
+  ],
+  "manifeste_p2": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Du sourcing approfondi à la production d'événements, de la gestion de domaines et de collections — notre force va au delà du conseil, en nous appuyant sur un réseau de savoir-faire rigoureusement sélectionnés, une logistique maîtrisée et une valorisation active à chaque étape."
+        }
+      ]
+    }
+  ],
+  "manifeste_p3": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Au cœur de l'Atipics Village — 4 500 m² d'entrepôts, d'ateliers et d'un studio de design en région parisienne — nos équipes conçoivent et façonnent sur mesure."
+        }
+      ]
+    }
+  ],
+  "manifeste_images": [],
+  "text_color": "#1A1A18",
+  "font": "inherit",
+  "label_style": "bold",
+  "titre_style": "normal",
+  "texte_style": "normal"
+}

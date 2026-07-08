@@ -1,19 +1,37 @@
 ---
 import carouselData from "../content/carousel/index.json";
+import { FONTS } from "../layouts/Layout.astro";
+import { optimizePath } from "../lib/image";
 
 const slides = carouselData.slides;
-
 const interval = 5000;
+
+const carouselFontKey = carouselData.font && carouselData.font !== 'inherit' && FONTS[carouselData.font]
+  ? carouselData.font
+  : null;
+const carouselFont = carouselFontKey ? FONTS[carouselFontKey].family : null;
+const carouselFontUrl = carouselFontKey ? FONTS[carouselFontKey].url : null;
+const carouselColor = carouselData.text_color || '#ffffff';
+
+const styleMap: Record<string, string> = {
+  normal: 'normal',
+  bold: 'bold',
+  italic: 'italic',
+};
+const titleStyle = styleMap[carouselData.title_style] || 'normal';
+const categoryStyle = styleMap[carouselData.category_style] || 'normal';
 ---
 
-<section class="carousel" aria-label="Projets en vedette">
+{carouselFontUrl && <link rel="stylesheet" href={carouselFontUrl} />}
+
+<section class="carousel" aria-label="Projets en vedette" style={`${carouselFont ? `font-family: ${carouselFont};` : ''}--carousel-color:${carouselColor};--carousel-title-weight:${titleStyle === 'bold' ? '700' : '300'};--carousel-title-style:${titleStyle === 'italic' ? 'italic' : 'normal'};--carousel-category-weight:${categoryStyle === 'bold' ? '700' : '400'};--carousel-category-style:${categoryStyle === 'italic' ? 'italic' : 'normal'}`}>
   <div class="carousel__track">
     {slides.map((slide, i) => (
       <div
         class:list={["carousel__slide", { "is-active": i === 0 }]}
         aria-hidden={i !== 0}
       >
-        <img src={slide.image} alt={slide.title} class="carousel__img" />
+        <img src={optimizePath(slide.image)} alt={slide.title} class="carousel__img" loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
         <div class="carousel__overlay"></div>
         <div class="carousel__content">
           <span class="carousel__category">{slide.category} — {slide.year}</span>
@@ -153,13 +171,15 @@ const interval = 5000;
     position: absolute;
     bottom: var(--sp-xl);
     left: calc(var(--sp-xl) + var(--sp-md));
-    color: #fff;
+    color: var(--carousel-color, #fff);
     z-index: 1;
   }
 
   .carousel__category {
     display: block;
     font-size: var(--text-xs);
+    font-weight: var(--carousel-category-weight, 400);
+    font-style: var(--carousel-category-style, normal);
     letter-spacing: 0.15em;
     text-transform: uppercase;
     opacity: 0.65;
@@ -168,7 +188,8 @@ const interval = 5000;
 
   .carousel__title {
     font-size: clamp(2.5rem, 7vw, 7rem);
-    font-weight: 200;
+    font-weight: var(--carousel-title-weight, 200);
+    font-style: var(--carousel-title-style, normal);
     letter-spacing: -0.03em;
     line-height: 0.95;
   }

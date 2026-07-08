@@ -14,10 +14,11 @@ export default config({
       mark: () => <img src="/favicon.svg" alt="Atipics" style={{ height: 24 }} />
     },
     navigation: {
-      'Contenu Principal': ['projets', 'journal', 'carousel'],
-      'Pages': ['agence_page', 'savoir_faire_page', 'village_page', 'contact_page'],
-      'Navigation': ['navigation'],
-      'Configuration': ['parametres', 'theme', 'footer'],
+      'Page d\'accueil': ['navigation', 'carousel', 'footer'],
+      'Agence Atipics': ['agence_bandeau', 'agence_sections'],
+      'Contenu Principal': ['projets', 'journal'],
+      'Pages': ['savoir_faire_page', 'village_page', 'contact_page'],
+      'Configuration': ['parametres', 'theme'],
     }
   },
   collections: {
@@ -168,9 +169,9 @@ export default config({
         }),
       },
     }),
-    agence_page: singleton({
-      label: 'Page Agence',
-      path: 'src/content/pages/agence',
+    agence_bandeau: singleton({
+      label: 'Bandeau',
+      path: 'src/content/pages/agence-bandeau',
       format: { data: 'json' },
       schema: {
         bandeau_image: fields.image({
@@ -180,25 +181,116 @@ export default config({
         }),
         bandeau_label: fields.text({ label: 'Label du bandeau' }),
         bandeau_titre: fields.text({ label: 'Titre du bandeau' }),
-        intro: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        manifeste_label: fields.text({ label: 'Label Manifeste' }),
-        manifeste_titre: fields.text({ label: 'Titre Manifeste' }),
-        manifeste_p1: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        manifeste_p2: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        manifeste_p3: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        manifeste_images: fields.array(
-          fields.image({ label: 'Image', directory: 'public/images/agence', publicPath: '/images/agence/' }),
-          { label: 'Images Manifeste', itemLabel: props => 'Image' }
-        ),
-        reseaux_label: fields.text({ label: 'Label Réseaux' }),
-        reseaux_titre: fields.text({ label: 'Titre Réseaux' }),
-        reseaux_p1: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        reseaux_p2: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        reseaux_p3: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        reseaux_p4: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        reseaux_images: fields.array(
-          fields.image({ label: 'Image', directory: 'public/images/agence', publicPath: '/images/agence/' }),
-          { label: 'Images Réseaux', itemLabel: props => 'Image' }
+        intro: fields.document({ label: 'Texte d\'introduction', formatting: { inlineMarks: { bold: true, italic: true } } }),
+        text_color: fields.text({ label: 'Couleur du texte du bandeau', defaultValue: '#ffffff', description: 'Couleur du texte sur le bandeau' }),
+        font: fields.select({
+          label: 'Police du bandeau',
+          description: 'Police indépendante du reste du site',
+          options: [
+            { label: 'Hériter du site', value: 'inherit' },
+            { label: 'Helvetica', value: 'helvetica' },
+            { label: 'Inter', value: 'inter' },
+            { label: 'Playfair Display', value: 'playfair' },
+            { label: 'Cormorant Garamond', value: 'cormorant' },
+            { label: 'DM Sans', value: 'dm-sans' },
+            { label: 'Josefin Sans', value: 'josefin' },
+            { label: 'Manrope', value: 'manrope' },
+            { label: 'EB Garamond', value: 'eb-garamond' },
+          ],
+          defaultValue: 'inherit',
+        }),
+        label_style: fields.select({
+          label: 'Style du label',
+          options: [
+            { label: 'Normal', value: 'normal' },
+            { label: 'Gras', value: 'bold' },
+            { label: 'Italique', value: 'italic' },
+          ],
+          defaultValue: 'bold',
+        }),
+        titre_style: fields.select({
+          label: 'Style du titre',
+          options: [
+            { label: 'Normal', value: 'normal' },
+            { label: 'Gras', value: 'bold' },
+            { label: 'Italique', value: 'italic' },
+          ],
+          defaultValue: 'normal',
+        }),
+        intro_style: fields.select({
+          label: 'Style de l\'introduction',
+          options: [
+            { label: 'Normal', value: 'normal' },
+            { label: 'Gras', value: 'bold' },
+            { label: 'Italique', value: 'italic' },
+          ],
+          defaultValue: 'normal',
+        }),
+      },
+    }),
+    agence_sections: singleton({
+      label: 'Sections',
+      path: 'src/content/pages/agence-sections',
+      format: { data: 'json' },
+      schema: {
+        sections: fields.array(
+          fields.object({
+            label: fields.text({ label: 'Label' }),
+            title: fields.text({ label: 'Titre' }),
+            paragraphs: fields.array(
+              fields.document({ label: 'Paragraphe', formatting: { inlineMarks: { bold: true, italic: true } } }),
+              { label: 'Paragraphes', itemLabel: props => 'Paragraphe' }
+            ),
+            images: fields.array(
+              fields.image({ label: 'Image', directory: 'public/images/agence', publicPath: '/images/agence/' }),
+              { label: 'Images', itemLabel: props => 'Image' }
+            ),
+            text_color: fields.text({ label: 'Couleur du texte', defaultValue: '#1A1A18', description: 'Couleur du texte de la section' }),
+            font: fields.select({
+              label: 'Police',
+              description: 'Police indépendante du reste du site',
+              options: [
+                { label: 'Hériter du site', value: 'inherit' },
+                { label: 'Helvetica', value: 'helvetica' },
+                { label: 'Inter', value: 'inter' },
+                { label: 'Playfair Display', value: 'playfair' },
+                { label: 'Cormorant Garamond', value: 'cormorant' },
+                { label: 'DM Sans', value: 'dm-sans' },
+                { label: 'Josefin Sans', value: 'josefin' },
+                { label: 'Manrope', value: 'manrope' },
+                { label: 'EB Garamond', value: 'eb-garamond' },
+              ],
+              defaultValue: 'inherit',
+            }),
+            label_style: fields.select({
+              label: 'Style du label',
+              options: [
+                { label: 'Normal', value: 'normal' },
+                { label: 'Gras', value: 'bold' },
+                { label: 'Italique', value: 'italic' },
+              ],
+              defaultValue: 'bold',
+            }),
+            title_style: fields.select({
+              label: 'Style du titre',
+              options: [
+                { label: 'Normal', value: 'normal' },
+                { label: 'Gras', value: 'bold' },
+                { label: 'Italique', value: 'italic' },
+              ],
+              defaultValue: 'normal',
+            }),
+            text_style: fields.select({
+              label: 'Style des paragraphes',
+              options: [
+                { label: 'Normal', value: 'normal' },
+                { label: 'Gras', value: 'bold' },
+                { label: 'Italique', value: 'italic' },
+              ],
+              defaultValue: 'normal',
+            }),
+          }),
+          { label: 'Sous-catégories', itemLabel: props => props.fields.title.value || props.fields.label.value || 'Nouvelle section' }
         ),
       },
     }),
@@ -335,7 +427,42 @@ export default config({
             }),
           }),
           { label: 'Slides', itemLabel: props => props.fields.title.value || 'Nouveau slide' }
-        )
+        ),
+        text_color: fields.text({ label: 'Couleur du texte', defaultValue: '#ffffff', description: 'Couleur du texte sur le carousel' }),
+        font: fields.select({
+          label: 'Police du carousel',
+          description: 'Police indépendante du reste du site',
+          options: [
+            { label: 'Hériter du site', value: 'inherit' },
+            { label: 'Helvetica', value: 'helvetica' },
+            { label: 'Inter', value: 'inter' },
+            { label: 'Playfair Display', value: 'playfair' },
+            { label: 'Cormorant Garamond', value: 'cormorant' },
+            { label: 'DM Sans', value: 'dm-sans' },
+            { label: 'Josefin Sans', value: 'josefin' },
+            { label: 'Manrope', value: 'manrope' },
+            { label: 'EB Garamond', value: 'eb-garamond' },
+          ],
+          defaultValue: 'inherit',
+        }),
+        title_style: fields.select({
+          label: 'Style du titre',
+          options: [
+            { label: 'Normal', value: 'normal' },
+            { label: 'Gras', value: 'bold' },
+            { label: 'Italique', value: 'italic' },
+          ],
+          defaultValue: 'normal',
+        }),
+        category_style: fields.select({
+          label: 'Style de la catégorie',
+          options: [
+            { label: 'Normal', value: 'normal' },
+            { label: 'Gras', value: 'bold' },
+            { label: 'Italique', value: 'italic' },
+          ],
+          defaultValue: 'normal',
+        }),
       }
     }),
     footer: singleton({
