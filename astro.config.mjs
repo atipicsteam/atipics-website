@@ -5,8 +5,9 @@ import keystatic from '@keystatic/astro';
 import vercel from '@astrojs/vercel';
 
 export default defineConfig({
-    outDir: './astro-dist',
     output: 'static',
-    adapter: vercel(),
+    adapter: vercel({
+        functionPerRoute: true
+    }),
     integrations: [react(), markdoc(), keystatic()],
 });
