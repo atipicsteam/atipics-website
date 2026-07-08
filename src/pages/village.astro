@@ -39,7 +39,7 @@ const espaces = (sectionsData.sections || []).map((s: any, i: number) => {
     label: s.label || '',
     title: s.title || '',
     paragraphs: (s.paragraphs || []).filter(Boolean),
-    images: (s.images || []).map((src: string) => optimizePath(src)),
+    images: (s.images || []).map((src: string) => optimizePath(src.startsWith('/images/') ? src : `/images/${src}`)),
     fallbackImg: fallbackImgs[i % fallbackImgs.length],
     reverse: i % 2 === 1,
     font: fontKey ? FONTS[fontKey].family : null,

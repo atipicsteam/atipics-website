@@ -589,8 +589,8 @@ export default config({
             year: fields.text({ label: 'Année' }),
             image: fields.image({
               label: 'Image',
-              directory: 'public/images/carousel',
-              publicPath: '/images/carousel/',
+              directory: 'public/images',
+              publicPath: '/images/',
             }),
           }),
           { label: 'Slides', itemLabel: props => props.fields.title.value || 'Nouveau slide' }

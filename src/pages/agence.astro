@@ -38,7 +38,7 @@ const sections = (sectionsData.sections || []).map((s: any, i: number) => {
     paragraphes: (s.paragraphs || []).filter(Boolean),
     reverse: i % 2 === 1,
     fallbackImg: i % 2 === 0 ? "/images/projet2.webp" : "/images/projet3.jpg",
-    images: (s.images || []).map((src: string) => optimizePath(src)),
+    images: (s.images || []).map((src: string) => optimizePath(src.startsWith('/images/') ? src : `/images/${src}`)),
     font: fontKey ? FONTS[fontKey].family : null,
     fontUrl: fontKey ? FONTS[fontKey].url : null,
     color: s.text_color || '#1A1A18',

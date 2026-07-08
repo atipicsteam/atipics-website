@@ -47,7 +47,7 @@ const expertises = (sectionsData.sections || []).map((s: any, i: number) => {
     title: s.title || '',
     intro: s.intro || [],
     body: (s.paragraphs || []).filter(Boolean),
-    images: (s.images || []).map((src: string) => optimizePath(src)),
+    images: (s.images || []).map((src: string) => optimizePath(src.startsWith('/images/') ? src : `/images/${src}`)),
     fallbackImages: fallbackSets[i % fallbackSets.length],
     font: fontKey ? FONTS[fontKey].family : null,
     fontUrl: fontKey ? FONTS[fontKey].url : null,
