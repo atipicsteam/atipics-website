@@ -4,25 +4,25 @@
       "title": "Projet A",
       "category": "Artisanat",
       "year": "2024",
-      "image": "projet1.jpg"
+      "image": ""
     },
     {
       "title": "Projet B",
       "category": "Design circulaire",
       "year": "2024",
-      "image": "projet2.webp"
+      "image": ""
     },
     {
       "title": "Projet C",
       "category": "Architecture",
       "year": "2023",
-      "image": "projet3.jpg"
+      "image": ""
     },
     {
       "title": "Projet D",
       "category": "Textile",
       "year": "2023",
-      "image": "projet4.webp"
+      "image": ""
     }
   ],
   "text_color": "#ffffff",
