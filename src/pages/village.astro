@@ -2,61 +2,54 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import cms from "../content/pages/village.json";
+import bandeauData from "../content/pages/village-bandeau.json";
+import sectionsData from "../content/pages/village-sections.json";
 import parametres from "../content/parametres/index.json";
 import RichText from "../components/RichText.tsx";
+import { FONTS } from "../layouts/Layout.astro";
+import { optimizePath } from "../lib/image";
 
-const bandeauVillage = cms.bandeau_image ? `/images/${cms.bandeau_image}` : "/images/droneImageBandeau.jpg";
-const bandeauLabel   = cms.bandeau_label || "Le Village";
-const bandeauTitre   = cms.bandeau_titre || "Village Atipics";
-const intro          = cms.intro         || "Un écosystème complet réunissant sous un même toit tous les outils et les expertises nécessaires à vos projets les plus ambitieux — entrepôt, studio de création et atelier de restauration.";
-const formIntro      = cms.form_intro    || "Vous souhaitez visiter le Village, collaborer avec nous ou en savoir plus sur nos espaces ? Remplissez le formulaire ci-dessous, nous reviendrons vers vous rapidement.";
-
-const villageImages: Record<string, string[]> = {
-  entrepot: cms.entrepot_images || [],
-  studiodesign: cms.studiodesign_images || [],
-  atelier: cms.atelier_images || [],
+const styleMap: Record<string, string> = {
+  normal: 'normal',
+  bold: 'bold',
+  italic: 'italic',
 };
 
+// Bandeau styles
+const bandeauFontKey = bandeauData.font && bandeauData.font !== 'inherit' && FONTS[bandeauData.font] ? bandeauData.font : null;
+const bandeauFont = bandeauFontKey ? FONTS[bandeauFontKey].family : null;
+const bandeauFontUrl = bandeauFontKey ? FONTS[bandeauFontKey].url : null;
+const bandeauColor = bandeauData.text_color || '#ffffff';
+const bandeauLabelStyle = styleMap[bandeauData.label_style] || 'bold';
+const bandeauTitreStyle = styleMap[bandeauData.titre_style] || 'normal';
+const bandeauIntroStyle = styleMap[bandeauData.intro_style] || 'normal';
 
-const espaces = [
-  {
-    slug: "entrepot",
-    label: cms.entrepot_label || "ENTREPÔT",
-    title: cms.entrepot_titre || "L'Entrepôt",
-    fallbackImg: "/images/projet1.jpg",
-    paragraphs: [
-      cms.entrepot_p1 || "Vaste espace de stockage, de tri et de curation, l'Entrepôt est le point de départ de toutes nos histoires. C'est ici que les pièces arrivent, sont répertoriées, nettoyées et préparées avant de prendre leur place dans un projet.",
-      cms.entrepot_p2 || "Plus de 800 m² dédiés à la réception, au conditionnement et à la conservation d'un inventaire toujours renouvelé. Chaque centimètre carré est pensé pour le mouvement et la praticité.",
-      cms.entrepot_p3 || "L'accès est possible sur rendez-vous pour les clients et partenaires souhaitant découvrir les pièces disponibles directement en entrepôt.",
-    ],
-    reverse: false,
-  },
-  {
-    slug: "studiodesign",
-    label: cms.studiodesign_label || "STUDIO DESIGN",
-    title: cms.studiodesign_titre || "Studio Design",
-    fallbackImg: "/images/projet2.webp",
-    paragraphs: [
-      cms.studiodesign_p1 || "Le Studio Design est notre laboratoire créatif. C'est ici que nous concevons les scénographies, testons les associations de pièces et imaginons les compositions qui seront déployées sur vos espaces.",
-      cms.studiodesign_p2 || "Lumière naturelle zénithale, fonds neutres modulables, zone de photographie professionnelle — le Studio est conçu pour mettre en valeur chaque pièce dans les meilleures conditions.",
-      cms.studiodesign_p3 || "Le Studio accueille également des sessions de travail collaboratif avec architectes et décorateurs, dans un cadre propice à la réflexion créative.",
-    ],
-    reverse: true,
-  },
-  {
-    slug: "atelier",
-    label: cms.atelier_label || "ATELIER",
-    title: cms.atelier_titre || "L'Atelier",
-    fallbackImg: "/images/projet3.jpg",
-    paragraphs: [
-      cms.atelier_p1 || "L'Atelier est le sanctuaire des savoir-faire manuels. Menuiserie, tapisserie, dorure, restauration — c'est ici que nos artisans partenaires interviennent pour redonner vie aux pièces qui ont besoin d'attention.",
-      cms.atelier_p2 || "Équipé de machines-outils professionnelles et organisé pour accueillir des artisans spécialisés en résidence, l'Atelier est le maillon essentiel entre la trouvaille brute et la pièce aboutie.",
-      cms.atelier_p3 || "Nous travaillons avec un réseau d'artisans sélectionnés pour leur excellence technique et leur respect des matériaux d'origine.",
-    ],
-    reverse: false,
-  },
-];
+const bandeauVillage = bandeauData.bandeau_image ? optimizePath(`/images/${bandeauData.bandeau_image}`) : optimizePath("/images/droneImageBandeau.jpg");
+const bandeauLabel   = bandeauData.bandeau_label || "Le Village";
+const bandeauTitre   = bandeauData.bandeau_titre || "Village Atipics";
+const intro          = bandeauData.intro         || [{ type: "paragraph", children: [{ text: "Un écosystème complet réunissant sous un même toit tous les outils et les expertises nécessaires à vos projets les plus ambitieux — entrepôt, studio de création et atelier de restauration." }] }];
+const formIntro      = bandeauData.form_intro    || [{ type: "paragraph", children: [{ text: "Vous souhaitez visiter le Village, collaborer avec nous ou en savoir plus sur nos espaces ? Remplissez le formulaire ci-dessous, nous reviendrons vers vous rapidement." }] }];
+
+const fallbackImgs = ["/images/projet1.jpg", "/images/projet2.webp", "/images/projet3.jpg"];
+
+const espaces = (sectionsData.sections || []).map((s: any, i: number) => {
+  const fontKey = s.font && s.font !== 'inherit' && FONTS[s.font] ? s.font : null;
+  return {
+    slug: s.title ? s.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') : `section-${i}`,
+    label: s.label || '',
+    title: s.title || '',
+    paragraphs: (s.paragraphs || []).filter(Boolean),
+    images: (s.images || []).map((src: string) => optimizePath(src)),
+    fallbackImg: fallbackImgs[i % fallbackImgs.length],
+    reverse: i % 2 === 1,
+    font: fontKey ? FONTS[fontKey].family : null,
+    fontUrl: fontKey ? FONTS[fontKey].url : null,
+    color: s.text_color || '#1A1A18',
+    labelStyle: styleMap[s.label_style] || 'bold',
+    titreStyle: styleMap[s.title_style] || 'normal',
+    textStyle: styleMap[s.text_style] || 'normal',
+  };
+});
 ---
 
 <Layout title={`Village Atipics — ${parametres.nom_site}`} description="L'Entrepôt, le Studio Design et l'Atelier du Village Atipics">
@@ -64,7 +57,8 @@ const espaces = [
   <main style="padding-top: var(--nav-h);">
 
     <!-- Bandeau drone -->
-    <section class="bandeau">
+    <section class="bandeau" style={`${bandeauFont ? `font-family: ${bandeauFont};` : ''}--bandeau-color:${bandeauColor};--bandeau-label-weight:${bandeauLabelStyle === 'bold' ? '700' : '400'};--bandeau-label-style:${bandeauLabelStyle === 'italic' ? 'italic' : 'normal'};--bandeau-titre-weight:${bandeauTitreStyle === 'bold' ? '700' : '200'};--bandeau-titre-style:${bandeauTitreStyle === 'italic' ? 'italic' : 'normal'}`}>
+      {bandeauFontUrl && <link rel="stylesheet" href={bandeauFontUrl} />}
       <img src={bandeauVillage} alt="Vue aérienne du Village Atipics" class="bandeau__img" />
       <div class="bandeau__overlay">
         <div class="container bandeau__text">
@@ -75,7 +69,7 @@ const espaces = [
     </section>
 
     <!-- Intro -->
-    <section class="intro-section">
+    <section class="intro-section" style={`--intro-weight:${bandeauIntroStyle === 'bold' ? '600' : '300'};--intro-style:${bandeauIntroStyle === 'italic' ? 'italic' : 'normal'}`}>
       <div class="container">
         <RichText document={intro} className="intro-desc" />
       </div>
@@ -83,7 +77,8 @@ const espaces = [
 
     <!-- Espaces — alternance photo/texte -->
     {espaces.map((e) => (
-      <section class="espace" id={e.slug}>
+      <section class="espace" id={e.slug} style={`${e.font ? `font-family: ${e.font};` : ''}--section-color:${e.color};--section-label-weight:${e.labelStyle === 'bold' ? '700' : '400'};--section-label-style:${e.labelStyle === 'italic' ? 'italic' : 'normal'};--section-titre-weight:${e.titreStyle === 'bold' ? '700' : '300'};--section-titre-style:${e.titreStyle === 'italic' ? 'italic' : 'normal'};--section-text-weight:${e.textStyle === 'bold' ? '600' : '400'};--section-text-style:${e.textStyle === 'italic' ? 'italic' : 'normal'}`}>
+          {e.fontUrl && <link rel="stylesheet" href={e.fontUrl} />}
         <div class="container">
           <div class="espace__label-row">
             <span class="espace__section-label">{e.label}</span>
@@ -91,16 +86,16 @@ const espaces = [
           </div>
           <div class:list={["espace__grid", { "espace__grid--reverse": e.reverse }]}>
             <div class="espace__img-col">
-              {(villageImages[e.slug]?.length > 0 ? villageImages[e.slug] : null) ? (
+              {(e.images.length > 0 ? e.images : null) ? (
                 <div class="vcarousel" data-vcarousel>
                   <div class="vcarousel__track" data-vtrack>
-                    {villageImages[e.slug].map((src, j) => (
+                    {e.images.map((src: string, j: number) => (
                       <div class:list={["vcarousel__slide", { "is-active": j === 0 }]} aria-hidden={j !== 0}>
                         <img src={src} alt={`${e.title} ${j + 1}`} class="espace__img" loading="lazy" />
                       </div>
                     ))}
                   </div>
-                  {villageImages[e.slug].length > 1 && (
+                  {e.images.length > 1 && (
                     <>
                       <button class="vcarousel__btn vcarousel__btn--prev" aria-label="Précédent">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -113,12 +108,12 @@ const espaces = [
                   )}
                 </div>
               ) : (
-                <img src={e.fallbackImg} alt={e.title} class="espace__img" loading="lazy" />
+                <img src={optimizePath(e.fallbackImg)} alt={e.title} class="espace__img" loading="lazy" />
               )}
             </div>
             <div class="espace__text-col">
               <h2 class="espace__title">{e.title}</h2>
-              {e.paragraphs.map((p) => (
+              {e.paragraphs.map((p: any) => (
                 <RichText document={p} className="espace__p" />
               ))}
             </div>
@@ -234,10 +229,12 @@ const espaces = [
   }
   .bandeau__text {
     padding-bottom: var(--sp-lg);
-    color: #fff;
+    color: var(--bandeau-color, #fff);
   }
   .bandeau__label {
     font-size: var(--text-xs);
+    font-weight: var(--bandeau-label-weight, 400);
+    font-style: var(--bandeau-label-style, normal);
     letter-spacing: 0.18em;
     text-transform: uppercase;
     opacity: 0.7;
@@ -245,7 +242,8 @@ const espaces = [
   }
   .bandeau__title {
     font-size: clamp(2.5rem, 6vw, 5.5rem);
-    font-weight: 200;
+    font-weight: var(--bandeau-titre-weight, 200);
+    font-style: var(--bandeau-titre-style, normal);
     letter-spacing: -0.03em;
     line-height: 0.92;
   }
@@ -257,6 +255,8 @@ const espaces = [
   }
   .intro-desc {
     font-size: var(--text-base);
+    font-weight: var(--intro-weight, 300);
+    font-style: var(--intro-style, normal);
     color: var(--c-muted);
     line-height: 1.75;
     max-width: 72ch;
@@ -272,9 +272,10 @@ const espaces = [
   }
   .espace__section-label {
     font-size: var(--text-xs);
-    font-weight: 600;
+    font-weight: var(--section-label-weight, 600);
+    font-style: var(--section-label-style, normal);
     letter-spacing: 0.18em;
-    color: var(--c-muted);
+    color: var(--section-color, var(--c-muted));
     white-space: nowrap;
     flex-shrink: 0;
   }
@@ -370,13 +371,17 @@ const espaces = [
 
   .espace__title {
     font-size: var(--text-xl);
-    font-weight: 300;
+    font-weight: var(--section-titre-weight, 300);
+    font-style: var(--section-titre-style, normal);
     letter-spacing: -0.01em;
     margin-bottom: var(--sp-sm);
+    color: var(--section-color, inherit);
   }
   .espace__p {
     font-size: var(--text-xs);
-    color: var(--c-muted);
+    font-weight: var(--section-text-weight, 400);
+    font-style: var(--section-text-style, normal);
+    color: var(--section-color, var(--c-muted));
     line-height: 1.8;
     margin-bottom: 0.75rem;
     max-width: 48ch;

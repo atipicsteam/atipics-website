@@ -1,0 +1,27 @@
+{
+  "page_label": "EXPERTISES",
+  "page_titre": "Savoir Faire",
+  "page_sous_titre": "Plusieurs domaines d'expertise complémentaires, un fil conducteur :\nl'exigence et la passion du travail bien fait.",
+  "form_titre": "aze",
+  "form_intro_1": [
+    {
+      "type": "paragraph",
+      "children": [
+        { "text": "aze" }
+      ]
+    }
+  ],
+  "form_intro_2": [
+    {
+      "type": "paragraph",
+      "children": [
+        { "text": "aze" }
+      ]
+    }
+  ],
+  "text_color": "#1A1A18",
+  "font": "inherit",
+  "label_style": "bold",
+  "titre_style": "normal",
+  "sous_titre_style": "normal"
+}

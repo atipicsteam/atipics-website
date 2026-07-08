@@ -2,83 +2,61 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import cms from "../content/pages/savoir-faire.json";
+import bandeauData from "../content/pages/savoir-faire-bandeau.json";
+import sectionsData from "../content/pages/savoir-faire-sections.json";
 import parametres from "../content/parametres/index.json";
 import RichText from "../components/RichText.tsx";
+import { FONTS } from "../layouts/Layout.astro";
+import { optimizePath } from "../lib/image";
 
-const imagesBySection: Record<string, string[]> = {
-  curation: cms.curation_images || [],
-  conciergerie: cms.conciergerie_images || [],
-  events: cms.events_images || [],
-  intendance: cms.intendance_images || [],
-  valorisation: cms.valorisation_images || [],
+const styleMap: Record<string, string> = {
+  normal: 'normal',
+  bold: 'bold',
+  italic: 'italic',
 };
 
+// Bandeau styles
+const bandeauFontKey = bandeauData.font && bandeauData.font !== 'inherit' && FONTS[bandeauData.font] ? bandeauData.font : null;
+const bandeauFont = bandeauFontKey ? FONTS[bandeauFontKey].family : null;
+const bandeauFontUrl = bandeauFontKey ? FONTS[bandeauFontKey].url : null;
+const bandeauColor = bandeauData.text_color || '#1A1A18';
+const bandeauLabelStyle = styleMap[bandeauData.label_style] || 'bold';
+const bandeauTitreStyle = styleMap[bandeauData.titre_style] || 'normal';
+const bandeauSousTitreStyle = styleMap[bandeauData.sous_titre_style] || 'normal';
 
-const pageLabel    = cms.page_label     || "EXPERTISES";
-const pageTitre    = cms.page_titre     || "Savoir Faire";
-const pageSousTitre = cms.page_sous_titre || "Cinq domaines d'expertise complémentaires, un fil conducteur : l'exigence et la passion du travail bien fait.";
-const formTitre    = cms.form_titre     || "Parlons de votre projet";
-const formIntro1   = cms.form_intro_1   || "Vous avez un besoin précis — sourcing, scénographie, logistique, valorisation de collection ? Décrivez-nous votre mission et nous reviendrons vers vous avec une proposition adaptée.";
-const formIntro2   = cms.form_intro_2   || "Ce formulaire est dédié aux demandes de <strong>prestation et de collaboration</strong>. Pour une visite du Village ou une question générale, utilisez le formulaire de contact.";
+const pageLabel    = bandeauData.page_label     || "EXPERTISES";
+const pageTitre    = bandeauData.page_titre     || "Savoir Faire";
+const pageSousTitre = bandeauData.page_sous_titre || "Cinq domaines d'expertise complémentaires, un fil conducteur : l'exigence et la passion du travail bien fait.";
+const formTitre    = bandeauData.form_titre     || "Parlons de votre projet";
+const formIntro1   = bandeauData.form_intro_1   || [{ type: "paragraph", children: [{ text: "Vous avez un besoin précis — sourcing, scénographie, logistique, valorisation de collection ? Décrivez-nous votre mission et nous reviendrons vers vous avec une proposition adaptée." }] }];
+const formIntro2   = bandeauData.form_intro_2   || [{ type: "paragraph", children: [{ text: "Ce formulaire est dédié aux demandes de prestation et de collaboration. Pour une visite du Village ou une question générale, utilisez le formulaire de contact." }] }];
 
-const expertises = [
-  {
-    id: "curation",
-    label: cms.curation_label || "CURATION ET SOURCING",
-    title: cms.curation_titre || "Curation et Sourcing",
-    intro: cms.curation_intro || "L'art de trouver ce qui n'existe pas encore sur le marché.",
-    body: [
-      cms.curation_p1 || "Notre mission de curation va bien au-delà de la simple sélection. Nous fouillons marchés, ventes aux enchères, ateliers d'artisans et collections privées pour dénicher les pièces qui feront la différence dans votre projet.",
-      cms.curation_p2 || "Mobilier ancien et contemporain, objets de curiosité, textiles rares, œuvres d'art — notre regard transversal nous permet d'assembler des univers cohérents et singuliers, porteurs d'une identité forte.",
-    ],
-    fallbackImages: ["/images/projet1.jpg", "/images/projet2.webp", "/images/projet3.jpg"],
-  },
-  {
-    id: "conciergerie",
-    label: cms.conciergerie_label || "CONCIERGERIE ET PROPRIÉTÉ",
-    title: cms.conciergerie_titre || "Conciergerie et Propriété",
-    intro: cms.conciergerie_intro || "Un interlocuteur unique pour la gestion complète de votre patrimoine.",
-    body: [
-      cms.conciergerie_p1 || "Nous prenons en charge la gestion de vos espaces et de vos biens avec la même exigence que si c'était les nôtres. De l'entretien courant à la coordination de travaux, nous orchestrons chaque détail.",
-      cms.conciergerie_p2 || "Disponibles, réactifs et discrets, nous sommes votre relais de confiance sur place, garantissant que votre propriété est toujours dans un état impeccable.",
-    ],
-    fallbackImages: ["/images/projet2.webp", "/images/projet3.jpg", "/images/projet4.webp"],
-  },
-  {
-    id: "events",
-    label: cms.events_label || "EVENTS ET SCÉNOGRAPHIE",
-    title: cms.events_titre || "Events et Scénographie",
-    intro: cms.events_intro || "Transformer un espace en expérience mémorable.",
-    body: [
-      cms.events_p1 || "Chaque événement est une opportunité de raconter une histoire. Nous concevons des scénographies qui mêlent mobilier, lumière, matière et narration pour créer des atmosphères inoubliables.",
-      cms.events_p2 || "Soirées privées, lancements de marque, expositions, salons — notre équipe maîtrise toutes les échelles et tous les types de configurations, des plus intimes aux plus spectaculaires.",
-    ],
-    fallbackImages: ["/images/projet3.jpg", "/images/projet4.webp", "/images/projet1.jpg"],
-  },
-  {
-    id: "intendance",
-    label: cms.intendance_label || "INTENDANCE ET LOGISTIQUE",
-    title: cms.intendance_titre || "Intendance et Logistique",
-    intro: cms.intendance_intro || "Les coulisses parfaites pour que l'essentiel brille.",
-    body: [
-      cms.intendance_p1 || "La logistique est souvent le parent pauvre des projets ambitieux. Chez Atipics, nous en avons fait une spécialité. Transport, emballage, stockage, installation — nous gérons l'invisible pour que le visible soit irréprochable.",
-      cms.intendance_p2 || "Notre réseau de transporteurs spécialisés, d'emballeurs experts et de techniciens d'installation garantit que chaque pièce arrive à destination dans les conditions idéales.",
-    ],
-    fallbackImages: ["/images/projet4.webp", "/images/projet1.jpg", "/images/projet2.webp"],
-  },
-  {
-    id: "valorisation",
-    label: cms.valorisation_label || "VALORISATION DE COLLECTIONS",
-    title: cms.valorisation_titre || "Valorisation de Collections",
-    intro: cms.valorisation_intro || "Révéler le potentiel de ce que vous possédez déjà.",
-    body: [
-      cms.valorisation_p1 || "Vous possédez une collection, un héritage, un ensemble de pièces dont vous ne savez que faire ? Nous intervenons pour inventorier, expertiser, documenter et valoriser ce patrimoine.",
-      cms.valorisation_p2 || "Qu'il s'agisse de le mettre en scène dans votre intérieur, de le proposer à la vente dans les meilleures conditions ou de le transmettre, nous vous accompagnons à chaque étape avec rigueur et passion.",
-    ],
-    fallbackImages: ["/images/projet1.jpg", "/images/projet3.jpg", "/images/projet2.webp"],
-  },
+const fallbackSets = [
+  ["/images/projet1.jpg", "/images/projet2.webp", "/images/projet3.jpg"],
+  ["/images/projet2.webp", "/images/projet3.jpg", "/images/projet4.webp"],
+  ["/images/projet3.jpg", "/images/projet4.webp", "/images/projet1.jpg"],
+  ["/images/projet4.webp", "/images/projet1.jpg", "/images/projet2.webp"],
+  ["/images/projet1.jpg", "/images/projet3.jpg", "/images/projet2.webp"],
 ];
+
+const expertises = (sectionsData.sections || []).map((s: any, i: number) => {
+  const fontKey = s.font && s.font !== 'inherit' && FONTS[s.font] ? s.font : null;
+  return {
+    id: s.title ? s.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') : `section-${i}`,
+    label: s.label || '',
+    title: s.title || '',
+    intro: s.intro || [],
+    body: (s.paragraphs || []).filter(Boolean),
+    images: (s.images || []).map((src: string) => optimizePath(src)),
+    fallbackImages: fallbackSets[i % fallbackSets.length],
+    font: fontKey ? FONTS[fontKey].family : null,
+    fontUrl: fontKey ? FONTS[fontKey].url : null,
+    color: s.text_color || '#1A1A18',
+    labelStyle: styleMap[s.label_style] || 'bold',
+    titleStyle: styleMap[s.title_style] || 'normal',
+    textStyle: styleMap[s.text_style] || 'normal',
+  };
+});
 ---
 
 <Layout title={`Savoir Faire — ${parametres.nom_site}`} description="Les expertises de l'Agence Atipics">
@@ -86,7 +64,8 @@ const expertises = [
   <main style="padding-top: var(--nav-h);">
 
     <!-- Header page -->
-    <section class="page-head">
+    <section class="page-head" style={`${bandeauFont ? `font-family: ${bandeauFont};` : ''}--bandeau-color:${bandeauColor};--bandeau-label-weight:${bandeauLabelStyle === 'bold' ? '700' : '400'};--bandeau-label-style:${bandeauLabelStyle === 'italic' ? 'italic' : 'normal'};--bandeau-titre-weight:${bandeauTitreStyle === 'bold' ? '700' : '200'};--bandeau-titre-style:${bandeauTitreStyle === 'italic' ? 'italic' : 'normal'};--bandeau-soustitre-weight:${bandeauSousTitreStyle === 'bold' ? '600' : '400'};--bandeau-soustitre-style:${bandeauSousTitreStyle === 'italic' ? 'italic' : 'normal'}`}>
+      {bandeauFontUrl && <link rel="stylesheet" href={bandeauFontUrl} />}
       <div class="container">
         <div class="label-row">
           <span class="section-stamp">{pageLabel}</span>
@@ -99,7 +78,8 @@ const expertises = [
 
     <!-- Expertises -->
     {expertises.map((e, i) => (
-      <section class:list={["expertise-block", { "expertise-block--alt": i % 2 !== 0 }]} id={e.id}>
+      <section class:list={["expertise-block", { "expertise-block--alt": i % 2 !== 0 }]} id={e.id} style={`${e.font ? `font-family: ${e.font};` : ''}--section-color:${e.color};--section-label-weight:${e.labelStyle === 'bold' ? '700' : '400'};--section-label-style:${e.labelStyle === 'italic' ? 'italic' : 'normal'};--section-titre-weight:${e.titleStyle === 'bold' ? '700' : '300'};--section-titre-style:${e.titleStyle === 'italic' ? 'italic' : 'normal'};--section-text-weight:${e.textStyle === 'bold' ? '600' : '400'};--section-text-style:${e.textStyle === 'italic' ? 'italic' : 'normal'}`}>
+          {e.fontUrl && <link rel="stylesheet" href={e.fontUrl} />}
         <div class="container">
           <div class="label-row">
             <span class="section-stamp">{e.label}</span>
@@ -109,13 +89,13 @@ const expertises = [
             <div class="expertise-text">
               <h2 class="expertise-title">{e.title}</h2>
               <RichText document={e.intro} className="expertise-intro" />
-              {e.body.map((p) => <RichText document={p} className="expertise-p" />)}
+              {e.body.map((p: any) => <RichText document={p} className="expertise-p" />)}
             </div>
             <div class="expertise-carousel" data-carousel>
               <div class="ecarousel__track" data-track>
-                {(imagesBySection[e.id]?.length > 0 ? imagesBySection[e.id] : e.fallbackImages).map((img: string, j: number) => (
+                {(e.images.length > 0 ? e.images : e.fallbackImages).map((img: string, j: number) => (
                   <div class="ecarousel__slide" aria-hidden={j !== 0}>
-                    <img src={img} alt={`${e.title} ${j + 1}`} class="ecarousel__img" loading="lazy" />
+                    <img src={optimizePath(img)} alt={`${e.title} ${j + 1}`} class="ecarousel__img" loading="lazy" />
                   </div>
                 ))}
               </div>
@@ -254,9 +234,10 @@ const expertises = [
   }
   .section-stamp {
     font-size: 0.68rem;
-    font-weight: 700;
+    font-weight: var(--bandeau-label-weight, 700);
+    font-style: var(--bandeau-label-style, normal);
     letter-spacing: 0.18em;
-    color: var(--c-muted);
+    color: var(--bandeau-color, var(--c-muted));
     white-space: nowrap;
     flex-shrink: 0;
   }
@@ -274,16 +255,21 @@ const expertises = [
   }
   .page-head__title {
     font-size: clamp(2.5rem, 6vw, 5rem);
-    font-weight: 200;
+    font-weight: var(--bandeau-titre-weight, 200);
+    font-style: var(--bandeau-titre-style, normal);
     letter-spacing: -0.03em;
     line-height: 0.92;
     margin-bottom: var(--sp-sm);
+    color: var(--bandeau-color, inherit);
   }
   .page-head__sub {
     font-size: var(--text-xs);
-    color: var(--c-muted);
+    font-weight: var(--bandeau-soustitre-weight, 400);
+    font-style: var(--bandeau-soustitre-style, normal);
+    color: var(--bandeau-color, var(--c-muted));
     line-height: 1.75;
     max-width: 52ch;
+    opacity: 0.8;
   }
 
   /* ─── Expertise block ─── */
@@ -303,20 +289,25 @@ const expertises = [
 
   .expertise-title {
     font-size: var(--text-xl);
-    font-weight: 300;
+    font-weight: var(--section-titre-weight, 300);
+    font-style: var(--section-titre-style, normal);
     letter-spacing: -0.01em;
     margin-bottom: var(--sp-sm);
+    color: var(--section-color, inherit);
   }
   .expertise-intro {
     font-size: var(--text-xs);
     font-style: italic;
-    color: var(--c-muted);
+    color: var(--section-color, var(--c-muted));
     margin-bottom: var(--sp-sm);
     line-height: 1.7;
+    opacity: 0.8;
   }
   .expertise-p {
     font-size: var(--text-xs);
-    color: var(--c-muted);
+    font-weight: var(--section-text-weight, 400);
+    font-style: var(--section-text-style, normal);
+    color: var(--section-color, var(--c-muted));
     line-height: 1.85;
     margin-bottom: 0.6rem;
     max-width: 46ch;

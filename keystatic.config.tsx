@@ -17,7 +17,9 @@ export default config({
       'Page d\'accueil': ['navigation', 'carousel', 'footer'],
       'Agence Atipics': ['agence_bandeau', 'agence_sections'],
       'Contenu Principal': ['projets', 'journal'],
-      'Pages': ['savoir_faire_page', 'village_page', 'contact_page'],
+      'Savoir Faire': ['savoir_faire_bandeau', 'savoir_faire_sections'],
+      'Village': ['village_bandeau', 'village_sections'],
+      'Pages': ['contact_page'],
       'Configuration': ['parametres', 'theme'],
     }
   },
@@ -294,58 +296,133 @@ export default config({
         ),
       },
     }),
-    savoir_faire_page: singleton({
-      label: 'Page Savoir Faire',
-      path: 'src/content/pages/savoir-faire',
+    savoir_faire_bandeau: singleton({
+      label: 'Bandeau',
+      path: 'src/content/pages/savoir-faire-bandeau',
       format: { data: 'json' },
       schema: {
         page_label: fields.text({ label: 'Label de la page' }),
         page_titre: fields.text({ label: 'Titre de la page' }),
         page_sous_titre: fields.text({ label: 'Sous-titre' }),
-        
-        curation_label: fields.text({ label: 'Curation - Label' }),
-        curation_titre: fields.text({ label: 'Curation - Titre' }),
-        curation_intro: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        curation_p1: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        curation_p2: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        curation_images: fields.array(fields.image({ label: 'Image', directory: 'public/images/savoir', publicPath: '/images/savoir/' }), { label: 'Images Curation' }),
-
-        conciergerie_label: fields.text({ label: 'Conciergerie - Label' }),
-        conciergerie_titre: fields.text({ label: 'Conciergerie - Titre' }),
-        conciergerie_intro: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        conciergerie_p1: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        conciergerie_p2: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        conciergerie_images: fields.array(fields.image({ label: 'Image', directory: 'public/images/savoir', publicPath: '/images/savoir/' }), { label: 'Images Conciergerie' }),
-
-        events_label: fields.text({ label: 'Events - Label' }),
-        events_titre: fields.text({ label: 'Events - Titre' }),
-        events_intro: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        events_p1: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        events_p2: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        events_images: fields.array(fields.image({ label: 'Image', directory: 'public/images/savoir', publicPath: '/images/savoir/' }), { label: 'Images Events' }),
-
-        intendance_label: fields.text({ label: 'Intendance - Label' }),
-        intendance_titre: fields.text({ label: 'Intendance - Titre' }),
-        intendance_intro: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        intendance_p1: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        intendance_p2: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        intendance_images: fields.array(fields.image({ label: 'Image', directory: 'public/images/savoir', publicPath: '/images/savoir/' }), { label: 'Images Intendance' }),
-
-        valorisation_label: fields.text({ label: 'Valorisation - Label' }),
-        valorisation_titre: fields.text({ label: 'Valorisation - Titre' }),
-        valorisation_intro: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        valorisation_p1: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        valorisation_p2: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        valorisation_images: fields.array(fields.image({ label: 'Image', directory: 'public/images/savoir', publicPath: '/images/savoir/' }), { label: 'Images Valorisation' }),
-
-        form_titre: fields.text({ label: 'Formulaire - Titre' }),
-        form_intro_1: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        form_intro_2: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
+        form_titre: fields.text({ label: 'Titre du formulaire' }),
+        form_intro_1: fields.document({ label: 'Intro formulaire 1', formatting: { inlineMarks: { bold: true, italic: true } } }),
+        form_intro_2: fields.document({ label: 'Intro formulaire 2', formatting: { inlineMarks: { bold: true, italic: true } } }),
+        text_color: fields.text({ label: 'Couleur du texte', defaultValue: '#1A1A18', description: 'Couleur du texte du bandeau' }),
+        font: fields.select({
+          label: 'Police',
+          description: 'Police indépendante du reste du site',
+          options: [
+            { label: 'Hériter du site', value: 'inherit' },
+            { label: 'Helvetica', value: 'helvetica' },
+            { label: 'Inter', value: 'inter' },
+            { label: 'Playfair Display', value: 'playfair' },
+            { label: 'Cormorant Garamond', value: 'cormorant' },
+            { label: 'DM Sans', value: 'dm-sans' },
+            { label: 'Josefin Sans', value: 'josefin' },
+            { label: 'Manrope', value: 'manrope' },
+            { label: 'EB Garamond', value: 'eb-garamond' },
+          ],
+          defaultValue: 'inherit',
+        }),
+        label_style: fields.select({
+          label: 'Style du label',
+          options: [
+            { label: 'Normal', value: 'normal' },
+            { label: 'Gras', value: 'bold' },
+            { label: 'Italique', value: 'italic' },
+          ],
+          defaultValue: 'bold',
+        }),
+        titre_style: fields.select({
+          label: 'Style du titre',
+          options: [
+            { label: 'Normal', value: 'normal' },
+            { label: 'Gras', value: 'bold' },
+            { label: 'Italique', value: 'italic' },
+          ],
+          defaultValue: 'normal',
+        }),
+        sous_titre_style: fields.select({
+          label: 'Style du sous-titre',
+          options: [
+            { label: 'Normal', value: 'normal' },
+            { label: 'Gras', value: 'bold' },
+            { label: 'Italique', value: 'italic' },
+          ],
+          defaultValue: 'normal',
+        }),
       },
     }),
-    village_page: singleton({
-      label: 'Page Village',
-      path: 'src/content/pages/village',
+    savoir_faire_sections: singleton({
+      label: 'Sections',
+      path: 'src/content/pages/savoir-faire-sections',
+      format: { data: 'json' },
+      schema: {
+        sections: fields.array(
+          fields.object({
+            label: fields.text({ label: 'Label' }),
+            title: fields.text({ label: 'Titre' }),
+            intro: fields.document({ label: 'Introduction', formatting: { inlineMarks: { bold: true, italic: true } } }),
+            paragraphs: fields.array(
+              fields.document({ label: 'Paragraphe', formatting: { inlineMarks: { bold: true, italic: true } } }),
+              { label: 'Paragraphes', itemLabel: props => 'Paragraphe' }
+            ),
+            images: fields.array(
+              fields.image({ label: 'Image', directory: 'public/images/savoir', publicPath: '/images/savoir/' }),
+              { label: 'Images', itemLabel: props => 'Image' }
+            ),
+            text_color: fields.text({ label: 'Couleur du texte', defaultValue: '#1A1A18', description: 'Couleur du texte de la section' }),
+            font: fields.select({
+              label: 'Police',
+              description: 'Police indépendante du reste du site',
+              options: [
+                { label: 'Hériter du site', value: 'inherit' },
+                { label: 'Helvetica', value: 'helvetica' },
+                { label: 'Inter', value: 'inter' },
+                { label: 'Playfair Display', value: 'playfair' },
+                { label: 'Cormorant Garamond', value: 'cormorant' },
+                { label: 'DM Sans', value: 'dm-sans' },
+                { label: 'Josefin Sans', value: 'josefin' },
+                { label: 'Manrope', value: 'manrope' },
+                { label: 'EB Garamond', value: 'eb-garamond' },
+              ],
+              defaultValue: 'inherit',
+            }),
+            label_style: fields.select({
+              label: 'Style du label',
+              options: [
+                { label: 'Normal', value: 'normal' },
+                { label: 'Gras', value: 'bold' },
+                { label: 'Italique', value: 'italic' },
+              ],
+              defaultValue: 'bold',
+            }),
+            title_style: fields.select({
+              label: 'Style du titre',
+              options: [
+                { label: 'Normal', value: 'normal' },
+                { label: 'Gras', value: 'bold' },
+                { label: 'Italique', value: 'italic' },
+              ],
+              defaultValue: 'normal',
+            }),
+            text_style: fields.select({
+              label: 'Style des paragraphes',
+              options: [
+                { label: 'Normal', value: 'normal' },
+                { label: 'Gras', value: 'bold' },
+                { label: 'Italique', value: 'italic' },
+              ],
+              defaultValue: 'normal',
+            }),
+          }),
+          { label: 'Sous-catégories', itemLabel: props => props.fields.title.value || props.fields.label.value || 'Nouvelle section' }
+        ),
+      },
+    }),
+    village_bandeau: singleton({
+      label: 'Bandeau',
+      path: 'src/content/pages/village-bandeau',
       format: { data: 'json' },
       schema: {
         bandeau_image: fields.image({
@@ -355,28 +432,118 @@ export default config({
         }),
         bandeau_label: fields.text({ label: 'Label du bandeau' }),
         bandeau_titre: fields.text({ label: 'Titre du bandeau' }),
-        intro: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        entrepot_label: fields.text({ label: 'Entrepôt - Label' }),
-        entrepot_titre: fields.text({ label: 'Entrepôt - Titre' }),
-        entrepot_p1: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        entrepot_p2: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        entrepot_p3: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        entrepot_images: fields.array(fields.image({ label: 'Image', directory: 'public/images/village', publicPath: '/images/village/' }), { label: 'Images Entrepôt' }),
-
-        studiodesign_label: fields.text({ label: 'Studio Design - Label' }),
-        studiodesign_titre: fields.text({ label: 'Studio Design - Titre' }),
-        studiodesign_p1: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        studiodesign_p2: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        studiodesign_p3: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        studiodesign_images: fields.array(fields.image({ label: 'Image', directory: 'public/images/village', publicPath: '/images/village/' }), { label: 'Images Studio Design' }),
-
-        atelier_label: fields.text({ label: 'Atelier - Label' }),
-        atelier_titre: fields.text({ label: 'Atelier - Titre' }),
-        atelier_p1: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        atelier_p2: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        atelier_p3: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        atelier_images: fields.array(fields.image({ label: 'Image', directory: 'public/images/village', publicPath: '/images/village/' }), { label: 'Images Atelier' }),
-        form_intro: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
+        intro: fields.document({ label: 'Texte d\'introduction', formatting: { inlineMarks: { bold: true, italic: true } } }),
+        form_intro: fields.document({ label: 'Intro formulaire', formatting: { inlineMarks: { bold: true, italic: true } } }),
+        text_color: fields.text({ label: 'Couleur du texte du bandeau', defaultValue: '#ffffff', description: 'Couleur du texte sur le bandeau' }),
+        font: fields.select({
+          label: 'Police du bandeau',
+          description: 'Police indépendante du reste du site',
+          options: [
+            { label: 'Hériter du site', value: 'inherit' },
+            { label: 'Helvetica', value: 'helvetica' },
+            { label: 'Inter', value: 'inter' },
+            { label: 'Playfair Display', value: 'playfair' },
+            { label: 'Cormorant Garamond', value: 'cormorant' },
+            { label: 'DM Sans', value: 'dm-sans' },
+            { label: 'Josefin Sans', value: 'josefin' },
+            { label: 'Manrope', value: 'manrope' },
+            { label: 'EB Garamond', value: 'eb-garamond' },
+          ],
+          defaultValue: 'inherit',
+        }),
+        label_style: fields.select({
+          label: 'Style du label',
+          options: [
+            { label: 'Normal', value: 'normal' },
+            { label: 'Gras', value: 'bold' },
+            { label: 'Italique', value: 'italic' },
+          ],
+          defaultValue: 'bold',
+        }),
+        titre_style: fields.select({
+          label: 'Style du titre',
+          options: [
+            { label: 'Normal', value: 'normal' },
+            { label: 'Gras', value: 'bold' },
+            { label: 'Italique', value: 'italic' },
+          ],
+          defaultValue: 'normal',
+        }),
+        intro_style: fields.select({
+          label: 'Style de l\'introduction',
+          options: [
+            { label: 'Normal', value: 'normal' },
+            { label: 'Gras', value: 'bold' },
+            { label: 'Italique', value: 'italic' },
+          ],
+          defaultValue: 'normal',
+        }),
+      },
+    }),
+    village_sections: singleton({
+      label: 'Sections',
+      path: 'src/content/pages/village-sections',
+      format: { data: 'json' },
+      schema: {
+        sections: fields.array(
+          fields.object({
+            label: fields.text({ label: 'Label' }),
+            title: fields.text({ label: 'Titre' }),
+            paragraphs: fields.array(
+              fields.document({ label: 'Paragraphe', formatting: { inlineMarks: { bold: true, italic: true } } }),
+              { label: 'Paragraphes', itemLabel: props => 'Paragraphe' }
+            ),
+            images: fields.array(
+              fields.image({ label: 'Image', directory: 'public/images/village', publicPath: '/images/village/' }),
+              { label: 'Images', itemLabel: props => 'Image' }
+            ),
+            text_color: fields.text({ label: 'Couleur du texte', defaultValue: '#1A1A18', description: 'Couleur du texte de la section' }),
+            font: fields.select({
+              label: 'Police',
+              description: 'Police indépendante du reste du site',
+              options: [
+                { label: 'Hériter du site', value: 'inherit' },
+                { label: 'Helvetica', value: 'helvetica' },
+                { label: 'Inter', value: 'inter' },
+                { label: 'Playfair Display', value: 'playfair' },
+                { label: 'Cormorant Garamond', value: 'cormorant' },
+                { label: 'DM Sans', value: 'dm-sans' },
+                { label: 'Josefin Sans', value: 'josefin' },
+                { label: 'Manrope', value: 'manrope' },
+                { label: 'EB Garamond', value: 'eb-garamond' },
+              ],
+              defaultValue: 'inherit',
+            }),
+            label_style: fields.select({
+              label: 'Style du label',
+              options: [
+                { label: 'Normal', value: 'normal' },
+                { label: 'Gras', value: 'bold' },
+                { label: 'Italique', value: 'italic' },
+              ],
+              defaultValue: 'bold',
+            }),
+            title_style: fields.select({
+              label: 'Style du titre',
+              options: [
+                { label: 'Normal', value: 'normal' },
+                { label: 'Gras', value: 'bold' },
+                { label: 'Italique', value: 'italic' },
+              ],
+              defaultValue: 'normal',
+            }),
+            text_style: fields.select({
+              label: 'Style des paragraphes',
+              options: [
+                { label: 'Normal', value: 'normal' },
+                { label: 'Gras', value: 'bold' },
+                { label: 'Italique', value: 'italic' },
+              ],
+              defaultValue: 'normal',
+            }),
+          }),
+          { label: 'Sous-catégories', itemLabel: props => props.fields.title.value || props.fields.label.value || 'Nouvelle section' }
+        ),
       },
     }),
     contact_page: singleton({
