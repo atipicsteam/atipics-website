@@ -1,6 +1,6 @@
 import { $ as AstroError, B as PrerenderDynamicEndpointPathCollide, D as MiddlewareNotAResponse, E as MiddlewareNoDataOrNextCalled, G as SessionStorageInitError, H as ReservedSlotName, I as NoMatchingStaticPathFound, J as UnableToLoadLogger, K as SessionStorageSaveError, Q as i18nNoLocaleFoundInPath, R as PageNumberParamNotFound, T as LocalsReassigned, U as ResponseSentError, W as RewriteWithBodyUsed, a as ClientAddressNotAvailable, b as InvalidGetStaticPathsEntry, g as GetStaticPathsRequired, h as GetStaticPathsInvalidRouteParam, i as CacheNotEnabled, m as GetStaticPathsExpectedParams, n as ActionsReturnedInvalidDataError, p as ForbiddenRewrite, q as StaticClientAddressNotAvailable, r as AstroResponseHeadersReassigned, t as ActionNotFoundError, w as LocalsNotAnObject, x as InvalidGetStaticPathsReturn, z as PrerenderClientAddressNotAvailable } from "./chunks/errors-data_sKwIzwfZ.mjs";
 import { C as matchPattern, a as fileExtension, d as removeLeadingForwardSlash, h as trimSlashes, i as collapseDuplicateTrailingSlashes, l as joinPaths, m as slash, n as collapseDuplicateLeadingSlashes, o as hasFileExtension, p as removeTrailingForwardSlash, r as collapseDuplicateSlashes, s as isInternalPath, t as appendForwardSlash, u as prependForwardSlash } from "./chunks/path_CP1oRZAZ.mjs";
-import { A as ASTRO_GENERATOR, D as isRoute404, F as clientAddressSymbol, I as fetchStateSymbol, L as originPathnameSymbol, M as REDIRECT_STATUS_CODES, N as REROUTABLE_STATUS_CODES, O as isRoute500, P as appSymbol, R as pipelineSymbol, S as isAstroComponentFactory, a as renderJSX, c as chunkToString, d as renderSlotToString, f as isRenderTemplateResult, g as generateCspDigest, h as decryptString, i as renderPage, j as DEFAULT_404_COMPONENT, k as ASTRO_ERROR_HEADER, l as createSlotValueFromString, m as decodeKey, o as renderComponent, p as renderTemplate, w as renderEndpoint, x as isRenderInstruction, z as responseSentSymbol$1 } from "./chunks/server_Chz1CeXz.mjs";
+import { A as fetchStateSymbol, C as ASTRO_ERROR_HEADER, D as REROUTABLE_STATUS_CODES, E as REDIRECT_STATUS_CODES, M as pipelineSymbol, N as responseSentSymbol$1, O as appSymbol, S as isRoute500, T as DEFAULT_404_COMPONENT, a as chunkToString, c as isRenderTemplateResult, d as decryptString, f as generateCspDigest, g as isAstroComponentFactory, h as isRenderInstruction, i as renderComponent, j as originPathnameSymbol, k as clientAddressSymbol, l as renderTemplate, n as renderPage, o as createSlotValueFromString, r as renderJSX, s as renderSlotToString, u as decodeKey, v as renderEndpoint, w as ASTRO_GENERATOR, x as isRoute404 } from "./chunks/server_DRMZyrgT.mjs";
 import nodePath from "node:path";
 import "@vercel/routing-utils";
 import colors from "piccolore";
@@ -22,7 +22,7 @@ var ASTRO_MIDDLEWARE_SECRET_HEADER = "x-astro-middleware-secret";
 `${ASTRO_PATH_PARAM}`;
 //#endregion
 //#region \0virtual:astro-vercel:config
-var middlewareSecret = "d75359bd-6720-466e-97a4-8c56d0a21420";
+var middlewareSecret = "7e2412cc-71a2-4c87-bfc3-39690b51d1b2";
 //#endregion
 //#region node_modules/astro/dist/actions/consts.js
 var ACTION_QUERY_PARAMS = {
@@ -5394,31 +5394,6 @@ var renderers = [Object.assign({
 		"scripts": [],
 		"styles": [],
 		"routeData": {
-			"route": "/agence",
-			"isIndex": false,
-			"type": "page",
-			"pattern": "^\\/agence\\/?$",
-			"segments": [[{
-				"content": "agence",
-				"dynamic": false,
-				"spread": false
-			}]],
-			"params": [],
-			"component": "src/pages/agence.astro",
-			"pathname": "/agence",
-			"prerender": false,
-			"fallbackRoutes": [],
-			"distURL": [],
-			"origin": "project",
-			"_meta": { "trailingSlash": "ignore" }
-		}
-	},
-	{
-		"file": "",
-		"links": [],
-		"scripts": [],
-		"styles": [],
-		"routeData": {
 			"type": "endpoint",
 			"isIndex": false,
 			"route": "/api/keystatic/[...params]",
@@ -5455,56 +5430,6 @@ var renderers = [Object.assign({
 		"scripts": [],
 		"styles": [],
 		"routeData": {
-			"route": "/contact",
-			"isIndex": false,
-			"type": "page",
-			"pattern": "^\\/contact\\/?$",
-			"segments": [[{
-				"content": "contact",
-				"dynamic": false,
-				"spread": false
-			}]],
-			"params": [],
-			"component": "src/pages/contact.astro",
-			"pathname": "/contact",
-			"prerender": false,
-			"fallbackRoutes": [],
-			"distURL": [],
-			"origin": "project",
-			"_meta": { "trailingSlash": "ignore" }
-		}
-	},
-	{
-		"file": "",
-		"links": [],
-		"scripts": [],
-		"styles": [],
-		"routeData": {
-			"route": "/journal",
-			"isIndex": false,
-			"type": "page",
-			"pattern": "^\\/journal\\/?$",
-			"segments": [[{
-				"content": "journal",
-				"dynamic": false,
-				"spread": false
-			}]],
-			"params": [],
-			"component": "src/pages/journal.astro",
-			"pathname": "/journal",
-			"prerender": false,
-			"fallbackRoutes": [],
-			"distURL": [],
-			"origin": "project",
-			"_meta": { "trailingSlash": "ignore" }
-		}
-	},
-	{
-		"file": "",
-		"links": [],
-		"scripts": [],
-		"styles": [],
-		"routeData": {
 			"type": "page",
 			"isIndex": false,
 			"route": "/keystatic/[...params]",
@@ -5526,131 +5451,21 @@ var renderers = [Object.assign({
 			"origin": "external",
 			"_meta": { "trailingSlash": "ignore" }
 		}
-	},
-	{
-		"file": "",
-		"links": [],
-		"scripts": [],
-		"styles": [],
-		"routeData": {
-			"route": "/projets",
-			"isIndex": false,
-			"type": "page",
-			"pattern": "^\\/projets\\/?$",
-			"segments": [[{
-				"content": "projets",
-				"dynamic": false,
-				"spread": false
-			}]],
-			"params": [],
-			"component": "src/pages/projets.astro",
-			"pathname": "/projets",
-			"prerender": false,
-			"fallbackRoutes": [],
-			"distURL": [],
-			"origin": "project",
-			"_meta": { "trailingSlash": "ignore" }
-		}
-	},
-	{
-		"file": "",
-		"links": [],
-		"scripts": [],
-		"styles": [],
-		"routeData": {
-			"route": "/savoir-faire",
-			"isIndex": false,
-			"type": "page",
-			"pattern": "^\\/savoir-faire\\/?$",
-			"segments": [[{
-				"content": "savoir-faire",
-				"dynamic": false,
-				"spread": false
-			}]],
-			"params": [],
-			"component": "src/pages/savoir-faire.astro",
-			"pathname": "/savoir-faire",
-			"prerender": false,
-			"fallbackRoutes": [],
-			"distURL": [],
-			"origin": "project",
-			"_meta": { "trailingSlash": "ignore" }
-		}
-	},
-	{
-		"file": "",
-		"links": [],
-		"scripts": [],
-		"styles": [],
-		"routeData": {
-			"route": "/village",
-			"isIndex": false,
-			"type": "page",
-			"pattern": "^\\/village\\/?$",
-			"segments": [[{
-				"content": "village",
-				"dynamic": false,
-				"spread": false
-			}]],
-			"params": [],
-			"component": "src/pages/village.astro",
-			"pathname": "/village",
-			"prerender": false,
-			"fallbackRoutes": [],
-			"distURL": [],
-			"origin": "project",
-			"_meta": { "trailingSlash": "ignore" }
-		}
-	},
-	{
-		"file": "",
-		"links": [],
-		"scripts": [],
-		"styles": [],
-		"routeData": {
-			"route": "/",
-			"isIndex": true,
-			"type": "page",
-			"pattern": "^\\/$",
-			"segments": [],
-			"params": [],
-			"component": "src/pages/index.astro",
-			"pathname": "/",
-			"prerender": false,
-			"fallbackRoutes": [],
-			"distURL": [],
-			"origin": "project",
-			"_meta": { "trailingSlash": "ignore" }
-		}
 	}
 ].map(deserializeRouteInfo);
 //#endregion
 //#region \0virtual:astro:pages
-var _page0 = () => import("./chunks/generic_CZt2fZ0b.mjs");
-var _page1 = () => import("./chunks/agence_Cw4RZUv_.mjs");
-var _page2 = () => import("./chunks/keystatic-api_DRPhfMl_.mjs");
-var _page3 = () => import("./chunks/contact_p09B3jFB.mjs");
-var _page4 = () => import("./chunks/journal_D_dknHxQ.mjs");
-var _page5 = () => import("./chunks/keystatic-astro-page_BQRIvQNk.mjs");
-var _page6 = () => import("./chunks/projets_BXTYxS-8.mjs");
-var _page7 = () => import("./chunks/savoir-faire_C6mNOeti.mjs");
-var _page8 = () => import("./chunks/village_BVA3WE91.mjs");
-var _page9 = () => import("./chunks/index_CC5nbGo_.mjs");
+var _page0 = () => import("./chunks/generic_DNv1DEoO.mjs");
+var _page1 = () => import("./chunks/keystatic-api_DRPhfMl_.mjs");
+var _page2 = () => import("./chunks/keystatic-astro-page_8Ih9xXBh.mjs");
 var pageMap = /* @__PURE__ */ new Map([
 	["node_modules/astro/dist/assets/endpoint/generic.js", _page0],
-	["src/pages/agence.astro", _page1],
-	["node_modules/@keystatic/astro/internal/keystatic-api.js", _page2],
-	["src/pages/contact.astro", _page3],
-	["src/pages/journal.astro", _page4],
-	["node_modules/@keystatic/astro/internal/keystatic-astro-page.astro", _page5],
-	["src/pages/projets.astro", _page6],
-	["src/pages/savoir-faire.astro", _page7],
-	["src/pages/village.astro", _page8],
-	["src/pages/index.astro", _page9]
+	["node_modules/@keystatic/astro/internal/keystatic-api.js", _page1],
+	["node_modules/@keystatic/astro/internal/keystatic-astro-page.astro", _page2]
 ]);
 //#endregion
 //#region \0virtual:astro:manifest
-var _manifest = deserializeManifest({"rootDir":"file:///C:/Users/ninad/Desktop/atipics/","cacheDir":"file:///C:/Users/ninad/Desktop/atipics/node_modules/.astro/","outDir":"file:///C:/Users/ninad/Desktop/atipics/dist/","srcDir":"file:///C:/Users/ninad/Desktop/atipics/src/","publicDir":"file:///C:/Users/ninad/Desktop/atipics/public/","buildClientDir":"file:///C:/Users/ninad/Desktop/atipics/dist/client/","buildServerDir":"file:///C:/Users/ninad/Desktop/atipics/dist/server/","adapterName":"@astrojs/vercel","assetsDir":"_astro","routes":[{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"type":"page","component":"_server-islands.astro","params":["name"],"segments":[[{"content":"_server-islands","dynamic":false,"spread":false}],[{"content":"name","dynamic":true,"spread":false}]],"pattern":"^\\/_server-islands\\/([^/]+?)\\/?$","prerender":false,"isIndex":false,"fallbackRoutes":[],"route":"/_server-islands/[name]","origin":"internal","distURL":[],"_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"route":"/_image","component":"node_modules/astro/dist/assets/endpoint/generic.js","params":[],"pathname":"/_image","pattern":"^\\/_image\\/?$","segments":[[{"content":"_image","dynamic":false,"spread":false}]],"type":"endpoint","prerender":false,"fallbackRoutes":[],"distURL":[],"isIndex":false,"origin":"internal","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[{"type":"external","src":"_astro/Footer.DF8X9agK.css"},{"type":"external","src":"_astro/agence.B3YIhNhd.css"}],"routeData":{"route":"/agence","isIndex":false,"type":"page","pattern":"^\\/agence\\/?$","segments":[[{"content":"agence","dynamic":false,"spread":false}]],"params":[],"component":"src/pages/agence.astro","pathname":"/agence","prerender":false,"fallbackRoutes":[],"distURL":[],"origin":"project","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"type":"endpoint","isIndex":false,"route":"/api/keystatic/[...params]","pattern":"^\\/api\\/keystatic(?:\\/(.*?))?\\/?$","segments":[[{"content":"api","dynamic":false,"spread":false}],[{"content":"keystatic","dynamic":false,"spread":false}],[{"content":"...params","dynamic":true,"spread":true}]],"params":["...params"],"component":"node_modules/@keystatic/astro/internal/keystatic-api.js","prerender":false,"fallbackRoutes":[],"distURL":[],"origin":"external","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[{"type":"external","src":"_astro/Footer.DF8X9agK.css"},{"type":"external","src":"_astro/contact.C_enPkQG.css"}],"routeData":{"route":"/contact","isIndex":false,"type":"page","pattern":"^\\/contact\\/?$","segments":[[{"content":"contact","dynamic":false,"spread":false}]],"params":[],"component":"src/pages/contact.astro","pathname":"/contact","prerender":false,"fallbackRoutes":[],"distURL":[],"origin":"project","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[{"type":"external","src":"_astro/Footer.DF8X9agK.css"},{"type":"inline","content":".label-row[data-astro-cid-wyllzg5x]{align-items:center;gap:var(--sp-md);margin-bottom:var(--sp-md);display:flex}.section-stamp[data-astro-cid-wyllzg5x]{letter-spacing:.18em;color:var(--c-muted);white-space:nowrap;flex-shrink:0;font-size:.68rem;font-weight:700}.rule[data-astro-cid-wyllzg5x]{background:var(--c-border);flex:1;height:1px}.page-head[data-astro-cid-wyllzg5x]{padding-top:var(--sp-lg);padding-bottom:var(--sp-lg);border-bottom:1px solid var(--c-border)}.page-head__title[data-astro-cid-wyllzg5x]{letter-spacing:-.03em;margin-bottom:var(--sp-sm);font-size:clamp(2.5rem,6vw,5rem);font-weight:200;line-height:.92}.page-head__sub[data-astro-cid-wyllzg5x]{font-size:var(--text-xs);color:var(--c-muted);max-width:52ch;line-height:1.75}.articles[data-astro-cid-wyllzg5x]{padding-block:var(--sp-lg)}.articles__grid[data-astro-cid-wyllzg5x]{gap:var(--sp-md) var(--sp-md);grid-template-columns:repeat(3,1fr);display:grid}.art-card[data-astro-cid-wyllzg5x]{cursor:pointer;flex-direction:column;display:flex}.art-card__img-wrap[data-astro-cid-wyllzg5x]{aspect-ratio:16/10;background:var(--c-surface);margin-bottom:.75rem;overflow:hidden}.art-card__img[data-astro-cid-wyllzg5x]{object-fit:cover;width:100%;height:100%;transition:transform .5s;display:block}.art-card[data-astro-cid-wyllzg5x]:hover .art-card__img[data-astro-cid-wyllzg5x]{transform:scale(1.04)}.art-card__body[data-astro-cid-wyllzg5x]{flex-direction:column;flex:1;gap:.35rem;display:flex}.art-card__meta[data-astro-cid-wyllzg5x]{letter-spacing:.1em;color:var(--c-muted);text-transform:uppercase;align-items:center;gap:.4rem;font-size:.65rem;display:flex}.art-card__sep[data-astro-cid-wyllzg5x]{color:var(--c-border)}.art-card__title[data-astro-cid-wyllzg5x]{font-size:var(--text-base);letter-spacing:-.01em;font-weight:300;line-height:1.3}.art-card[data-astro-cid-wyllzg5x]:hover .art-card__title[data-astro-cid-wyllzg5x]{text-decoration:underline;text-decoration-color:var(--c-border)}.art-card__excerpt[data-astro-cid-wyllzg5x]{font-size:var(--text-xs);color:var(--c-muted);margin-top:.2rem;line-height:1.75}.art-card__read[data-astro-cid-wyllzg5x]{letter-spacing:.08em;color:var(--c-muted);margin-top:auto;padding-top:.5rem;font-size:.68rem;font-weight:600;transition:color .2s}.art-card[data-astro-cid-wyllzg5x]:hover .art-card__read[data-astro-cid-wyllzg5x]{color:var(--c-text)}@media (width<=900px){.articles__grid[data-astro-cid-wyllzg5x]{grid-template-columns:repeat(2,1fr)}}@media (width<=600px){.articles__grid[data-astro-cid-wyllzg5x]{grid-template-columns:1fr}}.art-card__share[data-astro-cid-wyllzg5x]{border-top:1px solid var(--c-border);flex-wrap:wrap;align-items:center;gap:.5rem;margin-top:1rem;padding-top:1rem;display:flex}.art-card__share-label[data-astro-cid-wyllzg5x]{letter-spacing:.14em;text-transform:uppercase;color:var(--c-muted);width:100%;margin-bottom:.15rem;margin-right:.25rem;font-size:.6rem;font-weight:600}.art-card__share-btn[data-astro-cid-wyllzg5x]{justify-content:center;align-items:center;width:1.5rem;height:1.5rem;transition:opacity .2s,transform .2s;display:flex;color:var(--c)!important}.art-card__share-btn[data-astro-cid-wyllzg5x]:hover{opacity:.65;transform:translateY(-1px)}\n"}],"routeData":{"route":"/journal","isIndex":false,"type":"page","pattern":"^\\/journal\\/?$","segments":[[{"content":"journal","dynamic":false,"spread":false}]],"params":[],"component":"src/pages/journal.astro","pathname":"/journal","prerender":false,"fallbackRoutes":[],"distURL":[],"origin":"project","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"type":"page","isIndex":false,"route":"/keystatic/[...params]","pattern":"^\\/keystatic(?:\\/(.*?))?\\/?$","segments":[[{"content":"keystatic","dynamic":false,"spread":false}],[{"content":"...params","dynamic":true,"spread":true}]],"params":["...params"],"component":"node_modules/@keystatic/astro/internal/keystatic-astro-page.astro","prerender":false,"fallbackRoutes":[],"distURL":[],"origin":"external","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[{"type":"external","src":"_astro/Footer.DF8X9agK.css"},{"type":"external","src":"_astro/projets.Q3y8osTy.css"}],"routeData":{"route":"/projets","isIndex":false,"type":"page","pattern":"^\\/projets\\/?$","segments":[[{"content":"projets","dynamic":false,"spread":false}]],"params":[],"component":"src/pages/projets.astro","pathname":"/projets","prerender":false,"fallbackRoutes":[],"distURL":[],"origin":"project","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[{"type":"external","src":"_astro/Footer.DF8X9agK.css"},{"type":"external","src":"_astro/savoir-faire.D9Ru_sT3.css"}],"routeData":{"route":"/savoir-faire","isIndex":false,"type":"page","pattern":"^\\/savoir-faire\\/?$","segments":[[{"content":"savoir-faire","dynamic":false,"spread":false}]],"params":[],"component":"src/pages/savoir-faire.astro","pathname":"/savoir-faire","prerender":false,"fallbackRoutes":[],"distURL":[],"origin":"project","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[{"type":"external","src":"_astro/Footer.DF8X9agK.css"},{"type":"external","src":"_astro/village.o5VdJPY0.css"}],"routeData":{"route":"/village","isIndex":false,"type":"page","pattern":"^\\/village\\/?$","segments":[[{"content":"village","dynamic":false,"spread":false}]],"params":[],"component":"src/pages/village.astro","pathname":"/village","prerender":false,"fallbackRoutes":[],"distURL":[],"origin":"project","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[{"type":"external","src":"_astro/Footer.DF8X9agK.css"},{"type":"inline","content":".carousel[data-astro-cid-oulirr76]{width:100%;height:calc(100vh - var(--nav-h) - var(--footer-h) - var(--social-bar-h));height:calc(100dvh - var(--nav-h) - var(--footer-h) - var(--social-bar-h));background:var(--c-bg);position:relative;overflow:hidden}.carousel__track[data-astro-cid-oulirr76]{width:100%;height:100%}.carousel__slide[data-astro-cid-oulirr76]{opacity:0;pointer-events:none;transition:opacity 1s;position:absolute;inset:0}.carousel__slide[data-astro-cid-oulirr76].is-active{opacity:1;pointer-events:auto}.carousel__img[data-astro-cid-oulirr76]{top:0;bottom:0;left:var(--sp-md);right:var(--sp-md);width:calc(100% - 2 * var(--sp-md));object-fit:cover;height:100%;position:absolute}.carousel__overlay[data-astro-cid-oulirr76]{top:0;bottom:0;left:var(--sp-md);right:var(--sp-md);background:linear-gradient(#0000 40%,#0000008c 100%);position:absolute}.carousel__content[data-astro-cid-oulirr76]{bottom:var(--sp-xl);left:calc(var(--sp-xl) + var(--sp-md));color:#fff;z-index:1;position:absolute}.carousel__category[data-astro-cid-oulirr76]{font-size:var(--text-xs);letter-spacing:.15em;text-transform:uppercase;opacity:.65;margin-bottom:var(--sp-xs);display:block}.carousel__title[data-astro-cid-oulirr76]{letter-spacing:-.03em;font-size:clamp(2.5rem,7vw,7rem);font-weight:200;line-height:.95}.carousel__arrow[data-astro-cid-oulirr76]{z-index:10;color:#fff;cursor:pointer;opacity:0;backdrop-filter:blur(4px);background:#ffffff1f;border:1px solid #ffffff40;justify-content:center;align-items:center;width:3rem;height:3rem;transition:opacity .25s,background .2s;display:flex;position:absolute;top:50%;transform:translateY(-50%)}.carousel[data-astro-cid-oulirr76]:hover .carousel__arrow[data-astro-cid-oulirr76]{opacity:1}.carousel__arrow[data-astro-cid-oulirr76]:hover{background:#ffffff38}.carousel__arrow--prev[data-astro-cid-oulirr76]{left:calc(var(--sp-md) + .75rem)}.carousel__arrow--next[data-astro-cid-oulirr76]{right:calc(var(--sp-md) + .75rem)}.carousel__dots[data-astro-cid-oulirr76]{bottom:var(--sp-md);z-index:10;gap:.5rem;display:flex;position:absolute;left:50%;transform:translate(-50%)}.carousel__dot[data-astro-cid-oulirr76]{cursor:pointer;background:#ffffff59;border:none;border-radius:50%;width:6px;height:6px;transition:background .2s,transform .2s}.carousel__dot[data-astro-cid-oulirr76].is-active{background:#fff;transform:scale(1.4)}.carousel__progress[data-astro-cid-oulirr76]{bottom:0;left:var(--sp-md);right:var(--sp-md);z-index:10;background:#ffffff26;height:2px;position:absolute}.carousel__progress-bar[data-astro-cid-oulirr76]{background:#ffffffb3;width:0%;height:100%}@media (width<=768px){.carousel__content[data-astro-cid-oulirr76]{bottom:var(--sp-lg);left:var(--sp-sm)}.carousel__img[data-astro-cid-oulirr76]{left:var(--sp-sm);right:var(--sp-sm);width:calc(100% - 2 * var(--sp-sm))}.carousel__arrow[data-astro-cid-oulirr76]{opacity:1}.carousel__arrow--prev[data-astro-cid-oulirr76]{left:calc(var(--sp-sm) + .25rem)}.carousel__arrow--next[data-astro-cid-oulirr76]{right:calc(var(--sp-sm) + .25rem)}}\n"}],"routeData":{"route":"/","isIndex":true,"type":"page","pattern":"^\\/$","segments":[],"params":[],"component":"src/pages/index.astro","pathname":"/","prerender":false,"fallbackRoutes":[],"distURL":[],"origin":"project","_meta":{"trailingSlash":"ignore"}}}],"serverLike":true,"middlewareMode":"classic","base":"/","trailingSlash":"ignore","compressHTML":"jsx","componentMetadata":[["C:/Users/ninad/Desktop/atipics/src/pages/agence.astro",{"propagation":"none","containsHead":true}],["C:/Users/ninad/Desktop/atipics/src/pages/contact.astro",{"propagation":"none","containsHead":true}],["C:/Users/ninad/Desktop/atipics/src/pages/index.astro",{"propagation":"none","containsHead":true}],["C:/Users/ninad/Desktop/atipics/src/pages/journal.astro",{"propagation":"none","containsHead":true}],["C:/Users/ninad/Desktop/atipics/src/pages/projets.astro",{"propagation":"none","containsHead":true}],["C:/Users/ninad/Desktop/atipics/src/pages/savoir-faire.astro",{"propagation":"none","containsHead":true}],["C:/Users/ninad/Desktop/atipics/src/pages/village.astro",{"propagation":"none","containsHead":true}]],"renderers":[],"clientDirectives":[["idle","(()=>{var l=(n,t)=>{let i=async()=>{await(await n())()},e=typeof t.value==\"object\"?t.value:void 0,s={timeout:e==null?void 0:e.timeout};\"requestIdleCallback\"in window?window.requestIdleCallback(i,s):setTimeout(i,s.timeout||200)};(self.Astro||(self.Astro={})).idle=l;window.dispatchEvent(new Event(\"astro:idle\"));})();"],["load","(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).load=e;window.dispatchEvent(new Event(\"astro:load\"));})();"],["media","(()=>{var n=(a,t)=>{let i=async()=>{await(await a())()};if(t.value){let e=matchMedia(t.value);e.matches?i():e.addEventListener(\"change\",i,{once:!0})}};(self.Astro||(self.Astro={})).media=n;window.dispatchEvent(new Event(\"astro:media\"));})();"],["only","(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).only=e;window.dispatchEvent(new Event(\"astro:only\"));})();"],["visible","(()=>{var a=(s,i,o)=>{let r=async()=>{await(await s())()},t=typeof i.value==\"object\"?i.value:void 0,c={rootMargin:t==null?void 0:t.rootMargin},n=new IntersectionObserver(e=>{for(let l of e)if(l.isIntersecting){n.disconnect(),r();break}},c);for(let e of o.children)n.observe(e)};(self.Astro||(self.Astro={})).visible=a;window.dispatchEvent(new Event(\"astro:visible\"));})();"]],"entryModules":{"astro/entrypoints/prerender":"prerender-entry.Col8k81s.mjs","\u0000noop-middleware":"virtual_astro_middleware.mjs","\u0000virtual:astro:server-island-manifest":"chunks/_virtual_astro_server-island-manifest_C1Q2srgE.mjs","\u0000virtual:astro:session-driver":"chunks/_virtual_astro_session-driver_C-PI1Pas.mjs","\u0000virtual:astro:actions/noop-entrypoint":"chunks/noop-entrypoint_Z3zFhrGC.mjs","C:/Users/ninad/Desktop/atipics/node_modules/@astrojs/react/dist/vnode-children.js":"chunks/vnode-children_B6vVcKTz.mjs","@astrojs/vercel/entrypoint":"entry.mjs","\u0000virtual:astro:page:src/pages/agence@_@astro":"chunks/agence_Cw4RZUv_.mjs","\u0000virtual:astro:page:src/pages/contact@_@astro":"chunks/contact_p09B3jFB.mjs","\u0000virtual:astro:page:node_modules/astro/dist/assets/endpoint/generic@_@js":"chunks/generic_CZt2fZ0b.mjs","\u0000virtual:astro:page:src/pages/index@_@astro":"chunks/index_CC5nbGo_.mjs","\u0000virtual:astro:page:src/pages/journal@_@astro":"chunks/journal_D_dknHxQ.mjs","\u0000virtual:astro:page:node_modules/@keystatic/astro/internal/keystatic-api@_@js":"chunks/keystatic-api_DRPhfMl_.mjs","\u0000virtual:astro:page:node_modules/@keystatic/astro/internal/keystatic-astro-page@_@astro":"chunks/keystatic-astro-page_BQRIvQNk.mjs","\u0000virtual:astro:page:src/pages/projets@_@astro":"chunks/projets_BXTYxS-8.mjs","\u0000virtual:astro:page:src/pages/savoir-faire@_@astro":"chunks/savoir-faire_C6mNOeti.mjs","C:/Users/ninad/Desktop/atipics/node_modules/astro/dist/assets/services/sharp.js":"chunks/sharp_hsOhIWDX.mjs","\u0000virtual:astro:page:src/pages/village@_@astro":"chunks/village_BVA3WE91.mjs","C:/Users/ninad/Desktop/atipics/src/components/Footer.astro?astro&type=script&index=0&lang.ts":"_astro/Footer.astro_astro_type_script_index_0_lang.ESyjrF0w.js","C:/Users/ninad/Desktop/atipics/src/components/Header.astro?astro&type=script&index=0&lang.ts":"_astro/Header.astro_astro_type_script_index_0_lang.CUawoRnZ.js","C:/Users/ninad/Desktop/atipics/src/pages/agence.astro?astro&type=script&index=0&lang.ts":"_astro/agence.astro_astro_type_script_index_0_lang.qeB5GBn_.js","@astrojs/react/client.js":"_astro/client.D4irIneL.js","C:/Users/ninad/Desktop/atipics/src/pages/contact.astro?astro&type=script&index=0&lang.ts":"_astro/contact.astro_astro_type_script_index_0_lang.DwnAophX.js","C:/Users/ninad/Desktop/atipics/node_modules/@keystatic/astro/internal/keystatic-page.js":"_astro/keystatic-page.DpGk62ej.js","C:/Users/ninad/Desktop/atipics/src/pages/savoir-faire.astro?astro&type=script&index=0&lang.ts":"_astro/savoir-faire.astro_astro_type_script_index_0_lang.BxYLP2EV.js","C:/Users/ninad/Desktop/atipics/src/pages/village.astro?astro&type=script&index=0&lang.ts":"_astro/village.astro_astro_type_script_index_0_lang.BMniXrjk.js","astro:scripts/before-hydration.js":""},"inlinedScripts":[["C:/Users/ninad/Desktop/atipics/src/components/Footer.astro?astro&type=script&index=0&lang.ts","var e=document.getElementById(`lang-switcher`)?.querySelectorAll(`.footer__lang-btn`);function t(t){document.documentElement.lang=t,e?.forEach(e=>{let n=e.dataset.lang===t;e.classList.toggle(`footer__lang-btn--active`,n),e.setAttribute(`aria-pressed`,String(n))})}e?.forEach(e=>{e.addEventListener(`click`,()=>t(e.dataset.lang||`fr`))});"],["C:/Users/ninad/Desktop/atipics/src/components/Header.astro?astro&type=script&index=0&lang.ts","var e=document.querySelector(`.menu-toggle`),t=document.querySelector(`.nav`);e?.addEventListener(`click`,()=>{let n=e.getAttribute(`aria-expanded`)===`true`;e.setAttribute(`aria-expanded`,String(!n)),t.classList.toggle(`nav--open`,!n)}),document.querySelectorAll(`.nav__item`).forEach(e=>{let t=e.querySelector(`.nav__link`);e.querySelector(`.nav__sub`)&&t.addEventListener(`click`,t=>{window.innerWidth<=900&&(t.preventDefault(),e.classList.toggle(`nav__item--open`))})});var n=window.location.pathname,r=new Map;if(document.querySelectorAll(`.nav__item`).forEach(e=>{let t=e.querySelector(`.nav__link`);t&&e.querySelectorAll(`.nav__sub-link`).forEach(e=>{let[i,a]=(e.getAttribute(`href`)||``).split(`#`);i===n&&a&&r.set(a,t)})}),r.size>0){let e=e=>{document.querySelectorAll(`.nav__sub-link--active`).forEach(e=>e.classList.remove(`nav__sub-link--active`)),document.querySelectorAll(`.nav__link`).forEach(e=>e.classList.remove(`nav__link--active`)),document.querySelectorAll(`.nav__sub-link`).forEach(t=>{(t.getAttribute(`href`)||``).endsWith(`#${e}`)&&(t.classList.add(`nav__sub-link--active`),r.get(e)?.classList.add(`nav__link--active`))})},t=new IntersectionObserver(t=>{let n=t.filter(e=>e.isIntersecting);n.length>0&&e(n[0].target.id)},{rootMargin:`-20% 0px -60% 0px`,threshold:0});r.forEach((e,n)=>{let r=document.getElementById(n);r&&t.observe(r)})}var i=document.querySelector(`.header`);window.addEventListener(`scroll`,()=>{i.classList.toggle(`header--scrolled`,window.scrollY>40)},{passive:!0});"],["C:/Users/ninad/Desktop/atipics/src/pages/agence.astro?astro&type=script&index=0&lang.ts","document.querySelectorAll(`[data-acarousel]`).forEach(e=>{let t=Array.from(e.querySelectorAll(`.acarousel__slide`)),n=e.querySelector(`.acarousel__btn--prev`),r=e.querySelector(`.acarousel__btn--next`),i=e.querySelector(`[data-acounter]`),a=0;function o(e){t[a].classList.remove(`is-active`),t[a].setAttribute(`aria-hidden`,`true`),a=(e%t.length+t.length)%t.length,t[a].classList.add(`is-active`),t[a].setAttribute(`aria-hidden`,`false`),i&&(i.textContent=`${a+1} / ${t.length}`)}i&&t.length>1&&(i.textContent=`1 / ${t.length}`),n?.addEventListener(`click`,()=>o(a-1)),r?.addEventListener(`click`,()=>o(a+1))});"],["C:/Users/ninad/Desktop/atipics/src/pages/contact.astro?astro&type=script&index=0&lang.ts","var e=document.querySelectorAll(`.tab`),t=document.querySelector(`.form-tabs`),n=document.getElementById(`form-message`),r=document.getElementById(`form-mission`),i=document.getElementById(`form-stamp`),a={message:t?.dataset.labelMessage??`ENVOYER UN MESSAGE`,mission:t?.dataset.labelMission??`CONFIER UNE MISSION`};e.forEach(t=>{t.addEventListener(`click`,()=>{let o=t.dataset.tab??`message`;e.forEach(e=>{e.classList.toggle(`tab--active`,e.dataset.tab===o)}),n?.classList.toggle(`cform--hidden`,o!==`message`),r?.classList.toggle(`cform--hidden`,o!==`mission`),i&&(i.textContent=a[o]??``)})});"],["C:/Users/ninad/Desktop/atipics/src/pages/savoir-faire.astro?astro&type=script&index=0&lang.ts","document.querySelectorAll(`[data-carousel]`).forEach(e=>{let t=e.querySelector(`[data-track]`),n=Array.from(t.querySelectorAll(`.ecarousel__slide`)),r=e.querySelector(`.ecarousel__btn--prev`),i=e.querySelector(`.ecarousel__btn--next`),a=e.querySelector(`[data-counter]`),o=0;function s(e){n[o].classList.remove(`is-active`),n[o].setAttribute(`aria-hidden`,`true`),o=(e%n.length+n.length)%n.length,n[o].classList.add(`is-active`),n[o].setAttribute(`aria-hidden`,`false`),a&&(a.textContent=`${o+1} / ${n.length}`)}n[0].classList.add(`is-active`),a&&(a.textContent=`1 / ${n.length}`),r.addEventListener(`click`,()=>s(o-1)),i.addEventListener(`click`,()=>s(o+1))});"],["C:/Users/ninad/Desktop/atipics/src/pages/village.astro?astro&type=script&index=0&lang.ts","document.querySelectorAll(`[data-vcarousel]`).forEach(e=>{let t=Array.from(e.querySelectorAll(`.vcarousel__slide`)),n=e.querySelector(`.vcarousel__btn--prev`),r=e.querySelector(`.vcarousel__btn--next`),i=e.querySelector(`[data-vcounter]`),a=0;function o(e){t[a].classList.remove(`is-active`),t[a].setAttribute(`aria-hidden`,`true`),a=(e%t.length+t.length)%t.length,t[a].classList.add(`is-active`),t[a].setAttribute(`aria-hidden`,`false`),i&&(i.textContent=`${a+1} / ${t.length}`)}i&&(i.textContent=`1 / ${t.length}`),n?.addEventListener(`click`,()=>o(a-1)),r?.addEventListener(`click`,()=>o(a+1))});"]],"assets":["/favicon.ico","/favicon.svg","/images/droneImageBandeau.jpg","/images/projet1.jpg","/images/projet2.webp","/images/projet3.jpg","/images/projet4.webp","/_astro/client.D4irIneL.js","/_astro/keystatic-page.DpGk62ej.js","/_astro/react-dom.COcXnaKT.js","/images/directus/village-bandeau-d8b6ecec-a0f3-40d6-b532-131d15068219.jpg","/_astro/Footer.DF8X9agK.css","/_astro/agence.B3YIhNhd.css","/_astro/contact.C_enPkQG.css","/_astro/projets.Q3y8osTy.css","/_astro/savoir-faire.D9Ru_sT3.css","/_astro/village.o5VdJPY0.css"],"buildFormat":"directory","checkOrigin":true,"actionBodySizeLimit":1048576,"serverIslandBodySizeLimit":1048576,"allowedDomains":[],"key":"Mg55x3gXQzym0nrYkLEob1jhZDr7tJUO4ZmSJU6Y+OI=","image":{},"devToolbar":{"enabled":false,"debugInfoOutput":""},"logLevel":"info","shouldInjectCspMetaTags":false});
+var _manifest = deserializeManifest({"rootDir":"file:///C:/Users/ninad/Desktop/atipics/","cacheDir":"file:///C:/Users/ninad/Desktop/atipics/node_modules/.astro/","outDir":"file:///C:/Users/ninad/Desktop/atipics/dist/","srcDir":"file:///C:/Users/ninad/Desktop/atipics/src/","publicDir":"file:///C:/Users/ninad/Desktop/atipics/public/","buildClientDir":"file:///C:/Users/ninad/Desktop/atipics/dist/client/","buildServerDir":"file:///C:/Users/ninad/Desktop/atipics/dist/server/","adapterName":"@astrojs/vercel","assetsDir":"_astro","routes":[{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"type":"page","component":"_server-islands.astro","params":["name"],"segments":[[{"content":"_server-islands","dynamic":false,"spread":false}],[{"content":"name","dynamic":true,"spread":false}]],"pattern":"^\\/_server-islands\\/([^/]+?)\\/?$","prerender":false,"isIndex":false,"fallbackRoutes":[],"route":"/_server-islands/[name]","origin":"internal","distURL":[],"_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"route":"/_image","component":"node_modules/astro/dist/assets/endpoint/generic.js","params":[],"pathname":"/_image","pattern":"^\\/_image\\/?$","segments":[[{"content":"_image","dynamic":false,"spread":false}]],"type":"endpoint","prerender":false,"fallbackRoutes":[],"distURL":[],"isIndex":false,"origin":"internal","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"route":"/agence","isIndex":false,"type":"page","pattern":"^\\/agence\\/?$","segments":[[{"content":"agence","dynamic":false,"spread":false}]],"params":[],"component":"src/pages/agence.astro","pathname":"/agence","prerender":true,"fallbackRoutes":[],"distURL":[],"origin":"project","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"type":"endpoint","isIndex":false,"route":"/api/keystatic/[...params]","pattern":"^\\/api\\/keystatic(?:\\/(.*?))?\\/?$","segments":[[{"content":"api","dynamic":false,"spread":false}],[{"content":"keystatic","dynamic":false,"spread":false}],[{"content":"...params","dynamic":true,"spread":true}]],"params":["...params"],"component":"node_modules/@keystatic/astro/internal/keystatic-api.js","prerender":false,"fallbackRoutes":[],"distURL":[],"origin":"external","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"route":"/contact","isIndex":false,"type":"page","pattern":"^\\/contact\\/?$","segments":[[{"content":"contact","dynamic":false,"spread":false}]],"params":[],"component":"src/pages/contact.astro","pathname":"/contact","prerender":true,"fallbackRoutes":[],"distURL":[],"origin":"project","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"route":"/journal","isIndex":false,"type":"page","pattern":"^\\/journal\\/?$","segments":[[{"content":"journal","dynamic":false,"spread":false}]],"params":[],"component":"src/pages/journal.astro","pathname":"/journal","prerender":true,"fallbackRoutes":[],"distURL":[],"origin":"project","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"type":"page","isIndex":false,"route":"/keystatic/[...params]","pattern":"^\\/keystatic(?:\\/(.*?))?\\/?$","segments":[[{"content":"keystatic","dynamic":false,"spread":false}],[{"content":"...params","dynamic":true,"spread":true}]],"params":["...params"],"component":"node_modules/@keystatic/astro/internal/keystatic-astro-page.astro","prerender":false,"fallbackRoutes":[],"distURL":[],"origin":"external","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"route":"/projets","isIndex":false,"type":"page","pattern":"^\\/projets\\/?$","segments":[[{"content":"projets","dynamic":false,"spread":false}]],"params":[],"component":"src/pages/projets.astro","pathname":"/projets","prerender":true,"fallbackRoutes":[],"distURL":[],"origin":"project","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"route":"/savoir-faire","isIndex":false,"type":"page","pattern":"^\\/savoir-faire\\/?$","segments":[[{"content":"savoir-faire","dynamic":false,"spread":false}]],"params":[],"component":"src/pages/savoir-faire.astro","pathname":"/savoir-faire","prerender":true,"fallbackRoutes":[],"distURL":[],"origin":"project","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"route":"/village","isIndex":false,"type":"page","pattern":"^\\/village\\/?$","segments":[[{"content":"village","dynamic":false,"spread":false}]],"params":[],"component":"src/pages/village.astro","pathname":"/village","prerender":true,"fallbackRoutes":[],"distURL":[],"origin":"project","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"route":"/","isIndex":true,"type":"page","pattern":"^\\/$","segments":[],"params":[],"component":"src/pages/index.astro","pathname":"/","prerender":true,"fallbackRoutes":[],"distURL":[],"origin":"project","_meta":{"trailingSlash":"ignore"}}}],"serverLike":true,"middlewareMode":"classic","base":"/","trailingSlash":"ignore","compressHTML":"jsx","componentMetadata":[["C:/Users/ninad/Desktop/atipics/src/pages/agence.astro",{"propagation":"none","containsHead":true}],["C:/Users/ninad/Desktop/atipics/src/pages/contact.astro",{"propagation":"none","containsHead":true}],["C:/Users/ninad/Desktop/atipics/src/pages/index.astro",{"propagation":"none","containsHead":true}],["C:/Users/ninad/Desktop/atipics/src/pages/journal.astro",{"propagation":"none","containsHead":true}],["C:/Users/ninad/Desktop/atipics/src/pages/projets.astro",{"propagation":"none","containsHead":true}],["C:/Users/ninad/Desktop/atipics/src/pages/savoir-faire.astro",{"propagation":"none","containsHead":true}],["C:/Users/ninad/Desktop/atipics/src/pages/village.astro",{"propagation":"none","containsHead":true}]],"renderers":[],"clientDirectives":[["idle","(()=>{var l=(n,t)=>{let i=async()=>{await(await n())()},e=typeof t.value==\"object\"?t.value:void 0,s={timeout:e==null?void 0:e.timeout};\"requestIdleCallback\"in window?window.requestIdleCallback(i,s):setTimeout(i,s.timeout||200)};(self.Astro||(self.Astro={})).idle=l;window.dispatchEvent(new Event(\"astro:idle\"));})();"],["load","(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).load=e;window.dispatchEvent(new Event(\"astro:load\"));})();"],["media","(()=>{var n=(a,t)=>{let i=async()=>{await(await a())()};if(t.value){let e=matchMedia(t.value);e.matches?i():e.addEventListener(\"change\",i,{once:!0})}};(self.Astro||(self.Astro={})).media=n;window.dispatchEvent(new Event(\"astro:media\"));})();"],["only","(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).only=e;window.dispatchEvent(new Event(\"astro:only\"));})();"],["visible","(()=>{var a=(s,i,o)=>{let r=async()=>{await(await s())()},t=typeof i.value==\"object\"?i.value:void 0,c={rootMargin:t==null?void 0:t.rootMargin},n=new IntersectionObserver(e=>{for(let l of e)if(l.isIntersecting){n.disconnect(),r();break}},c);for(let e of o.children)n.observe(e)};(self.Astro||(self.Astro={})).visible=a;window.dispatchEvent(new Event(\"astro:visible\"));})();"]],"entryModules":{"astro/entrypoints/prerender":"prerender-entry.6gvuMfls.mjs","\u0000noop-middleware":"virtual_astro_middleware.mjs","\u0000virtual:astro:server-island-manifest":"chunks/_virtual_astro_server-island-manifest_C1Q2srgE.mjs","\u0000virtual:astro:session-driver":"chunks/_virtual_astro_session-driver_C-PI1Pas.mjs","\u0000virtual:astro:page:src/pages/agence@_@astro":"chunks/agence_BnAGMvT9.mjs","\u0000virtual:astro:page:src/pages/contact@_@astro":"chunks/contact_BoxLvl0l.mjs","\u0000virtual:astro:page:src/pages/index@_@astro":"chunks/index_BI0Jv2Fu.mjs","\u0000virtual:astro:page:src/pages/journal@_@astro":"chunks/journal_CZArqwjx.mjs","\u0000virtual:astro:actions/noop-entrypoint":"chunks/noop-entrypoint_Z3zFhrGC.mjs","\u0000virtual:astro:page:src/pages/projets@_@astro":"chunks/projets_CRS-bbKm.mjs","\u0000virtual:astro:page:src/pages/savoir-faire@_@astro":"chunks/savoir-faire_CWvCE-jo.mjs","\u0000virtual:astro:page:src/pages/village@_@astro":"chunks/village_CFDqj-WJ.mjs","C:/Users/ninad/Desktop/atipics/node_modules/@astrojs/react/dist/vnode-children.js":"chunks/vnode-children_B6vVcKTz.mjs","@astrojs/vercel/entrypoint":"entry.mjs","\u0000virtual:astro:page:node_modules/astro/dist/assets/endpoint/generic@_@js":"chunks/generic_DNv1DEoO.mjs","\u0000virtual:astro:page:node_modules/@keystatic/astro/internal/keystatic-api@_@js":"chunks/keystatic-api_DRPhfMl_.mjs","\u0000virtual:astro:page:node_modules/@keystatic/astro/internal/keystatic-astro-page@_@astro":"chunks/keystatic-astro-page_8Ih9xXBh.mjs","C:/Users/ninad/Desktop/atipics/node_modules/astro/dist/assets/services/sharp.js":"chunks/sharp_hsOhIWDX.mjs","C:/Users/ninad/Desktop/atipics/src/components/Footer.astro?astro&type=script&index=0&lang.ts":"_astro/Footer.astro_astro_type_script_index_0_lang.ESyjrF0w.js","C:/Users/ninad/Desktop/atipics/src/components/Header.astro?astro&type=script&index=0&lang.ts":"_astro/Header.astro_astro_type_script_index_0_lang.CUawoRnZ.js","C:/Users/ninad/Desktop/atipics/src/pages/agence.astro?astro&type=script&index=0&lang.ts":"_astro/agence.astro_astro_type_script_index_0_lang.qeB5GBn_.js","@astrojs/react/client.js":"_astro/client.D4irIneL.js","C:/Users/ninad/Desktop/atipics/src/pages/contact.astro?astro&type=script&index=0&lang.ts":"_astro/contact.astro_astro_type_script_index_0_lang.DwnAophX.js","C:/Users/ninad/Desktop/atipics/node_modules/@keystatic/astro/internal/keystatic-page.js":"_astro/keystatic-page.DpGk62ej.js","C:/Users/ninad/Desktop/atipics/src/pages/savoir-faire.astro?astro&type=script&index=0&lang.ts":"_astro/savoir-faire.astro_astro_type_script_index_0_lang.BxYLP2EV.js","C:/Users/ninad/Desktop/atipics/src/pages/village.astro?astro&type=script&index=0&lang.ts":"_astro/village.astro_astro_type_script_index_0_lang.BMniXrjk.js","astro:scripts/before-hydration.js":""},"inlinedScripts":[["C:/Users/ninad/Desktop/atipics/src/components/Footer.astro?astro&type=script&index=0&lang.ts","var e=document.getElementById(`lang-switcher`)?.querySelectorAll(`.footer__lang-btn`);function t(t){document.documentElement.lang=t,e?.forEach(e=>{let n=e.dataset.lang===t;e.classList.toggle(`footer__lang-btn--active`,n),e.setAttribute(`aria-pressed`,String(n))})}e?.forEach(e=>{e.addEventListener(`click`,()=>t(e.dataset.lang||`fr`))});"],["C:/Users/ninad/Desktop/atipics/src/components/Header.astro?astro&type=script&index=0&lang.ts","var e=document.querySelector(`.menu-toggle`),t=document.querySelector(`.nav`);e?.addEventListener(`click`,()=>{let n=e.getAttribute(`aria-expanded`)===`true`;e.setAttribute(`aria-expanded`,String(!n)),t.classList.toggle(`nav--open`,!n)}),document.querySelectorAll(`.nav__item`).forEach(e=>{let t=e.querySelector(`.nav__link`);e.querySelector(`.nav__sub`)&&t.addEventListener(`click`,t=>{window.innerWidth<=900&&(t.preventDefault(),e.classList.toggle(`nav__item--open`))})});var n=window.location.pathname,r=new Map;if(document.querySelectorAll(`.nav__item`).forEach(e=>{let t=e.querySelector(`.nav__link`);t&&e.querySelectorAll(`.nav__sub-link`).forEach(e=>{let[i,a]=(e.getAttribute(`href`)||``).split(`#`);i===n&&a&&r.set(a,t)})}),r.size>0){let e=e=>{document.querySelectorAll(`.nav__sub-link--active`).forEach(e=>e.classList.remove(`nav__sub-link--active`)),document.querySelectorAll(`.nav__link`).forEach(e=>e.classList.remove(`nav__link--active`)),document.querySelectorAll(`.nav__sub-link`).forEach(t=>{(t.getAttribute(`href`)||``).endsWith(`#${e}`)&&(t.classList.add(`nav__sub-link--active`),r.get(e)?.classList.add(`nav__link--active`))})},t=new IntersectionObserver(t=>{let n=t.filter(e=>e.isIntersecting);n.length>0&&e(n[0].target.id)},{rootMargin:`-20% 0px -60% 0px`,threshold:0});r.forEach((e,n)=>{let r=document.getElementById(n);r&&t.observe(r)})}var i=document.querySelector(`.header`);window.addEventListener(`scroll`,()=>{i.classList.toggle(`header--scrolled`,window.scrollY>40)},{passive:!0});"],["C:/Users/ninad/Desktop/atipics/src/pages/agence.astro?astro&type=script&index=0&lang.ts","document.querySelectorAll(`[data-acarousel]`).forEach(e=>{let t=Array.from(e.querySelectorAll(`.acarousel__slide`)),n=e.querySelector(`.acarousel__btn--prev`),r=e.querySelector(`.acarousel__btn--next`),i=e.querySelector(`[data-acounter]`),a=0;function o(e){t[a].classList.remove(`is-active`),t[a].setAttribute(`aria-hidden`,`true`),a=(e%t.length+t.length)%t.length,t[a].classList.add(`is-active`),t[a].setAttribute(`aria-hidden`,`false`),i&&(i.textContent=`${a+1} / ${t.length}`)}i&&t.length>1&&(i.textContent=`1 / ${t.length}`),n?.addEventListener(`click`,()=>o(a-1)),r?.addEventListener(`click`,()=>o(a+1))});"],["C:/Users/ninad/Desktop/atipics/src/pages/contact.astro?astro&type=script&index=0&lang.ts","var e=document.querySelectorAll(`.tab`),t=document.querySelector(`.form-tabs`),n=document.getElementById(`form-message`),r=document.getElementById(`form-mission`),i=document.getElementById(`form-stamp`),a={message:t?.dataset.labelMessage??`ENVOYER UN MESSAGE`,mission:t?.dataset.labelMission??`CONFIER UNE MISSION`};e.forEach(t=>{t.addEventListener(`click`,()=>{let o=t.dataset.tab??`message`;e.forEach(e=>{e.classList.toggle(`tab--active`,e.dataset.tab===o)}),n?.classList.toggle(`cform--hidden`,o!==`message`),r?.classList.toggle(`cform--hidden`,o!==`mission`),i&&(i.textContent=a[o]??``)})});"],["C:/Users/ninad/Desktop/atipics/src/pages/savoir-faire.astro?astro&type=script&index=0&lang.ts","document.querySelectorAll(`[data-carousel]`).forEach(e=>{let t=e.querySelector(`[data-track]`),n=Array.from(t.querySelectorAll(`.ecarousel__slide`)),r=e.querySelector(`.ecarousel__btn--prev`),i=e.querySelector(`.ecarousel__btn--next`),a=e.querySelector(`[data-counter]`),o=0;function s(e){n[o].classList.remove(`is-active`),n[o].setAttribute(`aria-hidden`,`true`),o=(e%n.length+n.length)%n.length,n[o].classList.add(`is-active`),n[o].setAttribute(`aria-hidden`,`false`),a&&(a.textContent=`${o+1} / ${n.length}`)}n[0].classList.add(`is-active`),a&&(a.textContent=`1 / ${n.length}`),r.addEventListener(`click`,()=>s(o-1)),i.addEventListener(`click`,()=>s(o+1))});"],["C:/Users/ninad/Desktop/atipics/src/pages/village.astro?astro&type=script&index=0&lang.ts","document.querySelectorAll(`[data-vcarousel]`).forEach(e=>{let t=Array.from(e.querySelectorAll(`.vcarousel__slide`)),n=e.querySelector(`.vcarousel__btn--prev`),r=e.querySelector(`.vcarousel__btn--next`),i=e.querySelector(`[data-vcounter]`),a=0;function o(e){t[a].classList.remove(`is-active`),t[a].setAttribute(`aria-hidden`,`true`),a=(e%t.length+t.length)%t.length,t[a].classList.add(`is-active`),t[a].setAttribute(`aria-hidden`,`false`),i&&(i.textContent=`${a+1} / ${t.length}`)}i&&(i.textContent=`1 / ${t.length}`),n?.addEventListener(`click`,()=>o(a-1)),r?.addEventListener(`click`,()=>o(a+1))});"]],"assets":["/favicon.ico","/favicon.svg","/images/droneImageBandeau.jpg","/images/projet1.jpg","/images/projet2.webp","/images/projet3.jpg","/images/projet4.webp","/_astro/client.D4irIneL.js","/_astro/keystatic-page.DpGk62ej.js","/_astro/react-dom.COcXnaKT.js","/images/directus/village-bandeau-d8b6ecec-a0f3-40d6-b532-131d15068219.jpg","/_astro/Footer.DF8X9agK.css","/_astro/agence.B3YIhNhd.css","/_astro/contact.C_enPkQG.css","/_astro/projets.Q3y8osTy.css","/_astro/savoir-faire.D9Ru_sT3.css","/_astro/village.o5VdJPY0.css","/agence/index.html","/contact/index.html","/journal/index.html","/projets/index.html","/savoir-faire/index.html","/village/index.html","/index.html"],"buildFormat":"directory","checkOrigin":true,"actionBodySizeLimit":1048576,"serverIslandBodySizeLimit":1048576,"allowedDomains":[],"key":"EwiiL1h/VsGE9t1VWgMEVUi+SlEU0etWr8obdOrHGv8=","image":{},"devToolbar":{"enabled":false,"debugInfoOutput":""},"logLevel":"info","shouldInjectCspMetaTags":false});
 var manifestRoutes = _manifest.routes;
 var manifest = Object.assign(_manifest, {
 	renderers,
