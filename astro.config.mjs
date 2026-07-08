@@ -7,8 +7,7 @@ import vercel from '@astrojs/vercel';
 export default defineConfig({
     output: 'static',
     adapter: vercel({
-        functionPerRoute: true,
-        includeFiles: ['./dist/**/*']
+        functionPerRoute: true
     }),
     integrations: [react(), markdoc(), keystatic()],
 });
