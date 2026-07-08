@@ -389,6 +389,24 @@ const espaces = (sectionsData.sections || []).map((s: any, i: number) => {
     max-width: 48ch;
   }
   .espace__p:last-child { margin-bottom: 0; }
+  :global(.espace__p) {
+    font-size: var(--text-xs);
+    font-weight: var(--section-text-weight, 400);
+    font-style: var(--section-text-style, normal);
+    color: var(--section-color, var(--c-muted));
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    max-width: 48ch;
+  }
+  :global(.espace__p:last-child) { margin-bottom: 0; }
+  :global(.intro-desc) {
+    font-size: var(--text-base);
+    font-weight: var(--intro-weight, 300);
+    font-style: var(--intro-style, normal);
+    color: var(--c-muted);
+    line-height: 1.75;
+    max-width: 72ch;
+  }
 
   /* ─── Form section ─── */
   .form-section {

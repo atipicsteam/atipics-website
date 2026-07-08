@@ -208,6 +208,15 @@ const sections = (sectionsData.sections || []).map((s: any, i: number) => {
     max-width: 64ch;
     letter-spacing: -0.01em;
   }
+  :global(.intro-desc) {
+    font-size: clamp(1rem, 2.2vw, 1.35rem);
+    font-weight: var(--intro-weight, 300);
+    font-style: var(--intro-style, normal);
+    color: var(--c-muted);
+    line-height: 1.75;
+    max-width: 64ch;
+    letter-spacing: -0.01em;
+  }
 
   /* ─── Label row ─── */
   .label-row {
@@ -277,6 +286,16 @@ const sections = (sectionsData.sections || []).map((s: any, i: number) => {
     max-width: 48ch;
   }
   .split-p:last-child { margin-bottom: 0; }
+  :global(.split-p) {
+    font-size: var(--text-sm);
+    font-weight: var(--section-text-weight, 400);
+    font-style: var(--section-text-style, normal);
+    color: var(--section-color, var(--c-muted));
+    line-height: 1.9;
+    margin-bottom: 1.5rem;
+    max-width: 48ch;
+  }
+  :global(.split-p:last-child) { margin-bottom: 0; }
 
   /* ─── Agence carousel ─── */
   .acarousel {
