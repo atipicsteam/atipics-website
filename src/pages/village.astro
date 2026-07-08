@@ -27,7 +27,8 @@ const bandeauIntroStyle = styleMap[bandeauData.intro_style] || 'normal';
 const bandeauVillage = bandeauData.bandeau_image ? optimizePath(`/images/${bandeauData.bandeau_image}`) : optimizePath("/images/droneImageBandeau.jpg");
 const bandeauLabel   = bandeauData.bandeau_label || "Le Village";
 const bandeauTitre   = bandeauData.bandeau_titre || "Village Atipics";
-const intro          = bandeauData.intro         || [{ type: "paragraph", children: [{ text: "Un écosystème complet réunissant sous un même toit tous les outils et les expertises nécessaires à vos projets les plus ambitieux — entrepôt, studio de création et atelier de restauration." }] }];
+const intro          = bandeauData.intro;
+const hasIntro       = intro && Array.isArray(intro) && intro.some((node: any) => node?.children?.some((child: any) => (child.text || '').trim() !== ''));
 const formIntro      = bandeauData.form_intro    || [{ type: "paragraph", children: [{ text: "Vous souhaitez visiter le Village, collaborer avec nous ou en savoir plus sur nos espaces ? Remplissez le formulaire ci-dessous, nous reviendrons vers vous rapidement." }] }];
 
 const fallbackImgs = ["/images/projet1.jpg", "/images/projet2.webp", "/images/projet3.jpg"];
@@ -68,12 +69,13 @@ const espaces = (sectionsData.sections || []).map((s: any, i: number) => {
       </div>
     </section>
 
-    <!-- Intro -->
-    <section class="intro-section" style={`--intro-weight:${bandeauIntroStyle === 'bold' ? '600' : '300'};--intro-style:${bandeauIntroStyle === 'italic' ? 'italic' : 'normal'}`}>
-      <div class="container">
-        <RichText document={intro} className="intro-desc" />
-      </div>
-    </section>
+    {hasIntro && (
+      <section class="intro-section" style={`--intro-weight:${bandeauIntroStyle === 'bold' ? '600' : '300'};--intro-style:${bandeauIntroStyle === 'italic' ? 'italic' : 'normal'}`}>
+        <div class="container">
+          <RichText document={intro} className="intro-desc" />
+        </div>
+      </section>
+    )}
 
     <!-- Espaces — alternance photo/texte -->
     {espaces.map((e) => (

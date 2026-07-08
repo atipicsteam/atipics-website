@@ -12,7 +12,8 @@ import { optimizePath } from "../lib/image";
 const bandeauAgence = bandeauData.bandeau_image ? optimizePath(`/images/${bandeauData.bandeau_image}`) : optimizePath("/images/projet1.jpg");
 const bandeauLabel = bandeauData.bandeau_label || "L'Agence";
 const bandeauTitre = bandeauData.bandeau_titre || "Atipics";
-const intro = bandeauData.intro || "Ressourcerie éclectique et polyvalente — dix ans de savoir-faire au service de projets singuliers, pour particuliers, collectionneurs et professionnels.";
+const intro = bandeauData.intro;
+const hasIntro = intro && Array.isArray(intro) && intro.some((node: any) => node?.children?.some((child: any) => (child.text || '').trim() !== ''));
 
 const styleMap: Record<string, string> = {
   normal: 'normal',
@@ -65,12 +66,13 @@ const sections = (sectionsData.sections || []).map((s: any, i: number) => {
       </div>
     </section>
 
-    <!-- Intro -->
-    <section class="intro-section" style={`--intro-weight:${bandeauIntroStyle === 'bold' ? '600' : '300'};--intro-style:${bandeauIntroStyle === 'italic' ? 'italic' : 'normal'}`}>
-      <div class="container">
-        <RichText document={intro} className="intro-desc" />
-      </div>
-    </section>
+    {hasIntro && (
+      <section class="intro-section" style={`--intro-weight:${bandeauIntroStyle === 'bold' ? '600' : '300'};--intro-style:${bandeauIntroStyle === 'italic' ? 'italic' : 'normal'}`}>
+        <div class="container">
+          <RichText document={intro} className="intro-desc" />
+        </div>
+      </section>
+    )}
 
     <!-- Sections dynamiques -->
     {sections.map((s) => {
