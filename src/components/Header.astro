@@ -1,13 +1,32 @@
 ---
 import parametres from "../content/parametres/index.json";
+import navData from "../content/navigation/index.json";
+import { FONTS } from "../layouts/Layout.astro";
 
 const name = parametres.nom_site || "ATIPICS";
-const rawNav = import.meta.glob('../content/nav/*.json', { eager: true });
-let navItems = Object.values(rawNav).map((mod: any) => mod.default || mod).sort((a: any, b: any) => a.sort - b.sort);
+const navItems = navData.items || [];
 const currentPath = Astro.url.pathname;
+
+const navFontKey = navData.font && navData.font !== 'inherit' && FONTS[navData.font]
+  ? navData.font
+  : null;
+const navFont = navFontKey ? FONTS[navFontKey].family : null;
+const navFontUrl = navFontKey ? FONTS[navFontKey].url : null;
+const navColor = navData.text_color || null;
+
+const styleMap: Record<string, string> = {
+  normal: 'normal',
+  bold: 'bold',
+  italic: 'italic',
+};
+const logoStyle = styleMap[navData.logo_style] || 'bold';
+const linksStyle = styleMap[navData.links_style] || 'normal';
+const sublinksStyle = styleMap[navData.sublinks_style] || 'normal';
 ---
 
-<header class="header" id="top">
+{navFontUrl && <link rel="stylesheet" href={navFontUrl} />}
+
+<header class="header" id="top" style={`${navFont ? `font-family: ${navFont};` : ''}${navColor ? `color: ${navColor};` : ''}--nav-logo-weight:${logoStyle === 'bold' ? '700' : '400'};--nav-logo-style:${logoStyle === 'italic' ? 'italic' : 'normal'};--nav-links-weight:${linksStyle === 'bold' ? '700' : '400'};--nav-links-style:${linksStyle === 'italic' ? 'italic' : 'normal'};--nav-sublinks-weight:${sublinksStyle === 'bold' ? '700' : '400'};--nav-sublinks-style:${sublinksStyle === 'italic' ? 'italic' : 'normal'}`}>
   <div class="header__inner">
     <a href="/" class="header__logo">{name}</a>
 
@@ -145,7 +164,8 @@ const currentPath = Astro.url.pathname;
 
   .header__logo {
     font-size: var(--text-lg);
-    font-weight: 700;
+    font-weight: var(--nav-logo-weight, 700);
+    font-style: var(--nav-logo-style, normal);
     letter-spacing: 0.1em;
     flex-shrink: 0;
     transition: color 0.2s;
@@ -166,9 +186,10 @@ const currentPath = Astro.url.pathname;
   .nav__link {
     display: inline-block;
     font-size: var(--text-sm);
-    font-weight: 500;
+    font-weight: var(--nav-links-weight, 500);
+    font-style: var(--nav-links-style, normal);
     letter-spacing: 0.02em;
-    color: var(--c-muted);
+    color: inherit;
     white-space: nowrap;
     padding-block: 0.25rem;
     border-bottom: 1px solid transparent;
@@ -222,7 +243,9 @@ const currentPath = Astro.url.pathname;
     padding: 0.55rem var(--sp-sm);
     padding-left: calc(var(--sp-sm) + 3px);
     font-size: var(--text-sm);
-    color: var(--c-muted);
+    font-weight: var(--nav-sublinks-weight, normal);
+    font-style: var(--nav-sublinks-style, normal);
+    color: inherit;
     border-left: 3px solid transparent;
     transition: color 0.15s, background 0.15s, border-color 0.15s;
     white-space: nowrap;
@@ -288,7 +311,6 @@ const currentPath = Astro.url.pathname;
       border-bottom: 1px solid var(--c-border);
       width: 100%;
       justify-content: space-between;
-      color: var(--c-text);
     }
 
     .nav__sub {

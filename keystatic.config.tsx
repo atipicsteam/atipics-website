@@ -16,7 +16,8 @@ export default config({
     navigation: {
       'Contenu Principal': ['projets', 'journal', 'carousel'],
       'Pages': ['agence_page', 'savoir_faire_page', 'village_page', 'contact_page'],
-      'Configuration': ['parametres', 'theme', 'nav_principale', 'footer'],
+      'Navigation': ['navigation'],
+      'Configuration': ['parametres', 'theme', 'footer'],
     }
   },
   collections: {
@@ -56,24 +57,6 @@ export default config({
         ),
       },
     }),
-    nav_principale: collection({
-      label: 'Navigation Principale',
-      slugField: 'label',
-      path: 'src/content/nav/*',
-      format: { data: 'json' },
-      schema: {
-        label: fields.text({ label: 'Label' }),
-        href: fields.text({ label: 'Lien' }),
-        sort: fields.integer({ label: 'Ordre' }),
-        sub: fields.array(
-          fields.object({
-            label: fields.text({ label: 'Label' }),
-            href: fields.text({ label: 'Lien' }),
-          }),
-          { label: 'Sous-menus', itemLabel: props => props.fields.label.value }
-        ),
-      },
-    }),
     journal: collection({
       label: 'Journal',
       slugField: 'title',
@@ -94,6 +77,71 @@ export default config({
     }),
   },
   singletons: {
+    navigation: singleton({
+      label: 'Navigation',
+      path: 'src/content/navigation/index',
+      format: { data: 'json' },
+      schema: {
+        items: fields.array(
+          fields.object({
+            label: fields.text({ label: 'Label' }),
+            href: fields.text({ label: 'Lien' }),
+            sub: fields.array(
+              fields.object({
+                label: fields.text({ label: 'Label' }),
+                href: fields.text({ label: 'Lien' }),
+              }),
+              { label: 'Sous-menus', itemLabel: props => props.fields.label.value || 'Nouveau sous-menu' }
+            ),
+          }),
+          { label: 'Liens de navigation', itemLabel: props => props.fields.label.value || 'Nouveau lien' }
+        ),
+        text_color: fields.text({ label: 'Couleur du texte', defaultValue: '#888884', description: 'Couleur des liens de navigation' }),
+        font: fields.select({
+          label: 'Police de la navigation',
+          description: 'Police indépendante du reste du site',
+          options: [
+            { label: 'Hériter du site', value: 'inherit' },
+            { label: 'Helvetica', value: 'helvetica' },
+            { label: 'Inter', value: 'inter' },
+            { label: 'Playfair Display', value: 'playfair' },
+            { label: 'Cormorant Garamond', value: 'cormorant' },
+            { label: 'DM Sans', value: 'dm-sans' },
+            { label: 'Josefin Sans', value: 'josefin' },
+            { label: 'Manrope', value: 'manrope' },
+            { label: 'EB Garamond', value: 'eb-garamond' },
+          ],
+          defaultValue: 'inherit',
+        }),
+        logo_style: fields.select({
+          label: 'Style du logo',
+          options: [
+            { label: 'Normal', value: 'normal' },
+            { label: 'Gras', value: 'bold' },
+            { label: 'Italique', value: 'italic' },
+          ],
+          defaultValue: 'bold',
+        }),
+        links_style: fields.select({
+          label: 'Style des liens principaux',
+          options: [
+            { label: 'Normal', value: 'normal' },
+            { label: 'Gras', value: 'bold' },
+            { label: 'Italique', value: 'italic' },
+          ],
+          defaultValue: 'normal',
+        }),
+        sublinks_style: fields.select({
+          label: 'Style des sous-liens',
+          options: [
+            { label: 'Normal', value: 'normal' },
+            { label: 'Gras', value: 'bold' },
+            { label: 'Italique', value: 'italic' },
+          ],
+          defaultValue: 'normal',
+        }),
+      }
+    }),
     parametres: singleton({
       label: 'Paramètres du site',
       path: 'src/content/parametres/index',
@@ -302,7 +350,51 @@ export default config({
             href: fields.text({ label: 'URL' }),
           }),
           { label: 'Liens rapides', itemLabel: props => props.fields.label.value || 'Nouveau lien' }
-        )
+        ),
+        text_color: fields.text({ label: 'Couleur du texte', defaultValue: '#888884', description: 'Couleur principale du texte du pied de page' }),
+        font: fields.select({
+          label: 'Police du pied de page',
+          description: 'Police indépendante du reste du site',
+          options: [
+            { label: 'Hériter du site', value: 'inherit' },
+            { label: 'Helvetica', value: 'helvetica' },
+            { label: 'Inter', value: 'inter' },
+            { label: 'Playfair Display', value: 'playfair' },
+            { label: 'Cormorant Garamond', value: 'cormorant' },
+            { label: 'DM Sans', value: 'dm-sans' },
+            { label: 'Josefin Sans', value: 'josefin' },
+            { label: 'Manrope', value: 'manrope' },
+            { label: 'EB Garamond', value: 'eb-garamond' },
+          ],
+          defaultValue: 'inherit',
+        }),
+        links_style: fields.select({
+          label: 'Style des liens',
+          options: [
+            { label: 'Normal', value: 'normal' },
+            { label: 'Gras', value: 'bold' },
+            { label: 'Italique', value: 'italic' },
+          ],
+          defaultValue: 'normal',
+        }),
+        copyright_style: fields.select({
+          label: 'Style du copyright',
+          options: [
+            { label: 'Normal', value: 'normal' },
+            { label: 'Gras', value: 'bold' },
+            { label: 'Italique', value: 'italic' },
+          ],
+          defaultValue: 'normal',
+        }),
+        lang_style: fields.select({
+          label: 'Style du sélecteur de langue',
+          options: [
+            { label: 'Normal', value: 'normal' },
+            { label: 'Gras', value: 'bold' },
+            { label: 'Italique', value: 'italic' },
+          ],
+          defaultValue: 'normal',
+        }),
       }
     }),
   },

@@ -13,5 +13,10 @@
       "label": "Contact",
       "href": "/contact"
     }
-  ]
+  ],
+  "text_color": "#888884",
+  "font": "inherit",
+  "links_style": "normal",
+  "copyright_style": "normal",
+  "lang_style": "normal"
 }
