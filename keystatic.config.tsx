@@ -3,8 +3,10 @@ import React from 'react';
 
 export default config({
   storage: {
-    kind: 'github',
-    repo: 'atipicsteam/atipics-website',
+    kind: 'cloud',
+  },
+  cloud: {
+    project: 'atipics/atipics-website',
   },
   ui: {
     brand: { 
