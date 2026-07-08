@@ -5,7 +5,7 @@ import keystatic from '@keystatic/astro';
 import vercel from '@astrojs/vercel';
 
 export default defineConfig({
-    output: 'server',
+    output: 'static',
     adapter: vercel(),
     integrations: [react(), markdoc(), keystatic()],
 });
