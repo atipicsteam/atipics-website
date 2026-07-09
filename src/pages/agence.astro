@@ -36,7 +36,7 @@ const sections = (sectionsData.sections || []).map((s: any, i: number) => {
     slug: s.title ? s.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') : `section-${i}`,
     label: s.label || '',
     titre: s.title || '',
-    paragraphes: (s.paragraphs || []).filter(Boolean),
+    content: s.content || [],
     reverse: i % 2 === 1,
     fallbackImg: i % 2 === 0 ? "/images/projet2.webp" : "/images/projet3.jpg",
     images: (s.images || []).map((src: string) => optimizePath(src.startsWith('/images/') ? src : `/images/${src}`)),
@@ -77,7 +77,7 @@ const sections = (sectionsData.sections || []).map((s: any, i: number) => {
     <!-- Sections dynamiques -->
     {sections.map((s) => {
       const imgs = s.images ?? [];
-      const paragraphes = s.paragraphes;
+      const content = s.content;
       return (
         <section class:list={["split-block", { "split-block--alt": s.reverse }]} id={s.slug} style={`${s.font ? `font-family: ${s.font};` : ''}--section-color:${s.color};--section-label-weight:${s.labelStyle === 'bold' ? '700' : '400'};--section-label-style:${s.labelStyle === 'italic' ? 'italic' : 'normal'};--section-titre-weight:${s.titreStyle === 'bold' ? '700' : '200'};--section-titre-style:${s.titreStyle === 'italic' ? 'italic' : 'normal'};--section-text-weight:${s.textStyle === 'bold' ? '600' : '400'};--section-text-style:${s.textStyle === 'italic' ? 'italic' : 'normal'}`}>
           {s.fontUrl && <link rel="stylesheet" href={s.fontUrl} />}
@@ -113,9 +113,7 @@ const sections = (sectionsData.sections || []).map((s: any, i: number) => {
               )}
               <div class="split-text">
                 <h2 class="split-title" set:html={s.titre} />
-                {paragraphes.map((p) => (
-                  <RichText document={p} className="split-p" />
-                ))}
+                {content && <RichText document={content} className="split-p" />}
               </div>
               {!s.reverse && (
                 <div class="split-img-col">

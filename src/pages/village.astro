@@ -39,7 +39,7 @@ const espaces = (sectionsData.sections || []).map((s: any, i: number) => {
     slug: s.title ? s.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') : `section-${i}`,
     label: s.label || '',
     title: s.title || '',
-    paragraphs: (s.paragraphs || []).filter(Boolean),
+    content: s.content || [],
     images: (s.images || []).map((src: string) => optimizePath(src.startsWith('/images/') ? src : `/images/${src}`)),
     fallbackImg: fallbackImgs[i % fallbackImgs.length],
     reverse: i % 2 === 1,
@@ -115,9 +115,7 @@ const espaces = (sectionsData.sections || []).map((s: any, i: number) => {
             </div>
             <div class="espace__text-col">
               <h2 class="espace__title">{e.title}</h2>
-              {e.paragraphs.map((p: any) => (
-                <RichText document={p} className="espace__p" />
-              ))}
+              {e.content && <RichText document={e.content} className="espace__p" />}
             </div>
           </div>
         </div>

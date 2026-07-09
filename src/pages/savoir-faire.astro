@@ -46,7 +46,7 @@ const expertises = (sectionsData.sections || []).map((s: any, i: number) => {
     label: s.label || '',
     title: s.title || '',
     intro: s.intro || [],
-    body: (s.paragraphs || []).filter(Boolean),
+    content: s.content || [],
     images: (s.images || []).map((src: string) => optimizePath(src.startsWith('/images/') ? src : `/images/${src}`)),
     fallbackImages: fallbackSets[i % fallbackSets.length],
     font: fontKey ? FONTS[fontKey].family : null,
@@ -89,7 +89,7 @@ const expertises = (sectionsData.sections || []).map((s: any, i: number) => {
             <div class="expertise-text">
               <h2 class="expertise-title">{e.title}</h2>
               <RichText document={e.intro} className="expertise-intro" />
-              {e.body.map((p: any) => <RichText document={p} className="expertise-p" />)}
+              {e.content && <RichText document={e.content} className="expertise-p" />}
             </div>
             <div class="expertise-carousel" data-carousel>
               <div class="ecarousel__track" data-track>

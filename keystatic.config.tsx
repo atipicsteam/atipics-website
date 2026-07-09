@@ -239,10 +239,7 @@ export default config({
           fields.object({
             label: fields.text({ label: 'Label' }),
             title: fields.text({ label: 'Titre' }),
-            paragraphs: fields.array(
-              fields.document({ label: 'Paragraphe', formatting: { inlineMarks: { bold: true, italic: true } } }),
-              { label: 'Paragraphes', itemLabel: props => 'Paragraphe' }
-            ),
+            content: fields.document({ label: 'Contenu', formatting: { inlineMarks: { bold: true, italic: true } } }),
             images: fields.array(
               fields.image({ label: 'Image', directory: 'public/images/agence', publicPath: '/images/agence/' }),
               { label: 'Images', itemLabel: props => 'Image' }
@@ -363,10 +360,7 @@ export default config({
             label: fields.text({ label: 'Label' }),
             title: fields.text({ label: 'Titre' }),
             intro: fields.document({ label: 'Introduction', formatting: { inlineMarks: { bold: true, italic: true } } }),
-            paragraphs: fields.array(
-              fields.document({ label: 'Paragraphe', formatting: { inlineMarks: { bold: true, italic: true } } }),
-              { label: 'Paragraphes', itemLabel: props => 'Paragraphe' }
-            ),
+            content: fields.document({ label: 'Contenu', formatting: { inlineMarks: { bold: true, italic: true } } }),
             images: fields.array(
               fields.image({ label: 'Image', directory: 'public/images/savoir', publicPath: '/images/savoir/' }),
               { label: 'Images', itemLabel: props => 'Image' }
@@ -489,10 +483,7 @@ export default config({
           fields.object({
             label: fields.text({ label: 'Label' }),
             title: fields.text({ label: 'Titre' }),
-            paragraphs: fields.array(
-              fields.document({ label: 'Paragraphe', formatting: { inlineMarks: { bold: true, italic: true } } }),
-              { label: 'Paragraphes', itemLabel: props => 'Paragraphe' }
-            ),
+            content: fields.document({ label: 'Contenu', formatting: { inlineMarks: { bold: true, italic: true } } }),
             images: fields.array(
               fields.image({ label: 'Image', directory: 'public/images/village', publicPath: '/images/village/' }),
               { label: 'Images', itemLabel: props => 'Image' }
