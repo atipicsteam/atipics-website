@@ -79,6 +79,36 @@
           ]
         }
       ]
+    },
+    {
+      "label": "test",
+      "title": "testt",
+      "images": [
+        "/images/agence/sections/2/images/0.webp"
+      ],
+      "text_color": "#1A1A18",
+      "font": "josefin",
+      "label_style": "italic",
+      "title_style": "italic",
+      "text_style": "italic",
+      "content": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "azeazeazeazeazezaeaze"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "gdfgdfgfdgdfgdfgfdgfdgfdgdfgfdgdfgdfgdfgfdgdfgdfgfdgfdgfdgdfgfdgdfgfdgdfgdfgdfggdfgdfgfdgdfgdfgfdgfdgfdgdfgfdgdfgfdgdfgdfgdfggdfgdfgfdgdfgdfgfdgfdgfdgdfgfdgdfgfdgdfgdfgdfggdfgdfgfdgdfgdfgfdgfdgfdgdfgfdgdfgfdgdfgdfgdfggfdgdfgdfgdfg"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
