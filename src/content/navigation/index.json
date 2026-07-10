@@ -1,7 +1,7 @@
 {
   "items": [
     {
-      "label": "Agence Atipics",
+      "label": "AGENCE ATIPICS",
       "href": "/agence",
       "sub": [
         {
@@ -15,33 +15,29 @@
       ]
     },
     {
-      "label": "Savoir Faire",
+      "label": "SAVOIR FAIRE",
       "href": "/savoir-faire",
       "sub": [
         {
-          "label": "Curation et Sourcing",
+          "label": "CURATION ET SOURCING",
           "href": "/savoir-faire#curation"
         },
         {
-          "label": "Conciergerie et Propriété",
+          "label": "CONCIERGERIE ET PROPRIETE ",
           "href": "/savoir-faire#conciergerie"
         },
         {
-          "label": "Events et Scénographie",
+          "label": "EVENTS ET SCENOGRAPHIE",
           "href": "/savoir-faire#events"
         },
         {
-          "label": "Intendance et Logistique",
-          "href": "/savoir-faire#intendance"
-        },
-        {
-          "label": "Valorisation de Collections",
-          "href": "/savoir-faire#valorisation"
+          "label": "LOGISTIQUE ET VALORISATION",
+          "href": "/savoir-faire#logistique"
         }
       ]
     },
     {
-      "label": "Village Atipics",
+      "label": "VILLAGE ATIPICS",
       "href": "/village",
       "sub": [
         {
@@ -59,8 +55,8 @@
       ]
     }
   ],
-  "text_color": "#888884",
-  "font": "inherit",
+  "text_color": "#081881",
+  "font": "manrope",
   "logo_style": "bold",
   "links_style": "normal",
   "sublinks_style": "normal"
