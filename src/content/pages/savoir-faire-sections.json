@@ -2,193 +2,48 @@
   "sections": [
     {
       "label": "CURATION ET SOURCING",
-      "title": "",
-      "intro": [
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "L'art de trouver ce qui n'existe pas encore sur le marché."
-            }
-          ]
-        }
-      ],
       "images": [],
-      "text_color": "#1A1A18",
-      "font": "inherit",
-      "label_style": "bold",
-      "title_style": "normal",
-      "text_style": "normal",
-      "content": [
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "L'art de trouver ce qui n'existe pas encore sur le marché.\n\nNotre mission de curation va bien au-delà de la simple sélection. Nous fouillons marchés, ventes aux enchères, ateliers d'artisans et collections privées pour dénicher les pièces qui feront la différence dans votre projet."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "Mobilier ancien et contemporain, objets de curiosité, textiles rares, œuvres d'art — notre regard transversal nous permet d'assembler des univers cohérents et singuliers, porteurs d'une identité forte."
-            }
-          ]
-        }
-      ]
+      "text_color": "#081881",
+      "font": "eb-garamond",
+      "label_style": "italic",
+      "title_style": "italic",
+      "text_style": "italic"
     },
     {
-      "label": "",
       "title": "Conciergerie et Propriété",
-      "intro": [
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "Un interlocuteur unique pour la gestion complète de votre patrimoine."
-            }
-          ]
-        }
-      ],
       "images": [],
       "text_color": "#1A1A18",
       "font": "inherit",
       "label_style": "bold",
       "title_style": "normal",
-      "text_style": "normal",
-      "content": [
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "Nous prenons en charge la gestion de vos espaces et de vos biens avec la même exigence que si c'était les nôtres. De l'entretien courant à la coordination de travaux, nous orchestrons chaque détail."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "Disponibles, réactifs et discrets, nous sommes votre relais de confiance sur place, garantissant que votre propriété est toujours dans un état impeccable."
-            }
-          ]
-        }
-      ]
+      "text_style": "normal"
     },
     {
-      "label": "",
       "title": "Events et Scénographie",
-      "intro": [
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "Transformer un espace en expérience mémorable."
-            }
-          ]
-        }
-      ],
       "images": [],
       "text_color": "#1A1A18",
       "font": "inherit",
       "label_style": "bold",
       "title_style": "normal",
-      "text_style": "normal",
-      "content": [
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "Chaque événement est une opportunité de raconter une histoire. Nous concevons des scénographies qui mêlent mobilier, lumière, matière et narration pour créer des atmosphères inoubliables."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "Soirées privées, lancements de marque, expositions, salons — notre équipe maîtrise toutes les échelles et tous les types de configurations, des plus intimes aux plus spectaculaires."
-            }
-          ]
-        }
-      ]
+      "text_style": "normal"
     },
     {
-      "label": "",
       "title": "Intendance et Logistique",
-      "intro": [
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "Les coulisses parfaites pour que l'essentiel brille."
-            }
-          ]
-        }
-      ],
       "images": [],
       "text_color": "#1A1A18",
       "font": "inherit",
       "label_style": "bold",
       "title_style": "normal",
-      "text_style": "normal",
-      "content": [
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "La logistique est souvent le parent pauvre des projets ambitieux. Chez Atipics, nous en avons fait une spécialité. Transport, emballage, stockage, installation — nous gérons l'invisible pour que le visible soit irréprochable."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "Notre réseau de transporteurs spécialisés, d'emballeurs experts et de techniciens d'installation garantit que chaque pièce arrive à destination dans les conditions idéales."
-            }
-          ]
-        }
-      ]
+      "text_style": "normal"
     },
     {
-      "label": "",
       "title": "Valorisation de Collections",
-      "intro": [
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "Révéler le potentiel de ce que vous possédez déjà."
-            }
-          ]
-        }
-      ],
       "images": [],
       "text_color": "#1A1A18",
       "font": "inherit",
       "label_style": "bold",
       "title_style": "normal",
-      "text_style": "normal",
-      "content": [
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "Vous possédez une collection, un héritage, un ensemble de pièces dont vous ne savez que faire ? Nous intervenons pour inventorier, expertiser, documenter et valoriser ce patrimoine."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "Qu'il s'agisse de le mettre en scène dans votre intérieur, de le proposer à la vente dans les meilleures conditions ou de le transmettre, nous vous accompagnons à chaque étape avec rigueur et passion."
-            }
-          ]
-        }
-      ]
+      "text_style": "normal"
     }
   ]
 }
