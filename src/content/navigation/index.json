@@ -41,16 +41,8 @@
       "href": "/village",
       "sub": [
         {
-          "label": "Entrepôt",
+          "label": "Entrepôt & Studio Design",
           "href": "/village#entrepot"
-        },
-        {
-          "label": "Studio Design",
-          "href": "/village#studiodesign"
-        },
-        {
-          "label": "Atelier",
-          "href": "/village#atelier"
         }
       ]
     }
