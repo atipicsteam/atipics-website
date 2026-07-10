@@ -2,6 +2,8 @@
   "bandeau_image": "/images/pages/bandeau_image.webp",
   "bandeau_label": "L'Agence",
   "bandeau_titre": "Atipics",
+  "intro": [],
+  "text_color": "#ffffff",
   "font": "inter",
   "intro_style": "normal",
   "label_color": "#fff",

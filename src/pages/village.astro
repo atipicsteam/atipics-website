@@ -25,7 +25,9 @@ const bandeauLabelStyle = styleMap[bandeauData.label_style] || 'bold';
 const bandeauTitreStyle = styleMap[bandeauData.titre_style] || 'normal';
 const bandeauIntroStyle = styleMap[bandeauData.intro_style] || 'normal';
 
-const bandeauVillage = bandeauData.bandeau_image ? optimizePath(`/images/${bandeauData.bandeau_image}`) : optimizePath("/images/droneImageBandeau.jpg");
+const bandeauVillage = bandeauData.bandeau_image
+  ? optimizePath(bandeauData.bandeau_image.startsWith('/images/') ? bandeauData.bandeau_image : `/images/${bandeauData.bandeau_image}`)
+  : optimizePath("/images/droneImageBandeau.jpg");
 const bandeauLabel   = bandeauData.bandeau_label || "Le Village";
 const bandeauTitre   = bandeauData.bandeau_titre || "Village Atipics";
 const intro          = bandeauData.intro;

@@ -9,7 +9,9 @@ import RichText from "../components/RichText.tsx";
 import { FONTS } from "../layouts/Layout.astro";
 import { optimizePath } from "../lib/image";
 
-const bandeauAgence = bandeauData.bandeau_image ? optimizePath(`/images/${bandeauData.bandeau_image}`) : optimizePath("/images/projet1.jpg");
+const bandeauAgence = bandeauData.bandeau_image
+  ? optimizePath(bandeauData.bandeau_image.startsWith('/images/') ? bandeauData.bandeau_image : `/images/${bandeauData.bandeau_image}`)
+  : optimizePath("/images/projet1.jpg");
 const bandeauLabel = bandeauData.bandeau_label || "L'Agence";
 const bandeauTitre = bandeauData.bandeau_titre || "Atipics";
 const intro = bandeauData.intro;
