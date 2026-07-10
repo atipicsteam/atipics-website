@@ -4,6 +4,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import bandeauData from "../content/pages/savoir-faire-bandeau.json";
 import sectionsData from "../content/pages/savoir-faire-sections.json";
+import contactData from "../content/pages/savoir-faire-contact.json";
 import parametres from "../content/parametres/index.json";
 import RichText from "../components/RichText.tsx";
 import { FONTS } from "../layouts/Layout.astro";
@@ -27,9 +28,10 @@ const bandeauSousTitreStyle = styleMap[bandeauData.sous_titre_style] || 'normal'
 const pageLabel    = bandeauData.page_label     || "EXPERTISES";
 const pageTitre    = bandeauData.page_titre     || "Savoir Faire";
 const pageSousTitre = bandeauData.page_sous_titre || "Cinq domaines d'expertise complémentaires, un fil conducteur : l'exigence et la passion du travail bien fait.";
-const formTitre    = bandeauData.form_titre     || "Parlons de votre projet";
-const formIntro1   = bandeauData.form_intro_1   || [{ type: "paragraph", children: [{ text: "Vous avez un besoin précis — sourcing, scénographie, logistique, valorisation de collection ? Décrivez-nous votre mission et nous reviendrons vers vous avec une proposition adaptée." }] }];
-const formIntro2   = bandeauData.form_intro_2   || [{ type: "paragraph", children: [{ text: "Ce formulaire est dédié aux demandes de prestation et de collaboration. Pour une visite du Village ou une question générale, utilisez le formulaire de contact." }] }];
+const formLabel    = contactData.section_label  || "CONFIER UNE MISSION";
+const formTitre    = contactData.form_titre     || "Parlons de votre projet";
+const formIntro1   = contactData.form_intro_1   || [{ type: "paragraph", children: [{ text: "Vous avez un besoin précis — sourcing, scénographie, logistique, valorisation de collection ? Décrivez-nous votre mission et nous reviendrons vers vous avec une proposition adaptée." }] }];
+const formIntro2   = contactData.form_intro_2   || [{ type: "paragraph", children: [{ text: "Ce formulaire est dédié aux demandes de prestation et de collaboration. Pour une visite du Village ou une question générale, utilisez le formulaire de contact." }] }];
 
 const fallbackSets = [
   ["/images/projet1.jpg", "/images/projet2.webp", "/images/projet3.jpg"],
@@ -120,7 +122,7 @@ const expertises = (sectionsData.sections || []).map((s: any, i: number) => {
     <section class="form-section">
       <div class="container">
         <div class="label-row">
-          <span class="section-stamp">CONFIER UNE MISSION</span>
+          <span class="section-stamp">{formLabel}</span>
           <div class="rule"></div>
         </div>
         <div class="form-layout">

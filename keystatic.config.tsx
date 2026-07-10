@@ -17,8 +17,8 @@ export default config({
       'Page d\'accueil': ['navigation', 'carousel', 'footer'],
       'Agence Atipics': ['agence_bandeau', 'agence_sections'],
       'Contenu Principal': ['projets', 'journal'],
-      'Savoir Faire': ['savoir_faire_bandeau', 'savoir_faire_sections'],
-      'Village': ['village_bandeau', 'village_sections'],
+      'Savoir Faire': ['savoir_faire_bandeau', 'savoir_faire_sections', 'savoir_faire_contact'],
+      'Village': ['village_bandeau', 'village_sections', 'village_contact'],
       'Contact': ['contact_page'],
       'Configuration': ['parametres', 'theme'],
     }
@@ -301,9 +301,6 @@ export default config({
         page_label: fields.text({ label: 'Label de la page' }),
         page_titre: fields.text({ label: 'Titre de la page' }),
         page_sous_titre: fields.text({ label: 'Sous-titre' }),
-        form_titre: fields.text({ label: 'Titre du formulaire' }),
-        form_intro_1: fields.document({ label: 'Intro formulaire 1', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        form_intro_2: fields.document({ label: 'Intro formulaire 2', formatting: { inlineMarks: { bold: true, italic: true } } }),
         text_color: fields.text({ label: 'Couleur du texte', defaultValue: '#1A1A18', description: 'Couleur du texte du bandeau' }),
         font: fields.select({
           label: 'Police',
@@ -427,7 +424,6 @@ export default config({
         bandeau_label: fields.text({ label: 'Label du bandeau' }),
         bandeau_titre: fields.text({ label: 'Titre du bandeau' }),
         intro: fields.document({ label: 'Texte d\'introduction', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        form_intro: fields.document({ label: 'Intro formulaire', formatting: { inlineMarks: { bold: true, italic: true } } }),
         text_color: fields.text({ label: 'Couleur du texte du bandeau', defaultValue: '#ffffff', description: 'Couleur du texte sur le bandeau' }),
         font: fields.select({
           label: 'Police du bandeau',
@@ -535,6 +531,26 @@ export default config({
           }),
           { label: 'Sous-catégories', itemLabel: props => props.fields.title.value || props.fields.label.value || 'Nouvelle section' }
         ),
+      },
+    }),
+    savoir_faire_contact: singleton({
+      label: 'Section Contact',
+      path: 'src/content/pages/savoir-faire-contact',
+      format: { data: 'json' },
+      schema: {
+        section_label: fields.text({ label: 'Label de la section', defaultValue: 'CONFIER UNE MISSION' }),
+        form_titre: fields.text({ label: 'Titre du formulaire' }),
+        form_intro_1: fields.document({ label: 'Intro formulaire 1', formatting: { inlineMarks: { bold: true, italic: true } } }),
+        form_intro_2: fields.document({ label: 'Intro formulaire 2', formatting: { inlineMarks: { bold: true, italic: true } } }),
+      },
+    }),
+    village_contact: singleton({
+      label: 'Section Contact',
+      path: 'src/content/pages/village-contact',
+      format: { data: 'json' },
+      schema: {
+        section_label: fields.text({ label: 'Label de la section', defaultValue: 'CONTACT' }),
+        form_intro: fields.document({ label: 'Intro formulaire', formatting: { inlineMarks: { bold: true, italic: true } } }),
       },
     }),
     contact_page: singleton({

@@ -4,6 +4,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import bandeauData from "../content/pages/village-bandeau.json";
 import sectionsData from "../content/pages/village-sections.json";
+import contactData from "../content/pages/village-contact.json";
 import parametres from "../content/parametres/index.json";
 import RichText from "../components/RichText.tsx";
 import { FONTS } from "../layouts/Layout.astro";
@@ -29,7 +30,8 @@ const bandeauLabel   = bandeauData.bandeau_label || "Le Village";
 const bandeauTitre   = bandeauData.bandeau_titre || "Village Atipics";
 const intro          = bandeauData.intro;
 const hasIntro       = intro && Array.isArray(intro) && intro.some((node: any) => node?.children?.some((child: any) => (child.text || '').trim() !== ''));
-const formIntro      = bandeauData.form_intro    || [{ type: "paragraph", children: [{ text: "Vous souhaitez visiter le Village, collaborer avec nous ou en savoir plus sur nos espaces ? Remplissez le formulaire ci-dessous, nous reviendrons vers vous rapidement." }] }];
+const formLabel      = contactData.section_label || "CONTACT";
+const formIntro      = contactData.form_intro    || [{ type: "paragraph", children: [{ text: "Vous souhaitez visiter le Village, collaborer avec nous ou en savoir plus sur nos espaces ? Remplissez le formulaire ci-dessous, nous reviendrons vers vous rapidement." }] }];
 
 const fallbackImgs = ["/images/projet1.jpg", "/images/projet2.webp", "/images/projet3.jpg"];
 
@@ -126,7 +128,7 @@ const espaces = (sectionsData.sections || []).map((s: any, i: number) => {
     <section class="form-section" id="contact-village">
       <div class="container">
         <div class="form-label-row">
-          <span class="espace__section-label">CONTACT</span>
+          <span class="espace__section-label">{formLabel}</span>
           <div class="espace__rule"></div>
         </div>
         <div class="form-layout">
