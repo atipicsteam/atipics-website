@@ -1,28 +1,6 @@
 {
-  "page_label": "SAVOIR FAIRE",
   "page_titre": "Savoir Faire",
-  "page_sous_titre": "Plusieurs domaines d'expertise complémentaires, un fil conducteur : l'exigence et la passion du travail bien fait.",
   "form_titre": "Parlons de votre projet",
-  "form_intro_1": [
-    {
-      "type": "paragraph",
-      "children": [
-        {
-          "text": "Vous avez un besoin précis — sourcing, scénographie, logistique, valorisation de collection ? Décrivez-nous votre mission et nous reviendrons vers vous avec une proposition adaptée."
-        }
-      ]
-    }
-  ],
-  "form_intro_2": [
-    {
-      "type": "paragraph",
-      "children": [
-        {
-          "text": "Ce formulaire est dédié aux demandes de prestation et de collaboration. Pour une visite du Village ou une question générale, utilisez le formulaire de contact."
-        }
-      ]
-    }
-  ],
   "text_color": "#081881",
   "font": "manrope",
   "label_style": "bold",
