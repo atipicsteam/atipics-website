@@ -9,7 +9,7 @@ import RichText from "../components/RichText.tsx";
 const rdvTexte = contactPage.rdv_texte || "Les visites sont sur rendez-vous uniquement, du lundi au vendredi, de 10h à 17h.";
 const email    = parametres.email     || "contact@atipics.fr";
 const tel      = parametres.telephone || "+33 6 00 00 00 00";
-const adresse  = parametres.adresse   || "Village Atipics\nZone Artisanale\nFrance";
+const adresse  = parametres.adresse   || [{ type: "paragraph", children: [{ text: "Village Atipics" }] }];
 
 const form_tab_message = contactPage.form_tab_message || "Message";
 const form_tab_mission = contactPage.form_tab_mission || "Confier une mission";
@@ -153,7 +153,7 @@ const info_bouton_label = contactPage.info_bouton_label || "VISITER LE VILLAGE";
 
           <div class="info-block">
             <p class="info-label">{info_adresse_label}</p>
-            <p class="info-text" set:html={adresse.replace(/\n/g, "<br/>")} />
+            <RichText document={adresse} className="info-text" />
           </div>
 
           <a href="/village" class="info-btn">
