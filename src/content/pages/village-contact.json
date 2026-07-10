@@ -1,13 +1,4 @@
 {
   "section_label": "CONTACT",
-  "form_intro": [
-    {
-      "type": "paragraph",
-      "children": [
-        {
-          "text": "Vous souhaitez visiter le Village, collaborer avec nous ou en savoir plus sur nos espaces ? Remplissez le formulaire ci-dessous, nous reviendrons vers vous rapidement."
-        }
-      ]
-    }
-  ]
+  "form_intro": []
 }

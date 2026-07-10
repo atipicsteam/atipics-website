@@ -3,15 +3,6 @@
   "date": "2026-03-22",
   "dateLabel": "22 Mars 2026",
   "category": "SCÉNOGRAPHIE",
-  "excerpt": [
-    {
-      "type": "paragraph",
-      "children": [
-        {
-          "text": "Comment nous avons composé une atmosphère entre passé et présent pour un espace événementiel de la maison LVMH, en mêlant pièces vintage et mobilier contemporain."
-        }
-      ]
-    }
-  ],
+  "excerpt": [],
   "cover": "/images/projet2.webp"
 }

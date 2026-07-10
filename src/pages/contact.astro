@@ -2,9 +2,11 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import contactPage from "../content/pages/contact.json";
-import parametres from "../content/parametres/index.json";
 import RichText from "../components/RichText.tsx";
+import { reader } from "../lib/keystatic-reader";
+
+const contactPage = (await reader.singletons.contact_page.read({ resolveLinkedFiles: true })) ?? ({} as any);
+const parametres = (await reader.singletons.parametres.read({ resolveLinkedFiles: true })) ?? ({} as any);
 
 const rdvTexte = contactPage.rdv_texte || "Les visites sont sur rendez-vous uniquement, du lundi au vendredi, de 10h à 17h.";
 const email    = parametres.email     || "contact@atipics.fr";

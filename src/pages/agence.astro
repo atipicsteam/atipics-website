@@ -2,12 +2,14 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import bandeauData from "../content/pages/agence-bandeau.json";
-import sectionsData from "../content/pages/agence-sections.json";
-import parametres from "../content/parametres/index.json";
 import RichText from "../components/RichText.tsx";
 import { FONTS } from "../layouts/Layout.astro";
 import { optimizePath } from "../lib/image";
+import { reader } from "../lib/keystatic-reader";
+
+const bandeauData = (await reader.singletons.agence_bandeau.read({ resolveLinkedFiles: true })) ?? ({} as any);
+const sectionsData = (await reader.singletons.agence_sections.read({ resolveLinkedFiles: true })) ?? ({ sections: [] } as any);
+const parametres = (await reader.singletons.parametres.read({ resolveLinkedFiles: true })) ?? ({} as any);
 
 const bandeauAgence = bandeauData.bandeau_image
   ? optimizePath(bandeauData.bandeau_image.startsWith('/images/') ? bandeauData.bandeau_image : `/images/${bandeauData.bandeau_image}`)

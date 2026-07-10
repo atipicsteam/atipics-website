@@ -4,16 +4,7 @@
   "form_titre_message": "ENVOYER UN MESSAGE",
   "form_titre_mission": "CONFIER UNE MISSION",
   "info_rdv_label": "PRENDRE RENDEZ-VOUS",
-  "rdv_texte": [
-    {
-      "type": "paragraph",
-      "children": [
-        {
-          "text": "Les visites sont sur rendez-vous uniquement."
-        }
-      ]
-    }
-  ],
+  "rdv_texte": [],
   "info_email_label": "EMAIL",
   "info_tel_label": "TÉLÉPHONE",
   "info_adresse_label": "NOUS TROUVER",

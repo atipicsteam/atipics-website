@@ -3,8 +3,9 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Carousel from "../components/Carousel.astro";
 import Footer from "../components/Footer.astro";
-import parametres from "../content/parametres/index.json";
+import { reader } from "../lib/keystatic-reader";
 
+const parametres = (await reader.singletons.parametres.read({ resolveLinkedFiles: true })) ?? ({} as any);
 const descSource = parametres.description_site;
 const description = Array.isArray(descSource)
   ? descSource.map((node: any) => node?.children?.map((c: any) => c.text || '').join('')).join(' ')

@@ -2,12 +2,14 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import parametres from "../content/parametres/index.json";
 import RichText from "../components/RichText.tsx";
+import { reader } from "../lib/keystatic-reader";
 
-// Charger tous les articles générés par Keystatic
-const rawArticles = import.meta.glob('../content/journal/*.json', { eager: true });
-const articles = Object.values(rawArticles).map((mod: any) => mod.default).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+const parametres = (await reader.singletons.parametres.read({ resolveLinkedFiles: true })) ?? ({} as any);
+
+// Charger tous les articles générés par Keystatic (résout les champs richDoc externalisés en .mdoc)
+const rawArticles = await reader.collections.journal.all({ resolveLinkedFiles: true });
+const articles = rawArticles.map((a) => a.entry).sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
 ---
 
 <Layout title={`Journal — ${parametres.nom_site}`} description="Actualités, découvertes et réflexions de l'Agence Atipics">

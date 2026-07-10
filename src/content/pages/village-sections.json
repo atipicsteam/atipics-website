@@ -8,33 +8,7 @@
       "font": "inherit",
       "label_style": "bold",
       "title_style": "normal",
-      "text_style": "normal",
-      "content": [
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "Vaste espace de stockage, de tri et de curation, l'Entrepôt est le point de départ de toutes nos histoires. C'est ici que les pièces arrivent, sont répertoriées, nettoyées et préparées avant de prendre leur place dans un projet."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "Plus de 800 m² dédiés à la réception, au conditionnement et à la conservation d'un inventaire toujours renouvelé. Chaque centimètre carré est pensé pour le mouvement et la praticité."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "L'accès est possible sur rendez-vous pour les clients et partenaires souhaitant découvrir les pièces disponibles directement en entrepôt."
-            }
-          ]
-        }
-      ]
+      "content_style": "normal"
     },
     {
       "label": "STUDIO ATIPICS",
@@ -44,33 +18,7 @@
       "font": "inherit",
       "label_style": "bold",
       "title_style": "normal",
-      "text_style": "normal",
-      "content": [
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "Les objets ont une mémoire.\nUn meuble marqué par le temps, une matière brute travaillée par des mains expertes, une pièce que l'histoire a traversée — chacun porte en lui quelque chose d'irremplaçable. Notre travail est de le reconnaître, de le préserver, et de lui trouver la place qu'il mérite."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "Nous sourçons, restaurons et transformons des pièces d'exception pour des collections privées, des intérieurs exigeants et des projets qui refusent l'ordinaire. Chaque collaboration est conduite avec les artisans, les artistes et les experts qui maintiennent vivant le savoir-faire français. Elle est portée, de bout en bout, par un accompagnement qui ne lâche pas l'objet — de sa découverte jusqu'à sa juste place dans le monde, qu'il s'agisse d'une collection, d'un intérieur ou d'un moment.\n"
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "C'est cela, notre supplément d'âme — non pas l'objet seul, mais ce qu'il devient entre de bonnes mains."
-            }
-          ]
-        }
-      ]
+      "content_style": "normal"
     },
     {
       "label": "ATELIERS ATIPICS",
@@ -80,25 +28,7 @@
       "font": "inherit",
       "label_style": "bold",
       "title_style": "normal",
-      "text_style": "normal",
-      "content": [
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "Les ateliers Atipics sont le sanctuaire des savoir-faire manuels. Menuiserie, tapisserie, dorure, restauration — c'est ici que nos artisans partenaires interviennent pour redonner vie aux pièces qui ont besoin d'attention.\n\n"
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "Équipé de machines-outils professionnelles et organisé pour accueillir des artisans spécialisés en résidence, l'Atelier est le maillon essentiel entre la trouvaille brute et la pièce aboutie."
-            }
-          ]
-        }
-      ]
+      "content_style": "normal"
     }
   ]
 }

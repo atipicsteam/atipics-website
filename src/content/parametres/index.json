@@ -1,26 +1,8 @@
 {
   "nom_site": "ATIPICS",
-  "description_site": [
-    {
-      "type": "paragraph",
-      "children": [
-        {
-          "text": "Ressourcerie éclectique et polyvalente — 10 ans de savoir-faire"
-        }
-      ]
-    }
-  ],
+  "description_site": [],
   "email": "",
   "telephone": "",
-  "adresse": [
-    {
-      "type": "paragraph",
-      "children": [
-        {
-          "text": ""
-        }
-      ]
-    }
-  ],
+  "adresse": [],
   "font": "manrope"
 }

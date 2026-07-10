@@ -2,13 +2,15 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import bandeauData from "../content/pages/village-bandeau.json";
-import sectionsData from "../content/pages/village-sections.json";
-import contactData from "../content/pages/village-contact.json";
-import parametres from "../content/parametres/index.json";
 import RichText from "../components/RichText.tsx";
 import { FONTS } from "../layouts/Layout.astro";
 import { optimizePath } from "../lib/image";
+import { reader } from "../lib/keystatic-reader";
+
+const bandeauData = (await reader.singletons.village_bandeau.read({ resolveLinkedFiles: true })) ?? ({} as any);
+const sectionsData = (await reader.singletons.village_sections.read({ resolveLinkedFiles: true })) ?? ({ sections: [] } as any);
+const contactData = (await reader.singletons.village_contact.read({ resolveLinkedFiles: true })) ?? ({} as any);
+const parametres = (await reader.singletons.parametres.read({ resolveLinkedFiles: true })) ?? ({} as any);
 
 const styleMap: Record<string, string> = {
   normal: 'normal',
@@ -52,7 +54,7 @@ const espaces = (sectionsData.sections || []).map((s: any, i: number) => {
     color: s.text_color || '#1A1A18',
     labelStyle: styleMap[s.label_style] || 'bold',
     titreStyle: styleMap[s.title_style] || 'normal',
-    textStyle: styleMap[s.text_style] || 'normal',
+    textStyle: styleMap[s.content_style] || 'normal',
   };
 });
 ---

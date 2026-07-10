@@ -95,7 +95,7 @@ export default config({
       path: 'src/content/projets/*',
       format: { data: 'json' },
       schema: {
-        title: fields.text({ label: 'Titre du projet' }),
+        title: fields.slug({ name: { label: 'Titre du projet' } }),
         category: fields.text({ label: 'Catégorie' }),
         year: fields.text({ label: 'Année' }),
         description: richDoc('Description'),
@@ -131,7 +131,7 @@ export default config({
       path: 'src/content/journal/*',
       format: { data: 'json' },
       schema: {
-        title: fields.text({ label: 'Titre de l\'article' }),
+        title: fields.slug({ name: { label: 'Titre de l\'article' } }),
         date: fields.date({ label: 'Date' }),
         dateLabel: fields.text({ label: 'Label de la date (ex: 10 Avril 2026)' }),
         category: fields.text({ label: 'Catégorie' }),

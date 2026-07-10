@@ -2,16 +2,7 @@
   "title": "Projet C",
   "category": "Architecture",
   "year": "2023",
-  "description": [
-    {
-      "type": "paragraph",
-      "children": [
-        {
-          "text": "Scénographie d'une galerie éphémère pour une exposition d'architectures intérieures. Conception spatiale, sélection des œuvres et coordination logistique."
-        }
-      ]
-    }
-  ],
+  "description": [],
   "cover": "/images/projet3.jpg",
   "medias": [
     {
