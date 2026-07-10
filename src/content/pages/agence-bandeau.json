@@ -1,15 +1,16 @@
 {
-  "bandeau_label": "L'Agence",
-  "bandeau_titre": "Atipics",
-  "text_color": "#ffffff",
-  "font": "manrope",
+  "bandeau_image": "/images/pages/bandeau_image.webp",
+  "bandeau_label": "L'Agences",
+  "bandeau_titre": "Atipicss",
+  "text_color": "#1a1a20",
+  "font": "inter",
   "intro_style": "normal",
-  "label_color": "",
-  "label_font": "inherit",
-  "label_size": "inherit",
-  "label_style": "bold",
-  "titre_color": "",
-  "titre_font": "inherit",
-  "titre_size": "inherit",
-  "titre_style": "normal"
+  "label_color": "#1a1a20",
+  "label_font": "inter",
+  "label_size": "3xl",
+  "label_style": "italic",
+  "titre_color": "#1a1a20",
+  "titre_font": "eb-garamond",
+  "titre_size": "6xl",
+  "titre_style": "bold"
 }
