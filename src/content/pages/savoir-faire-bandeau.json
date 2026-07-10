@@ -1,10 +1,13 @@
 {
-  "page_label": "",
   "page_titre": "Savoir Faire",
-  "page_sous_titre": "",
+  "page_sous_titre": "t",
   "text_color": "#081881",
   "font": "manrope",
+  "sous_titre_style": "normal",
+  "label_font": "inherit",
+  "label_size": "inherit",
   "label_style": "bold",
-  "titre_style": "normal",
-  "sous_titre_style": "normal"
+  "titre_font": "inherit",
+  "titre_size": "inherit",
+  "titre_style": "normal"
 }
