@@ -19,7 +19,7 @@ export default config({
       'Contenu Principal': ['projets', 'journal'],
       'Savoir Faire': ['savoir_faire_bandeau', 'savoir_faire_sections'],
       'Village': ['village_bandeau', 'village_sections'],
-      'Pages': ['contact_page'],
+      'Contact': ['contact_page'],
       'Configuration': ['parametres', 'theme'],
     }
   },

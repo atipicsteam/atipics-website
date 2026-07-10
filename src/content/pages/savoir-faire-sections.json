@@ -2,6 +2,99 @@
   "sections": [
     {
       "label": "CURATION ET SOURCING",
+      "title": "",
+      "intro": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "ATIPICS, c'est l'art de l'introuvable, du voyage à travers les époques."
+            }
+          ]
+        }
+      ],
+      "content": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Une pièce rare, une matière brute ou un objet chargé d'histoire est bien plus qu'une simple acquisition."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": " "
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "C'est l'étincelle d'une expérience inoubliable."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": " "
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Sourcing à destination des particuliers et des professionnels :"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "– Mobilier haut de gamme"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "– Objets rares"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "– Décorations"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "– Films d'époque"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "– Pièces communes, uniques ou rares "
+            }
+          ]
+        }
+      ],
       "images": [],
       "text_color": "#081881",
       "font": "eb-garamond",
@@ -10,7 +103,76 @@
       "text_style": "italic"
     },
     {
+      "label": "",
       "title": "Conciergerie et Propriété",
+      "intro": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Chez ATIPICS, le service haut de gamme n'est pas un concept abstrait."
+            }
+          ]
+        }
+      ],
+      "content": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "C'est une réalité tangible, ancrée dans la matière, forgée par des mains expertes, une infrastructure solide et de réelles capacités d'anticipation et de planification que seule permet l'expérience."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": " "
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Conciergerie audacieuse :"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "– Etude de projets et de faisabilité : entretiens individualisés, ateliers de réflexion sur mesure, définition de besoins spécifiques"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "– Coordination et mise en place opérationnelle : réseau, location, réservations, logistique, gestion des impondérables"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "– Gants Blanc : Service Maître d'Hôtel"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "– Transport tout type, du poids lourd au grand tourisme avec chauffeur"
+            }
+          ]
+        }
+      ],
       "images": [],
       "text_color": "#081881",
       "font": "eb-garamond",
@@ -19,7 +181,92 @@
       "text_style": "italic"
     },
     {
+      "label": "",
       "title": "Events et Scénographie",
+      "intro": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Pour que la magie opère dans la lumière, il faut une mécanique de précision dans l'ombre : ATIPICS."
+            }
+          ]
+        }
+      ],
+      "content": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Nous orchestrons l'envers du décor de vos projets."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": " "
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Du cahier des charges au déroulement de l'événement, nous absorbons toute la complexité et les urgences de l'organisation pour livrer l'excellence et la simplicité d'un moment inoubliable, aux organisateurs comme aux hôtes."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": " "
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Performances scéniques, expériences immersives ou simples moments épicuriens :"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "– Pilotage : cadrage financier et calendaire"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "– Savoir-faire brut : équipe aguerrie et non conformiste, maîtrise de tous les corps de métiers de l'événementiel"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "– Logistique implacable : coordination globale, gestion de toutes les parties prenantes"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "– Agilité d'un service sur mesure : structure légère et réactive, proche de vous"
+            }
+          ]
+        }
+      ],
       "images": [],
       "text_color": "#081881",
       "font": "eb-garamond",
@@ -28,7 +275,87 @@
       "text_style": "italic"
     },
     {
+      "label": "",
       "title": "Logistique & Valorisation",
+      "intro": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "ATIPICS dispose d'atouts uniques pour vous offrir un niveau de service inégalé sur la valorisation d'actifs hors normes (artistiques, collections, ou juste matières premières)."
+            }
+          ]
+        }
+      ],
+      "content": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Notre curiosité de chineurs, notre sensibilité artistique et nos compétences artisanales nous permettent de ne rien laisser de côté, de tirer le meilleur de chaque objet, que d'autres auraient jeté sans lui avoir accordé un regard."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": " "
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Notre réseau de transport nous permet de conduire sur les lieux les plus grands experts, puis de démonter, conditionner, de transporter toutes sortes d'objets rares (fragiles ou volumineux). "
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": " "
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Nous disposons aussi et surtout, avec "
+            },
+            {
+              "text": "l'",
+              "bold": true
+            },
+            {
+              "text": "Atipics Village",
+              "italic": true
+            },
+            {
+              "text": ", de capacités de stockage et de restauration qui permettent à vos projets de s'extraire de l'urgence pour aller exactement là où vous voulez à votre rythme."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": " "
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Finalement, nous vous accompagnons à chaque phase de votre projet, pour un livrable clef en main. "
+            }
+          ]
+        }
+      ],
       "images": [],
       "text_color": "#081881",
       "font": "eb-garamond",
