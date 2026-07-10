@@ -1,19 +1,8 @@
 {
-  "bandeau_image": null,
   "bandeau_label": "L'Agence",
   "bandeau_titre": "Atipics",
-  "intro": [
-    {
-      "type": "paragraph",
-      "children": [
-        {
-          "text": ""
-        }
-      ]
-    }
-  ],
   "text_color": "#ffffff",
-  "font": "inherit",
+  "font": "manrope",
   "label_style": "bold",
   "titre_style": "normal",
   "intro_style": "normal"
