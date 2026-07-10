@@ -2,20 +2,20 @@
   "legal": "© 2026 Atipics",
   "links": [
     {
-      "label": "Projets",
+      "label": "PROJETS",
       "href": "/projets"
     },
     {
-      "label": "Journal",
+      "label": "JOURNAL",
       "href": "/journal"
     },
     {
-      "label": "Contact",
+      "label": "CONTACT",
       "href": "/contact"
     }
   ],
-  "text_color": "#888884",
-  "font": "inherit",
+  "text_color": "#081881",
+  "font": "manrope",
   "links_style": "normal",
   "copyright_style": "normal",
   "lang_style": "normal"
