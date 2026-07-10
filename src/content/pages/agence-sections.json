@@ -4,48 +4,20 @@
       "label": "À PROPOS",
       "title": "Architecte de valeur.",
       "images": [
-        "/images/agence/sections/0/images/0.webp"
+        "/images/agence/sections/0/images/0.webp",
+        "/images/agence/sections/0/images/1.webp"
       ],
       "text_color": "#1A1A18",
       "font": "inherit",
-      "label_color": "",
       "label_font": "inherit",
       "label_size": "inherit",
       "label_style": "bold",
-      "title_color": "",
       "title_font": "inherit",
       "title_size": "inherit",
       "title_style": "normal",
-      "content_color": "",
       "content_font": "inherit",
       "content_size": "inherit",
-      "content_style": "normal",
-      "content": [
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "Une agence de services clé en main.\n "
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "Du sourcing approfondi à la production d'événements, de la gestion de domaines et de collections — notre force va au delà du conseil, en nous appuyant sur un réseau de savoir-faire rigoureusement sélectionnés, une logistique maîtrisée et une valorisation active à chaque étape."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "Au cœur de l'Atipics Village — 4 500 m² d'entrepôts, d'ateliers et d'un studio de design en région parisienne — nos équipes conçoivent et façonnent sur mesure."
-            }
-          ]
-        }
-      ]
+      "content_style": "normal"
     },
     {
       "label": "RÉSEAUX",
@@ -53,44 +25,15 @@
       "images": [],
       "text_color": "#1A1A18",
       "font": "inherit",
-      "label_color": "",
       "label_font": "inherit",
       "label_size": "inherit",
       "label_style": "bold",
-      "title_color": "",
       "title_font": "inherit",
       "title_size": "inherit",
       "title_style": "normal",
-      "content_color": "",
       "content_font": "inherit",
       "content_size": "inherit",
-      "content_style": "normal",
-      "content": [
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "Artisans, antiquaires, architectes, musiciens — notre carnet d'adresses est le fruit de dix années de rencontres et de confiance mutuelle. Un réseau humain, construit sur la durée."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "Vast network in France and across Europe that is our foundation on which we build our other services. Luxury transportation, auctioneers, book experts. Musicians, performers, and locations. Carpenters, gold-leaf gilders, stone-masons. "
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "Des collaborations croisées avec architectes et designers pour des projets qui mêlent structure, espace et objet. Une discrétion absolue pour accompagner les projets les plus sensibles."
-            }
-          ]
-        }
-      ]
+      "content_style": "normal"
     }
   ]
 }
