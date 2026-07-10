@@ -1,6 +1,71 @@
 import { config, fields, collection, singleton } from '@keystatic/core';
 import React from 'react';
 
+// ─── Reusable option sets ───
+const FONT_OPTIONS = [
+  { label: 'Hériter du site', value: 'inherit' },
+  { label: 'Helvetica', value: 'helvetica' },
+  { label: 'Inter', value: 'inter' },
+  { label: 'Playfair Display', value: 'playfair' },
+  { label: 'Cormorant Garamond', value: 'cormorant' },
+  { label: 'DM Sans', value: 'dm-sans' },
+  { label: 'Josefin Sans', value: 'josefin' },
+  { label: 'Manrope', value: 'manrope' },
+  { label: 'EB Garamond', value: 'eb-garamond' },
+];
+
+const SIZE_OPTIONS = [
+  { label: 'Hériter', value: 'inherit' },
+  { label: 'XS — 0.75rem', value: 'xs' },
+  { label: 'SM — 0.875rem', value: 'sm' },
+  { label: 'Base — 1rem', value: 'base' },
+  { label: 'MD — 1.125rem', value: 'md' },
+  { label: 'LG — 1.25rem', value: 'lg' },
+  { label: 'XL — 1.5rem', value: 'xl' },
+  { label: '2XL — 2rem', value: '2xl' },
+  { label: '3XL — 2.5rem', value: '3xl' },
+  { label: '4XL — 3rem', value: '4xl' },
+  { label: '5XL — 4rem', value: '5xl' },
+  { label: '6XL — 5rem', value: '6xl' },
+];
+
+const STYLE_OPTIONS = [
+  { label: 'Normal', value: 'normal' },
+  { label: 'Gras', value: 'bold' },
+  { label: 'Italique', value: 'italic' },
+];
+
+// ─── Reusable field factories ───
+const colorField = (label: string, defaultValue = '') =>
+  fields.text({ label, defaultValue, description: 'Code hex (ex: #ffffff). Laisser vide pour hériter.' });
+
+const fontSelect = (label: string, defaultValue = 'inherit') =>
+  fields.select({ label, options: FONT_OPTIONS, defaultValue });
+
+const sizeSelect = (label: string, defaultValue = 'inherit') =>
+  fields.select({ label, options: SIZE_OPTIONS, defaultValue });
+
+const styleSelect = (label: string, defaultValue = 'normal') =>
+  fields.select({ label, options: STYLE_OPTIONS, defaultValue });
+
+const richDoc = (label: string) =>
+  fields.document({
+    label,
+    formatting: {
+      inlineMarks: { bold: true, italic: true },
+      blockTypes: { blockquote: true },
+      headingLevels: [2, 3, 4],
+    },
+  });
+
+// ─── Per-element style group ───
+const elementStyles = (prefix: string, labelName: string) => ({
+  [`${prefix}_color`]: colorField(`Couleur ${labelName}`),
+  [`${prefix}_font`]: fontSelect(`Police ${labelName}`),
+  [`${prefix}_size`]: sizeSelect(`Taille ${labelName}`),
+  [`${prefix}_style`]: styleSelect(`Style ${labelName}`),
+});
+
 export default config({
   storage: {
     kind: 'cloud',
@@ -33,7 +98,7 @@ export default config({
         title: fields.text({ label: 'Titre du projet' }),
         category: fields.text({ label: 'Catégorie' }),
         year: fields.text({ label: 'Année' }),
-        description: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
+        description: richDoc('Description'),
         cover: fields.image({
           label: 'Image de couverture',
           directory: 'public/images/projets',
@@ -70,7 +135,7 @@ export default config({
         date: fields.date({ label: 'Date' }),
         dateLabel: fields.text({ label: 'Label de la date (ex: 10 Avril 2026)' }),
         category: fields.text({ label: 'Catégorie' }),
-        excerpt: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
+        excerpt: richDoc('Extrait'),
         cover: fields.image({
           label: 'Image de couverture',
           directory: 'public/images/journal',
@@ -151,10 +216,10 @@ export default config({
       format: { data: 'json' },
       schema: {
         nom_site: fields.text({ label: 'Nom du site' }),
-        description_site: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
+        description_site: richDoc('Description du site'),
         email: fields.text({ label: 'Email' }),
         telephone: fields.text({ label: 'Téléphone' }),
-        adresse: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
+        adresse: richDoc('Adresse'),
         font: fields.select({
           label: 'Police du site',
           options: [
@@ -183,51 +248,12 @@ export default config({
         }),
         bandeau_label: fields.text({ label: 'Label du bandeau' }),
         bandeau_titre: fields.text({ label: 'Titre du bandeau' }),
-        intro: fields.document({ label: 'Texte d\'introduction', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        text_color: fields.text({ label: 'Couleur du texte du bandeau', defaultValue: '#ffffff', description: 'Couleur du texte sur le bandeau' }),
-        font: fields.select({
-          label: 'Police du bandeau',
-          description: 'Police indépendante du reste du site',
-          options: [
-            { label: 'Hériter du site', value: 'inherit' },
-            { label: 'Helvetica', value: 'helvetica' },
-            { label: 'Inter', value: 'inter' },
-            { label: 'Playfair Display', value: 'playfair' },
-            { label: 'Cormorant Garamond', value: 'cormorant' },
-            { label: 'DM Sans', value: 'dm-sans' },
-            { label: 'Josefin Sans', value: 'josefin' },
-            { label: 'Manrope', value: 'manrope' },
-            { label: 'EB Garamond', value: 'eb-garamond' },
-          ],
-          defaultValue: 'inherit',
-        }),
-        label_style: fields.select({
-          label: 'Style du label',
-          options: [
-            { label: 'Normal', value: 'normal' },
-            { label: 'Gras', value: 'bold' },
-            { label: 'Italique', value: 'italic' },
-          ],
-          defaultValue: 'bold',
-        }),
-        titre_style: fields.select({
-          label: 'Style du titre',
-          options: [
-            { label: 'Normal', value: 'normal' },
-            { label: 'Gras', value: 'bold' },
-            { label: 'Italique', value: 'italic' },
-          ],
-          defaultValue: 'normal',
-        }),
-        intro_style: fields.select({
-          label: 'Style de l\'introduction',
-          options: [
-            { label: 'Normal', value: 'normal' },
-            { label: 'Gras', value: 'bold' },
-            { label: 'Italique', value: 'italic' },
-          ],
-          defaultValue: 'normal',
-        }),
+        intro: richDoc('Texte d\'introduction'),
+        text_color: fields.text({ label: 'Couleur du texte (défaut)', defaultValue: '#ffffff', description: 'Couleur par défaut — peut être surchargée par élément' }),
+        font: fontSelect('Police (défaut)', 'inherit'),
+        intro_style: styleSelect('Style de l\'introduction', 'normal'),
+        ...elementStyles('label', 'du label'),
+        ...elementStyles('titre', 'du titre'),
       },
     }),
     agence_sections: singleton({
@@ -239,55 +265,16 @@ export default config({
           fields.object({
             label: fields.text({ label: 'Label' }),
             title: fields.text({ label: 'Titre' }),
-            content: fields.document({ label: 'Contenu', formatting: { inlineMarks: { bold: true, italic: true } } }),
+            content: richDoc('Contenu'),
             images: fields.array(
               fields.image({ label: 'Image', directory: 'public/images/agence', publicPath: '/images/agence/' }),
               { label: 'Images', itemLabel: props => 'Image' }
             ),
-            text_color: fields.text({ label: 'Couleur du texte', defaultValue: '#1A1A18', description: 'Couleur du texte de la section' }),
-            font: fields.select({
-              label: 'Police',
-              description: 'Police indépendante du reste du site',
-              options: [
-                { label: 'Hériter du site', value: 'inherit' },
-                { label: 'Helvetica', value: 'helvetica' },
-                { label: 'Inter', value: 'inter' },
-                { label: 'Playfair Display', value: 'playfair' },
-                { label: 'Cormorant Garamond', value: 'cormorant' },
-                { label: 'DM Sans', value: 'dm-sans' },
-                { label: 'Josefin Sans', value: 'josefin' },
-                { label: 'Manrope', value: 'manrope' },
-                { label: 'EB Garamond', value: 'eb-garamond' },
-              ],
-              defaultValue: 'inherit',
-            }),
-            label_style: fields.select({
-              label: 'Style du label',
-              options: [
-                { label: 'Normal', value: 'normal' },
-                { label: 'Gras', value: 'bold' },
-                { label: 'Italique', value: 'italic' },
-              ],
-              defaultValue: 'bold',
-            }),
-            title_style: fields.select({
-              label: 'Style du titre',
-              options: [
-                { label: 'Normal', value: 'normal' },
-                { label: 'Gras', value: 'bold' },
-                { label: 'Italique', value: 'italic' },
-              ],
-              defaultValue: 'normal',
-            }),
-            text_style: fields.select({
-              label: 'Style des paragraphes',
-              options: [
-                { label: 'Normal', value: 'normal' },
-                { label: 'Gras', value: 'bold' },
-                { label: 'Italique', value: 'italic' },
-              ],
-              defaultValue: 'normal',
-            }),
+            text_color: fields.text({ label: 'Couleur du texte (défaut)', defaultValue: '#1A1A18', description: 'Couleur par défaut — peut être surchargée par élément' }),
+            font: fontSelect('Police (défaut)', 'inherit'),
+            ...elementStyles('label', 'du label'),
+            ...elementStyles('title', 'du titre'),
+            ...elementStyles('content', 'du contenu'),
           }),
           { label: 'Sous-catégories', itemLabel: props => props.fields.title.value || props.fields.label.value || 'Nouvelle section' }
         ),
@@ -301,50 +288,11 @@ export default config({
         page_label: fields.text({ label: 'Label de la page' }),
         page_titre: fields.text({ label: 'Titre de la page' }),
         page_sous_titre: fields.text({ label: 'Sous-titre' }),
-        text_color: fields.text({ label: 'Couleur du texte', defaultValue: '#1A1A18', description: 'Couleur du texte du bandeau' }),
-        font: fields.select({
-          label: 'Police',
-          description: 'Police indépendante du reste du site',
-          options: [
-            { label: 'Hériter du site', value: 'inherit' },
-            { label: 'Helvetica', value: 'helvetica' },
-            { label: 'Inter', value: 'inter' },
-            { label: 'Playfair Display', value: 'playfair' },
-            { label: 'Cormorant Garamond', value: 'cormorant' },
-            { label: 'DM Sans', value: 'dm-sans' },
-            { label: 'Josefin Sans', value: 'josefin' },
-            { label: 'Manrope', value: 'manrope' },
-            { label: 'EB Garamond', value: 'eb-garamond' },
-          ],
-          defaultValue: 'inherit',
-        }),
-        label_style: fields.select({
-          label: 'Style du label',
-          options: [
-            { label: 'Normal', value: 'normal' },
-            { label: 'Gras', value: 'bold' },
-            { label: 'Italique', value: 'italic' },
-          ],
-          defaultValue: 'bold',
-        }),
-        titre_style: fields.select({
-          label: 'Style du titre',
-          options: [
-            { label: 'Normal', value: 'normal' },
-            { label: 'Gras', value: 'bold' },
-            { label: 'Italique', value: 'italic' },
-          ],
-          defaultValue: 'normal',
-        }),
-        sous_titre_style: fields.select({
-          label: 'Style du sous-titre',
-          options: [
-            { label: 'Normal', value: 'normal' },
-            { label: 'Gras', value: 'bold' },
-            { label: 'Italique', value: 'italic' },
-          ],
-          defaultValue: 'normal',
-        }),
+        text_color: fields.text({ label: 'Couleur du texte (défaut)', defaultValue: '#1A1A18', description: 'Couleur par défaut — peut être surchargée par élément' }),
+        font: fontSelect('Police (défaut)', 'inherit'),
+        sous_titre_style: styleSelect('Style du sous-titre', 'normal'),
+        ...elementStyles('label', 'du label'),
+        ...elementStyles('titre', 'du titre'),
       },
     }),
     savoir_faire_sections: singleton({
@@ -356,56 +304,17 @@ export default config({
           fields.object({
             label: fields.text({ label: 'Label' }),
             title: fields.text({ label: 'Titre' }),
-            intro: fields.document({ label: 'Introduction', formatting: { inlineMarks: { bold: true, italic: true } } }),
-            content: fields.document({ label: 'Contenu', formatting: { inlineMarks: { bold: true, italic: true } } }),
+            intro: richDoc('Introduction'),
+            content: richDoc('Contenu'),
             images: fields.array(
               fields.image({ label: 'Image', directory: 'public/images/savoir', publicPath: '/images/savoir/' }),
               { label: 'Images', itemLabel: props => 'Image' }
             ),
-            text_color: fields.text({ label: 'Couleur du texte', defaultValue: '#1A1A18', description: 'Couleur du texte de la section' }),
-            font: fields.select({
-              label: 'Police',
-              description: 'Police indépendante du reste du site',
-              options: [
-                { label: 'Hériter du site', value: 'inherit' },
-                { label: 'Helvetica', value: 'helvetica' },
-                { label: 'Inter', value: 'inter' },
-                { label: 'Playfair Display', value: 'playfair' },
-                { label: 'Cormorant Garamond', value: 'cormorant' },
-                { label: 'DM Sans', value: 'dm-sans' },
-                { label: 'Josefin Sans', value: 'josefin' },
-                { label: 'Manrope', value: 'manrope' },
-                { label: 'EB Garamond', value: 'eb-garamond' },
-              ],
-              defaultValue: 'inherit',
-            }),
-            label_style: fields.select({
-              label: 'Style du label',
-              options: [
-                { label: 'Normal', value: 'normal' },
-                { label: 'Gras', value: 'bold' },
-                { label: 'Italique', value: 'italic' },
-              ],
-              defaultValue: 'bold',
-            }),
-            title_style: fields.select({
-              label: 'Style du titre',
-              options: [
-                { label: 'Normal', value: 'normal' },
-                { label: 'Gras', value: 'bold' },
-                { label: 'Italique', value: 'italic' },
-              ],
-              defaultValue: 'normal',
-            }),
-            text_style: fields.select({
-              label: 'Style des paragraphes',
-              options: [
-                { label: 'Normal', value: 'normal' },
-                { label: 'Gras', value: 'bold' },
-                { label: 'Italique', value: 'italic' },
-              ],
-              defaultValue: 'normal',
-            }),
+            text_color: fields.text({ label: 'Couleur du texte (défaut)', defaultValue: '#1A1A18', description: 'Couleur par défaut — peut être surchargée par élément' }),
+            font: fontSelect('Police (défaut)', 'inherit'),
+            ...elementStyles('label', 'du label'),
+            ...elementStyles('title', 'du titre'),
+            ...elementStyles('content', 'du contenu'),
           }),
           { label: 'Sous-catégories', itemLabel: props => props.fields.title.value || props.fields.label.value || 'Nouvelle section' }
         ),
@@ -423,51 +332,12 @@ export default config({
         }),
         bandeau_label: fields.text({ label: 'Label du bandeau' }),
         bandeau_titre: fields.text({ label: 'Titre du bandeau' }),
-        intro: fields.document({ label: 'Texte d\'introduction', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        text_color: fields.text({ label: 'Couleur du texte du bandeau', defaultValue: '#ffffff', description: 'Couleur du texte sur le bandeau' }),
-        font: fields.select({
-          label: 'Police du bandeau',
-          description: 'Police indépendante du reste du site',
-          options: [
-            { label: 'Hériter du site', value: 'inherit' },
-            { label: 'Helvetica', value: 'helvetica' },
-            { label: 'Inter', value: 'inter' },
-            { label: 'Playfair Display', value: 'playfair' },
-            { label: 'Cormorant Garamond', value: 'cormorant' },
-            { label: 'DM Sans', value: 'dm-sans' },
-            { label: 'Josefin Sans', value: 'josefin' },
-            { label: 'Manrope', value: 'manrope' },
-            { label: 'EB Garamond', value: 'eb-garamond' },
-          ],
-          defaultValue: 'inherit',
-        }),
-        label_style: fields.select({
-          label: 'Style du label',
-          options: [
-            { label: 'Normal', value: 'normal' },
-            { label: 'Gras', value: 'bold' },
-            { label: 'Italique', value: 'italic' },
-          ],
-          defaultValue: 'bold',
-        }),
-        titre_style: fields.select({
-          label: 'Style du titre',
-          options: [
-            { label: 'Normal', value: 'normal' },
-            { label: 'Gras', value: 'bold' },
-            { label: 'Italique', value: 'italic' },
-          ],
-          defaultValue: 'normal',
-        }),
-        intro_style: fields.select({
-          label: 'Style de l\'introduction',
-          options: [
-            { label: 'Normal', value: 'normal' },
-            { label: 'Gras', value: 'bold' },
-            { label: 'Italique', value: 'italic' },
-          ],
-          defaultValue: 'normal',
-        }),
+        intro: richDoc('Texte d\'introduction'),
+        text_color: fields.text({ label: 'Couleur du texte (défaut)', defaultValue: '#ffffff', description: 'Couleur par défaut — peut être surchargée par élément' }),
+        font: fontSelect('Police (défaut)', 'inherit'),
+        intro_style: styleSelect('Style de l\'introduction', 'normal'),
+        ...elementStyles('label', 'du label'),
+        ...elementStyles('titre', 'du titre'),
       },
     }),
     village_sections: singleton({
@@ -479,55 +349,16 @@ export default config({
           fields.object({
             label: fields.text({ label: 'Label' }),
             title: fields.text({ label: 'Titre' }),
-            content: fields.document({ label: 'Contenu', formatting: { inlineMarks: { bold: true, italic: true } } }),
+            content: richDoc('Contenu'),
             images: fields.array(
               fields.image({ label: 'Image', directory: 'public/images/village', publicPath: '/images/village/' }),
               { label: 'Images', itemLabel: props => 'Image' }
             ),
-            text_color: fields.text({ label: 'Couleur du texte', defaultValue: '#1A1A18', description: 'Couleur du texte de la section' }),
-            font: fields.select({
-              label: 'Police',
-              description: 'Police indépendante du reste du site',
-              options: [
-                { label: 'Hériter du site', value: 'inherit' },
-                { label: 'Helvetica', value: 'helvetica' },
-                { label: 'Inter', value: 'inter' },
-                { label: 'Playfair Display', value: 'playfair' },
-                { label: 'Cormorant Garamond', value: 'cormorant' },
-                { label: 'DM Sans', value: 'dm-sans' },
-                { label: 'Josefin Sans', value: 'josefin' },
-                { label: 'Manrope', value: 'manrope' },
-                { label: 'EB Garamond', value: 'eb-garamond' },
-              ],
-              defaultValue: 'inherit',
-            }),
-            label_style: fields.select({
-              label: 'Style du label',
-              options: [
-                { label: 'Normal', value: 'normal' },
-                { label: 'Gras', value: 'bold' },
-                { label: 'Italique', value: 'italic' },
-              ],
-              defaultValue: 'bold',
-            }),
-            title_style: fields.select({
-              label: 'Style du titre',
-              options: [
-                { label: 'Normal', value: 'normal' },
-                { label: 'Gras', value: 'bold' },
-                { label: 'Italique', value: 'italic' },
-              ],
-              defaultValue: 'normal',
-            }),
-            text_style: fields.select({
-              label: 'Style des paragraphes',
-              options: [
-                { label: 'Normal', value: 'normal' },
-                { label: 'Gras', value: 'bold' },
-                { label: 'Italique', value: 'italic' },
-              ],
-              defaultValue: 'normal',
-            }),
+            text_color: fields.text({ label: 'Couleur du texte (défaut)', defaultValue: '#1A1A18', description: 'Couleur par défaut — peut être surchargée par élément' }),
+            font: fontSelect('Police (défaut)', 'inherit'),
+            ...elementStyles('label', 'du label'),
+            ...elementStyles('title', 'du titre'),
+            ...elementStyles('content', 'du contenu'),
           }),
           { label: 'Sous-catégories', itemLabel: props => props.fields.title.value || props.fields.label.value || 'Nouvelle section' }
         ),
@@ -540,8 +371,8 @@ export default config({
       schema: {
         section_label: fields.text({ label: 'Label de la section', defaultValue: 'CONFIER UNE MISSION' }),
         form_titre: fields.text({ label: 'Titre du formulaire' }),
-        form_intro_1: fields.document({ label: 'Intro formulaire 1', formatting: { inlineMarks: { bold: true, italic: true } } }),
-        form_intro_2: fields.document({ label: 'Intro formulaire 2', formatting: { inlineMarks: { bold: true, italic: true } } }),
+        form_intro_1: richDoc('Intro formulaire 1'),
+        form_intro_2: richDoc('Intro formulaire 2'),
       },
     }),
     village_contact: singleton({
@@ -550,7 +381,7 @@ export default config({
       format: { data: 'json' },
       schema: {
         section_label: fields.text({ label: 'Label de la section', defaultValue: 'CONTACT' }),
-        form_intro: fields.document({ label: 'Intro formulaire', formatting: { inlineMarks: { bold: true, italic: true } } }),
+        form_intro: richDoc('Intro formulaire'),
       },
     }),
     contact_page: singleton({
@@ -563,7 +394,7 @@ export default config({
         form_titre_message: fields.text({ label: 'Titre Formulaire', defaultValue: 'ENVOYER UN MESSAGE' }),
         form_titre_mission: fields.text({ label: 'Titre Mission', defaultValue: 'CONFIER UNE MISSION' }),
         info_rdv_label: fields.text({ label: 'Label RDV', defaultValue: 'PRENDRE RENDEZ-VOUS' }),
-        rdv_texte: fields.document({ label: 'Texte enrichi', formatting: { inlineMarks: { bold: true, italic: true } } }),
+        rdv_texte: richDoc('Texte RDV'),
         info_email_label: fields.text({ label: 'Label Email', defaultValue: 'EMAIL' }),
         info_tel_label: fields.text({ label: 'Label Téléphone', defaultValue: 'TÉLÉPHONE' }),
         info_adresse_label: fields.text({ label: 'Label Adresse', defaultValue: 'NOUS TROUVER' }),

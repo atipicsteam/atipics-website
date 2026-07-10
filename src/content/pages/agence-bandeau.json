@@ -3,7 +3,13 @@
   "bandeau_titre": "Atipics",
   "text_color": "#ffffff",
   "font": "manrope",
+  "intro_style": "normal",
+  "label_color": "",
+  "label_font": "inherit",
+  "label_size": "inherit",
   "label_style": "bold",
-  "titre_style": "normal",
-  "intro_style": "normal"
+  "titre_color": "",
+  "titre_font": "inherit",
+  "titre_size": "inherit",
+  "titre_style": "normal"
 }

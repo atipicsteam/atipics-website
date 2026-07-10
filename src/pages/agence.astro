@@ -21,17 +21,52 @@ const styleMap: Record<string, string> = {
   italic: 'italic',
 };
 
+const SIZE_MAP: Record<string, string> = {
+  inherit: '',
+  xs: '0.75rem',
+  sm: '0.875rem',
+  base: '1rem',
+  md: '1.125rem',
+  lg: '1.25rem',
+  xl: '1.5rem',
+  '2xl': '2rem',
+  '3xl': '2.5rem',
+  '4xl': '3rem',
+  '5xl': '4rem',
+  '6xl': '5rem',
+};
+
+const resolveFont = (key: string) => {
+  if (!key || key === 'inherit' || !FONTS[key]) return null;
+  return FONTS[key];
+};
+
 // Bandeau styles
 const bandeauFontKey = bandeauData.font && bandeauData.font !== 'inherit' && FONTS[bandeauData.font] ? bandeauData.font : null;
 const bandeauFont = bandeauFontKey ? FONTS[bandeauFontKey].family : null;
 const bandeauFontUrl = bandeauFontKey ? FONTS[bandeauFontKey].url : null;
 const bandeauColor = bandeauData.text_color || '#ffffff';
+
+// Per-element bandeau styles
+const labelFontRes = resolveFont(bandeauData.label_font);
+const titreFontRes = resolveFont(bandeauData.titre_font);
 const bandeauLabelStyle = styleMap[bandeauData.label_style] || 'bold';
 const bandeauTitreStyle = styleMap[bandeauData.titre_style] || 'normal';
 const bandeauIntroStyle = styleMap[bandeauData.intro_style] || 'normal';
+const bandeauLabelColor = bandeauData.label_color || bandeauColor;
+const bandeauTitreColor = bandeauData.titre_color || bandeauColor;
+const bandeauLabelFont = labelFontRes ? labelFontRes.family : null;
+const bandeauLabelFontUrl = labelFontRes ? labelFontRes.url : null;
+const bandeauTitreFont = titreFontRes ? titreFontRes.family : null;
+const bandeauTitreFontUrl = titreFontRes ? titreFontRes.url : null;
+const bandeauLabelSize = SIZE_MAP[bandeauData.label_size] || '';
+const bandeauTitreSize = SIZE_MAP[bandeauData.titre_size] || '';
 
 const sections = (sectionsData.sections || []).map((s: any, i: number) => {
   const fontKey = s.font && s.font !== 'inherit' && FONTS[s.font] ? s.font : null;
+  const labelFontResS = resolveFont(s.label_font);
+  const titleFontResS = resolveFont(s.title_font);
+  const contentFontResS = resolveFont(s.content_font);
   return {
     slug: s.title ? s.title.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') : `section-${i}`,
     label: s.label || '',
@@ -45,7 +80,19 @@ const sections = (sectionsData.sections || []).map((s: any, i: number) => {
     color: s.text_color || '#1A1A18',
     labelStyle: styleMap[s.label_style] || 'bold',
     titreStyle: styleMap[s.title_style] || 'normal',
-    textStyle: styleMap[s.text_style] || 'normal',
+    contentStyle: styleMap[s.content_style] || 'normal',
+    labelColor: s.label_color || s.text_color || '#1A1A18',
+    titleColor: s.title_color || s.text_color || '#1A1A18',
+    contentColor: s.content_color || s.text_color || '#1A1A18',
+    labelFont: labelFontResS ? labelFontResS.family : null,
+    labelFontUrl: labelFontResS ? labelFontResS.url : null,
+    titleFont: titleFontResS ? titleFontResS.family : null,
+    titleFontUrl: titleFontResS ? titleFontResS.url : null,
+    contentFont: contentFontResS ? contentFontResS.family : null,
+    contentFontUrl: contentFontResS ? contentFontResS.url : null,
+    labelSize: SIZE_MAP[s.label_size] || '',
+    titleSize: SIZE_MAP[s.title_size] || '',
+    contentSize: SIZE_MAP[s.content_size] || '',
   };
 });
 ---
@@ -56,7 +103,7 @@ const sections = (sectionsData.sections || []).map((s: any, i: number) => {
   <main style="padding-top: var(--nav-h);">
 
     <!-- Bandeau pleine largeur -->
-    <section class="bandeau" style={`${bandeauFont ? `font-family: ${bandeauFont};` : ''}--bandeau-color:${bandeauColor};--bandeau-label-weight:${bandeauLabelStyle === 'bold' ? '700' : '400'};--bandeau-label-style:${bandeauLabelStyle === 'italic' ? 'italic' : 'normal'};--bandeau-titre-weight:${bandeauTitreStyle === 'bold' ? '700' : '200'};--bandeau-titre-style:${bandeauTitreStyle === 'italic' ? 'italic' : 'normal'}`}>
+    <section class="bandeau" style={`${bandeauFont ? `font-family: ${bandeauFont};` : ''}--bandeau-color:${bandeauColor};--bandeau-label-color:${bandeauLabelColor};--bandeau-label-weight:${bandeauLabelStyle === 'bold' ? '700' : '400'};--bandeau-label-style:${bandeauLabelStyle === 'italic' ? 'italic' : 'normal'};${bandeauLabelFont ? `--bandeau-label-font:${bandeauLabelFont};` : ''}${bandeauLabelSize ? `--bandeau-label-size:${bandeauLabelSize};` : ''}--bandeau-titre-color:${bandeauTitreColor};--bandeau-titre-weight:${bandeauTitreStyle === 'bold' ? '700' : '200'};--bandeau-titre-style:${bandeauTitreStyle === 'italic' ? 'italic' : 'normal'};${bandeauTitreFont ? `--bandeau-titre-font:${bandeauTitreFont};` : ''}${bandeauTitreSize ? `--bandeau-titre-size:${bandeauTitreSize};` : ''}`}>
       <img src={bandeauAgence} alt="Atipics" class="bandeau__img" decoding="async" />
       <div class="bandeau__overlay">
         <div class="container bandeau__text">
@@ -67,7 +114,7 @@ const sections = (sectionsData.sections || []).map((s: any, i: number) => {
     </section>
 
     {hasIntro && (
-      <section class="intro-section" style={`--intro-weight:${bandeauIntroStyle === 'bold' ? '600' : '300'};--intro-style:${bandeauIntroStyle === 'italic' ? 'italic' : 'normal'}`}>
+      <section class="intro-section" style={`--intro-weight:${bandeauIntroStyle === 'bold' ? '600' : '300'};--intro-style:${bandeauIntroStyle === 'italic' ? 'italic' : 'normal'};--intro-color:${bandeauColor};`}>
         <div class="container">
           <RichText document={intro} className="intro-desc" />
         </div>
@@ -79,8 +126,11 @@ const sections = (sectionsData.sections || []).map((s: any, i: number) => {
       const imgs = s.images ?? [];
       const content = s.content;
       return (
-        <section class:list={["split-block", { "split-block--alt": s.reverse }]} id={s.slug} style={`${s.font ? `font-family: ${s.font};` : ''}--section-color:${s.color};--section-label-weight:${s.labelStyle === 'bold' ? '700' : '400'};--section-label-style:${s.labelStyle === 'italic' ? 'italic' : 'normal'};--section-titre-weight:${s.titreStyle === 'bold' ? '700' : '200'};--section-titre-style:${s.titreStyle === 'italic' ? 'italic' : 'normal'};--section-text-weight:${s.textStyle === 'bold' ? '600' : '400'};--section-text-style:${s.textStyle === 'italic' ? 'italic' : 'normal'}`}>
+        <section class:list={["split-block", { "split-block--alt": s.reverse }]} id={s.slug} style={`${s.font ? `font-family: ${s.font};` : ''}--section-color:${s.color};--section-label-color:${s.labelColor};--section-label-weight:${s.labelStyle === 'bold' ? '700' : '400'};--section-label-style:${s.labelStyle === 'italic' ? 'italic' : 'normal'};${s.labelFont ? `--section-label-font:${s.labelFont};` : ''}${s.labelSize ? `--section-label-size:${s.labelSize};` : ''}--section-titre-color:${s.titleColor};--section-titre-weight:${s.titreStyle === 'bold' ? '700' : '200'};--section-titre-style:${s.titreStyle === 'italic' ? 'italic' : 'normal'};${s.titleFont ? `--section-titre-font:${s.titleFont};` : ''}${s.titleSize ? `--section-titre-size:${s.titleSize};` : ''}--section-text-color:${s.contentColor};--section-text-weight:${s.contentStyle === 'bold' ? '600' : '400'};--section-text-style:${s.contentStyle === 'italic' ? 'italic' : 'normal'};${s.contentFont ? `--section-text-font:${s.contentFont};` : ''}${s.contentSize ? `--section-text-size:${s.contentSize};` : ''}`}>
           {s.fontUrl && <link rel="stylesheet" href={s.fontUrl} />}
+          {s.labelFontUrl && <link rel="stylesheet" href={s.labelFontUrl} />}
+          {s.titleFontUrl && <link rel="stylesheet" href={s.titleFontUrl} />}
+          {s.contentFontUrl && <link rel="stylesheet" href={s.contentFontUrl} />}
           <div class="container">
             <div class="label-row">
               <span class="stamp">{s.label}</span>
@@ -176,20 +226,24 @@ const sections = (sectionsData.sections || []).map((s: any, i: number) => {
     color: var(--bandeau-color, #fff);
   }
   .bandeau__label {
-    font-size: 0.68rem;
+    font-size: var(--bandeau-label-size, 0.68rem);
+    font-family: var(--bandeau-label-font, inherit);
     font-weight: var(--bandeau-label-weight, 700);
     font-style: var(--bandeau-label-style, normal);
     letter-spacing: 0.22em;
     text-transform: uppercase;
     opacity: 0.7;
     margin-bottom: 0.5rem;
+    color: var(--bandeau-label-color, var(--bandeau-color, #fff));
   }
   .bandeau__title {
-    font-size: clamp(3.5rem, 9vw, 8rem);
+    font-size: var(--bandeau-titre-size, clamp(3.5rem, 9vw, 8rem));
+    font-family: var(--bandeau-titre-font, inherit);
     font-weight: var(--bandeau-titre-weight, 200);
     font-style: var(--bandeau-titre-style, normal);
     letter-spacing: -0.03em;
     line-height: 0.92;
+    color: var(--bandeau-titre-color, var(--bandeau-color, #fff));
   }
 
   /* ─── Intro ─── */
@@ -224,11 +278,12 @@ const sections = (sectionsData.sections || []).map((s: any, i: number) => {
     margin-bottom: var(--sp-lg);
   }
   .stamp {
-    font-size: 0.68rem;
+    font-size: var(--section-label-size, 0.68rem);
+    font-family: var(--section-label-font, inherit);
     font-weight: var(--section-label-weight, 700);
     font-style: var(--section-label-style, normal);
     letter-spacing: 0.18em;
-    color: var(--section-color, var(--c-muted));
+    color: var(--section-label-color, var(--section-color, var(--c-muted)));
     white-space: nowrap;
     flex-shrink: 0;
   }
@@ -266,19 +321,21 @@ const sections = (sectionsData.sections || []).map((s: any, i: number) => {
   }
 
   .split-title {
-    font-size: clamp(1.8rem, 3.5vw, 3rem);
+    font-size: var(--section-titre-size, clamp(1.8rem, 3.5vw, 3rem));
+    font-family: var(--section-titre-font, inherit);
     font-weight: var(--section-titre-weight, 200);
     font-style: var(--section-titre-style, normal);
     letter-spacing: -0.02em;
     line-height: 1.05;
     margin-bottom: var(--sp-md);
-    color: var(--section-color, inherit);
+    color: var(--section-titre-color, var(--section-color, inherit));
   }
   .split-p {
-    font-size: var(--text-sm);
+    font-size: var(--section-text-size, var(--text-sm));
+    font-family: var(--section-text-font, inherit);
     font-weight: var(--section-text-weight, 400);
     font-style: var(--section-text-style, normal);
-    color: var(--section-color, var(--c-muted));
+    color: var(--section-text-color, var(--section-color, var(--c-muted)));
     line-height: 1.9;
     margin-bottom: 1.5rem;
     max-width: 48ch;
@@ -286,10 +343,11 @@ const sections = (sectionsData.sections || []).map((s: any, i: number) => {
   }
   .split-p:last-child { margin-bottom: 0; }
   :global(.split-p) {
-    font-size: var(--text-sm);
+    font-size: var(--section-text-size, var(--text-sm));
+    font-family: var(--section-text-font, inherit);
     font-weight: var(--section-text-weight, 400);
     font-style: var(--section-text-style, normal);
-    color: var(--section-color, var(--c-muted));
+    color: var(--section-text-color, var(--section-color, var(--c-muted)));
     line-height: 1.9;
     margin-bottom: 1.5rem;
     max-width: 48ch;
