@@ -12,29 +12,29 @@
     {
       "title": "Conciergerie et Propriété",
       "images": [],
-      "text_color": "#1A1A18",
-      "font": "inherit",
-      "label_style": "bold",
-      "title_style": "normal",
-      "text_style": "normal"
+      "text_color": "#081881",
+      "font": "eb-garamond",
+      "label_style": "italic",
+      "title_style": "italic",
+      "text_style": "italic"
     },
     {
       "title": "Events et Scénographie",
       "images": [],
-      "text_color": "#1A1A18",
-      "font": "inherit",
-      "label_style": "bold",
-      "title_style": "normal",
-      "text_style": "normal"
+      "text_color": "#081881",
+      "font": "eb-garamond",
+      "label_style": "italic",
+      "title_style": "italic",
+      "text_style": "italic"
     },
     {
-      "title": "Intendance et Logistique",
+      "title": "Logistique & Valorisation",
       "images": [],
-      "text_color": "#1A1A18",
-      "font": "inherit",
-      "label_style": "bold",
-      "title_style": "normal",
-      "text_style": "normal"
+      "text_color": "#081881",
+      "font": "eb-garamond",
+      "label_style": "italic",
+      "title_style": "italic",
+      "text_style": "italic"
     },
     {
       "title": "Valorisation de Collections",
