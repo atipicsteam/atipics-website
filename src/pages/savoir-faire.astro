@@ -18,6 +18,37 @@ const styleMap: Record<string, string> = {
   italic: 'italic',
 };
 
+const SIZE_MAP: Record<string, string> = {
+  inherit: '',
+  xs: '0.75rem',
+  sm: '0.875rem',
+  base: '1rem',
+  md: '1.125rem',
+  lg: '1.25rem',
+  xl: '1.5rem',
+  '2xl': '2rem',
+  '3xl': '2.5rem',
+  '4xl': '3rem',
+  '5xl': '4rem',
+  '6xl': '5rem',
+};
+
+function elementStyle(data: any, prefix: string, defaultColor: string) {
+  const fontKey = data[`${prefix}_font`];
+  const fontRes = fontKey && fontKey !== 'inherit' && FONTS[fontKey] ? FONTS[fontKey] : null;
+  const styleVal = data[`${prefix}_style`] || 'normal';
+  const size = SIZE_MAP[data[`${prefix}_size`]] || '';
+  const color = data[`${prefix}_color`] || defaultColor;
+  const obj: Record<string, string> = {
+    color,
+    fontWeight: styleVal === 'bold' ? '700' : '400',
+    fontStyle: styleVal === 'italic' ? 'italic' : 'normal',
+  };
+  if (fontRes) obj.fontFamily = fontRes.family;
+  if (size) obj.fontSize = size;
+  return { obj, fontUrl: fontRes ? fontRes.url : null };
+}
+
 // Bandeau styles
 const bandeauFontKey = bandeauData.font && bandeauData.font !== 'inherit' && FONTS[bandeauData.font] ? bandeauData.font : null;
 const bandeauFont = bandeauFontKey ? FONTS[bandeauFontKey].family : null;
@@ -34,6 +65,13 @@ const formLabel    = contactData.section_label  || "CONFIER UNE MISSION";
 const formTitre    = contactData.form_titre     || "Parlons de votre projet";
 const formIntro1   = contactData.form_intro_1   || [{ type: "paragraph", children: [{ text: "Vous avez un besoin précis — sourcing, scénographie, logistique, valorisation de collection ? Décrivez-nous votre mission et nous reviendrons vers vous avec une proposition adaptée." }] }];
 const formIntro2   = contactData.form_intro_2   || [{ type: "paragraph", children: [{ text: "Ce formulaire est dédié aux demandes de prestation et de collaboration. Pour une visite du Village ou une question générale, utilisez le formulaire de contact." }] }];
+
+const contactDefaultColor = contactData.text_color || '#1A1A18';
+const contactLabelStyle = elementStyle(contactData, 'label', contactDefaultColor);
+const contactTitreStyle = elementStyle(contactData, 'titre', contactDefaultColor);
+const contactIntro1Style = elementStyle(contactData, 'intro1', contactDefaultColor);
+const contactIntro2Style = elementStyle(contactData, 'intro2', contactDefaultColor);
+const contactFontUrls = [contactLabelStyle.fontUrl, contactTitreStyle.fontUrl, contactIntro1Style.fontUrl, contactIntro2Style.fontUrl].filter(Boolean) as string[];
 
 const fallbackSets = [
   ["/images/projet1.jpg", "/images/projet2.webp", "/images/projet3.jpg"],
@@ -122,16 +160,17 @@ const expertises = (sectionsData.sections || []).map((s: any, i: number) => {
 
     <!-- Formulaire expertise / mission -->
     <section class="form-section">
+      {contactFontUrls.map((url) => <link rel="stylesheet" href={url} />)}
       <div class="container">
         <div class="label-row">
-          <span class="section-stamp">{formLabel}</span>
+          <span class="section-stamp" style={contactLabelStyle.obj}>{formLabel}</span>
           <div class="rule"></div>
         </div>
         <div class="form-layout">
           <div class="form-intro">
-            <h2 class="form-intro__title">{formTitre}</h2>
-            <RichText document={formIntro1} className="form-intro__text" />
-            <RichText document={formIntro2} className="form-intro__text" />
+            <h2 class="form-intro__title" style={contactTitreStyle.obj}>{formTitre}</h2>
+            <RichText document={formIntro1} className="form-intro__text" style={contactIntro1Style.obj} />
+            <RichText document={formIntro2} className="form-intro__text" style={contactIntro2Style.obj} />
             <p class="form-intro__text">Contact direct : <a href={`mailto:${parametres.email}`} class="form-intro__link">{parametres.email}</a></p>
           </div>
           <form class="sf-form" name="savoir-faire-mission" method="POST">

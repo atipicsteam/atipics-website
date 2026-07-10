@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import RichText from "../components/RichText.tsx";
+import { FONTS } from "../layouts/Layout.astro";
 import { reader } from "../lib/keystatic-reader";
 
 const contactPage = (await reader.singletons.contact_page.read({ resolveLinkedFiles: true })) ?? ({} as any);
@@ -23,13 +24,76 @@ const info_email_label = contactPage.info_email_label || "EMAIL";
 const info_tel_label = contactPage.info_tel_label || "TÉLÉPHONE";
 const info_adresse_label = contactPage.info_adresse_label || "NOUS TROUVER";
 const info_bouton_label = contactPage.info_bouton_label || "VISITER LE VILLAGE";
+
+const SIZE_MAP: Record<string, string> = {
+  inherit: '',
+  xs: '0.75rem',
+  sm: '0.875rem',
+  base: '1rem',
+  md: '1.125rem',
+  lg: '1.25rem',
+  xl: '1.5rem',
+  '2xl': '2rem',
+  '3xl': '2.5rem',
+  '4xl': '3rem',
+  '5xl': '4rem',
+  '6xl': '5rem',
+};
+
+function elementStyle(data: any, prefix: string, defaultColor: string) {
+  const fontKey = data[`${prefix}_font`];
+  const fontRes = fontKey && fontKey !== 'inherit' && FONTS[fontKey] ? FONTS[fontKey] : null;
+  const styleVal = data[`${prefix}_style`] || 'normal';
+  const size = SIZE_MAP[data[`${prefix}_size`]] || '';
+  const color = data[`${prefix}_color`] || defaultColor;
+  const obj: Record<string, string> = {
+    color,
+    fontWeight: styleVal === 'bold' ? '700' : '400',
+    fontStyle: styleVal === 'italic' ? 'italic' : 'normal',
+  };
+  if (fontRes) obj.fontFamily = fontRes.family;
+  if (size) obj.fontSize = size;
+  const cssText = `color:${obj.color};font-weight:${obj.fontWeight};font-style:${obj.fontStyle};${obj.fontFamily ? `font-family:${obj.fontFamily};` : ''}${obj.fontSize ? `font-size:${obj.fontSize};` : ''}`;
+  return { obj, cssText, fontUrl: fontRes ? fontRes.url : null };
+}
+
+const defaultColor = contactPage.text_color || '#1A1A18';
+const pageFontKey = contactPage.font && contactPage.font !== 'inherit' && FONTS[contactPage.font] ? contactPage.font : null;
+const pageFont = pageFontKey ? FONTS[pageFontKey].family : null;
+const pageFontUrl = pageFontKey ? FONTS[pageFontKey].url : null;
+
+const tabMessageStyle = elementStyle(contactPage, 'tab_message', defaultColor);
+const tabMissionStyle = elementStyle(contactPage, 'tab_mission', defaultColor);
+const titreMessageStyle = elementStyle(contactPage, 'titre_message', defaultColor);
+const titreMissionStyle = elementStyle(contactPage, 'titre_mission', defaultColor);
+const rdvLabelStyle = elementStyle(contactPage, 'rdv_label', defaultColor);
+const rdvTexteStyle = elementStyle(contactPage, 'rdv_texte', defaultColor);
+const emailLabelStyle = elementStyle(contactPage, 'email_label', defaultColor);
+const telLabelStyle = elementStyle(contactPage, 'tel_label', defaultColor);
+const adresseLabelStyle = elementStyle(contactPage, 'adresse_label', defaultColor);
+const boutonLabelStyle = elementStyle(contactPage, 'bouton_label', defaultColor);
+
+const contactFontUrls = [
+  pageFontUrl,
+  tabMessageStyle.fontUrl,
+  tabMissionStyle.fontUrl,
+  titreMessageStyle.fontUrl,
+  titreMissionStyle.fontUrl,
+  rdvLabelStyle.fontUrl,
+  rdvTexteStyle.fontUrl,
+  emailLabelStyle.fontUrl,
+  telLabelStyle.fontUrl,
+  adresseLabelStyle.fontUrl,
+  boutonLabelStyle.fontUrl,
+].filter((v, i, arr) => v && arr.indexOf(v) === i) as string[];
 ---
 
 <Layout title={`Contact — ${parametres.nom_site}`} description="Contactez l'Agence Atipics">
   <Header />
   <main style="padding-top: var(--nav-h);">
 
-    <section class="contact-section">
+    <section class="contact-section" style={pageFont ? { fontFamily: pageFont } : undefined}>
+      {contactFontUrls.map((url) => <link rel="stylesheet" href={url} />)}
       <div class="container contact-grid">
 
         <!-- ── Colonne gauche : formulaire ── -->
@@ -38,13 +102,13 @@ const info_bouton_label = contactPage.info_bouton_label || "VISITER LE VILLAGE";
           <!-- Titre + switch -->
           <div class="form-header">
             <div class="label-row">
-              <span class="stamp" id="form-stamp">{form_titre_message}</span>
+              <span class="stamp" id="form-stamp" style={titreMessageStyle.obj} data-style-message={titreMessageStyle.cssText} data-style-mission={titreMissionStyle.cssText}>{form_titre_message}</span>
               <div class="rule"></div>
             </div>
             <div class="form-tabs" role="group" aria-label="Type de contact" data-label-message={form_titre_message} data-label-mission={form_titre_mission}>
-              <button class="tab tab--active" data-tab="message">{form_tab_message}</button>
+              <button class="tab tab--active" data-tab="message" style={tabMessageStyle.obj}>{form_tab_message}</button>
               <span class="tab-sep" aria-hidden="true">/</span>
-              <button class="tab" data-tab="mission">{form_tab_mission}</button>
+              <button class="tab" data-tab="mission" style={tabMissionStyle.obj}>{form_tab_mission}</button>
             </div>
           </div>
 
@@ -139,26 +203,26 @@ const info_bouton_label = contactPage.info_bouton_label || "VISITER LE VILLAGE";
         <div class="col-info">
 
           <div class="info-block">
-            <p class="info-label">{info_rdv_label}</p>
-            <RichText document={rdvTexte} className="info-text" />
+            <p class="info-label" style={rdvLabelStyle.obj}>{info_rdv_label}</p>
+            <RichText document={rdvTexte} className="info-text" style={rdvTexteStyle.obj} />
           </div>
 
           <div class="info-block">
-            <p class="info-label">{info_email_label}</p>
+            <p class="info-label" style={emailLabelStyle.obj}>{info_email_label}</p>
             <a href={`mailto:${email}`} class="info-link">{email}</a>
           </div>
 
           <div class="info-block">
-            <p class="info-label">{info_tel_label}</p>
+            <p class="info-label" style={telLabelStyle.obj}>{info_tel_label}</p>
             <a href={`tel:${tel.replace(/\s/g, "")}`} class="info-link">{tel}</a>
           </div>
 
           <div class="info-block">
-            <p class="info-label">{info_adresse_label}</p>
+            <p class="info-label" style={adresseLabelStyle.obj}>{info_adresse_label}</p>
             <RichText document={adresse} className="info-text" />
           </div>
 
-          <a href="/village" class="info-btn">
+          <a href="/village" class="info-btn" style={boutonLabelStyle.obj}>
             {info_bouton_label} <span aria-hidden="true">→</span>
           </a>
 
@@ -182,6 +246,10 @@ const info_bouton_label = contactPage.info_bouton_label || "VISITER LE VILLAGE";
     message: formTabsContainer?.dataset.labelMessage ?? "ENVOYER UN MESSAGE",
     mission: formTabsContainer?.dataset.labelMission ?? "CONFIER UNE MISSION",
   };
+  const stampStyles: Record<string, string> = {
+    message: stamp?.dataset.styleMessage ?? "",
+    mission: stamp?.dataset.styleMission ?? "",
+  };
 
   tabs.forEach((tab) => {
     tab.addEventListener("click", () => {
@@ -191,7 +259,10 @@ const info_bouton_label = contactPage.info_bouton_label || "VISITER LE VILLAGE";
       });
       formMessage?.classList.toggle("cform--hidden", target !== "message");
       formMission?.classList.toggle("cform--hidden", target !== "mission");
-      if (stamp) stamp.textContent = labels[target] ?? "";
+      if (stamp) {
+        stamp.textContent = labels[target] ?? "";
+        stamp.style.cssText = stampStyles[target] ?? "";
+      }
     });
   });
 </script>

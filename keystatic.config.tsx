@@ -373,6 +373,12 @@ export default config({
         form_titre: fields.text({ label: 'Titre du formulaire' }),
         form_intro_1: richDoc('Intro formulaire 1'),
         form_intro_2: richDoc('Intro formulaire 2'),
+        text_color: fields.text({ label: 'Couleur du texte (défaut)', defaultValue: '#1A1A18', description: 'Couleur par défaut — peut être surchargée par élément' }),
+        font: fontSelect('Police (défaut)', 'inherit'),
+        ...elementStyles('label', 'du label de section'),
+        ...elementStyles('titre', 'du titre du formulaire'),
+        ...elementStyles('intro1', 'de l\'intro formulaire 1'),
+        ...elementStyles('intro2', 'de l\'intro formulaire 2'),
       },
     }),
     village_contact: singleton({
@@ -382,6 +388,10 @@ export default config({
       schema: {
         section_label: fields.text({ label: 'Label de la section', defaultValue: 'CONTACT' }),
         form_intro: richDoc('Intro formulaire'),
+        text_color: fields.text({ label: 'Couleur du texte (défaut)', defaultValue: '#1A1A18', description: 'Couleur par défaut — peut être surchargée par élément' }),
+        font: fontSelect('Police (défaut)', 'inherit'),
+        ...elementStyles('label', 'du label de section'),
+        ...elementStyles('intro', 'de l\'intro formulaire'),
       },
     }),
     contact_page: singleton({
@@ -389,16 +399,35 @@ export default config({
       path: 'src/content/pages/contact',
       format: { data: 'json' },
       schema: {
+        text_color: fields.text({ label: 'Couleur du texte (défaut)', defaultValue: '#1A1A18', description: 'Couleur par défaut — peut être surchargée par élément' }),
+        font: fontSelect('Police (défaut)', 'inherit'),
+
         form_tab_message: fields.text({ label: 'Onglet Message', defaultValue: 'Message' }),
+        ...elementStyles('tab_message', 'de l\'onglet Message'),
         form_tab_mission: fields.text({ label: 'Onglet Mission', defaultValue: 'Confier une mission' }),
+        ...elementStyles('tab_mission', 'de l\'onglet Mission'),
+
         form_titre_message: fields.text({ label: 'Titre Formulaire', defaultValue: 'ENVOYER UN MESSAGE' }),
+        ...elementStyles('titre_message', 'du titre Message'),
         form_titre_mission: fields.text({ label: 'Titre Mission', defaultValue: 'CONFIER UNE MISSION' }),
+        ...elementStyles('titre_mission', 'du titre Mission'),
+
         info_rdv_label: fields.text({ label: 'Label RDV', defaultValue: 'PRENDRE RENDEZ-VOUS' }),
+        ...elementStyles('rdv_label', 'du label RDV'),
         rdv_texte: richDoc('Texte RDV'),
+        ...elementStyles('rdv_texte', 'du texte RDV'),
+
         info_email_label: fields.text({ label: 'Label Email', defaultValue: 'EMAIL' }),
+        ...elementStyles('email_label', 'du label Email'),
+
         info_tel_label: fields.text({ label: 'Label Téléphone', defaultValue: 'TÉLÉPHONE' }),
+        ...elementStyles('tel_label', 'du label Téléphone'),
+
         info_adresse_label: fields.text({ label: 'Label Adresse', defaultValue: 'NOUS TROUVER' }),
+        ...elementStyles('adresse_label', 'du label Adresse'),
+
         info_bouton_label: fields.text({ label: 'Label Bouton Village', defaultValue: 'VISITER LE VILLAGE' }),
+        ...elementStyles('bouton_label', 'du bouton Village'),
       },
     }),
     theme: singleton({
