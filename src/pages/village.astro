@@ -38,7 +38,7 @@ const fallbackImgs = ["/images/projet1.jpg", "/images/projet2.webp", "/images/pr
 const espaces = (sectionsData.sections || []).map((s: any, i: number) => {
   const fontKey = s.font && s.font !== 'inherit' && FONTS[s.font] ? s.font : null;
   return {
-    slug: s.title ? s.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') : `section-${i}`,
+    slug: s.title ? s.title.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') : `section-${i}`,
     label: s.label || '',
     title: s.title || '',
     content: s.content || [],

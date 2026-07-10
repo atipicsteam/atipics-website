@@ -44,7 +44,7 @@ const fallbackSets = [
 const expertises = (sectionsData.sections || []).map((s: any, i: number) => {
   const fontKey = s.font && s.font !== 'inherit' && FONTS[s.font] ? s.font : null;
   return {
-    id: s.title ? s.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') : `section-${i}`,
+    id: s.title ? s.title.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') : `section-${i}`,
     label: s.label || '',
     title: s.title || '',
     intro: s.intro || [],
