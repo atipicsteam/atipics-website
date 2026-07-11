@@ -40,15 +40,16 @@ const SIZE_MAP: Record<string, string> = {
   '6xl': '5rem',
 };
 
-function elementStyle(data: any, prefix: string, defaultColor: string) {
+function elementStyle(data: any, prefix: string, defaultColor: string, defaultWeight = '400') {
   const fontKey = data[`${prefix}_font`];
   const fontRes = fontKey && fontKey !== 'inherit' && FONTS[fontKey] ? FONTS[fontKey] : null;
   const styleVal = data[`${prefix}_style`] || 'normal';
+  const weightVal = data[`${prefix}_weight`];
   const size = SIZE_MAP[data[`${prefix}_size`]] || '';
   const color = data[`${prefix}_color`] || defaultColor;
   const obj: Record<string, string> = {
     color,
-    fontWeight: styleVal === 'bold' ? '700' : '400',
+    fontWeight: weightVal && weightVal !== 'inherit' ? weightVal : (styleVal === 'bold' ? '700' : defaultWeight),
     fontStyle: styleVal === 'italic' ? 'italic' : 'normal',
   };
   if (fontRes) obj.fontFamily = fontRes.family;
@@ -64,14 +65,14 @@ const pageFontUrl = pageFontKey ? FONTS[pageFontKey].url : null;
 
 const tabMessageStyle = elementStyle(contactPage, 'tab_message', defaultColor);
 const tabMissionStyle = elementStyle(contactPage, 'tab_mission', defaultColor);
-const titreMessageStyle = elementStyle(contactPage, 'titre_message', defaultColor);
-const titreMissionStyle = elementStyle(contactPage, 'titre_mission', defaultColor);
-const rdvLabelStyle = elementStyle(contactPage, 'rdv_label', defaultColor);
+const titreMessageStyle = elementStyle(contactPage, 'titre_message', defaultColor, '700');
+const titreMissionStyle = elementStyle(contactPage, 'titre_mission', defaultColor, '700');
+const rdvLabelStyle = elementStyle(contactPage, 'rdv_label', defaultColor, '700');
 const rdvTexteStyle = elementStyle(contactPage, 'rdv_texte', defaultColor);
-const emailLabelStyle = elementStyle(contactPage, 'email_label', defaultColor);
-const telLabelStyle = elementStyle(contactPage, 'tel_label', defaultColor);
-const adresseLabelStyle = elementStyle(contactPage, 'adresse_label', defaultColor);
-const boutonLabelStyle = elementStyle(contactPage, 'bouton_label', defaultColor);
+const emailLabelStyle = elementStyle(contactPage, 'email_label', defaultColor, '700');
+const telLabelStyle = elementStyle(contactPage, 'tel_label', defaultColor, '700');
+const adresseLabelStyle = elementStyle(contactPage, 'adresse_label', defaultColor, '700');
+const boutonLabelStyle = elementStyle(contactPage, 'bouton_label', defaultColor, '600');
 
 const contactFontUrls = [
   pageFontUrl,

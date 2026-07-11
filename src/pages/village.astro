@@ -34,15 +34,16 @@ const SIZE_MAP: Record<string, string> = {
   '6xl': '5rem',
 };
 
-function elementStyle(data: any, prefix: string, defaultColor: string) {
+function elementStyle(data: any, prefix: string, defaultColor: string, defaultWeight = '400') {
   const fontKey = data[`${prefix}_font`];
   const fontRes = fontKey && fontKey !== 'inherit' && FONTS[fontKey] ? FONTS[fontKey] : null;
   const styleVal = data[`${prefix}_style`] || 'normal';
+  const weightVal = data[`${prefix}_weight`];
   const size = SIZE_MAP[data[`${prefix}_size`]] || '';
   const color = data[`${prefix}_color`] || defaultColor;
   const obj: Record<string, string> = {
     color,
-    fontWeight: styleVal === 'bold' ? '700' : '400',
+    fontWeight: weightVal && weightVal !== 'inherit' ? weightVal : (styleVal === 'bold' ? '700' : defaultWeight),
     fontStyle: styleVal === 'italic' ? 'italic' : 'normal',
   };
   if (fontRes) obj.fontFamily = fontRes.family;
@@ -56,8 +57,8 @@ const bandeauFont = bandeauFontKey ? FONTS[bandeauFontKey].family : null;
 const bandeauFontUrl = bandeauFontKey ? FONTS[bandeauFontKey].url : null;
 const bandeauColor = bandeauData.text_color || '#ffffff';
 const bandeauIntroStyle = styleMap[bandeauData.intro_style] || 'normal';
-const bandeauLabelStyleObj = elementStyle(bandeauData, 'label', bandeauColor);
-const bandeauTitreStyleObj = elementStyle(bandeauData, 'titre', bandeauColor);
+const bandeauLabelStyleObj = elementStyle(bandeauData, 'label', bandeauColor, '700');
+const bandeauTitreStyleObj = elementStyle(bandeauData, 'titre', bandeauColor, '300');
 
 const bandeauVillage = bandeauData.bandeau_image
   ? optimizePath(bandeauData.bandeau_image.startsWith('/images/') ? bandeauData.bandeau_image : `/images/${bandeauData.bandeau_image}`)
@@ -70,7 +71,7 @@ const formLabel      = contactData.section_label || "CONTACT";
 const formIntro      = contactData.form_intro    || [{ type: "paragraph", children: [{ text: "Vous souhaitez visiter le Village, collaborer avec nous ou en savoir plus sur nos espaces ? Remplissez le formulaire ci-dessous, nous reviendrons vers vous rapidement." }] }];
 
 const contactDefaultColor = contactData.text_color || '#1A1A18';
-const contactLabelStyle = elementStyle(contactData, 'label', contactDefaultColor);
+const contactLabelStyle = elementStyle(contactData, 'label', contactDefaultColor, '700');
 const contactIntroStyle = elementStyle(contactData, 'intro', contactDefaultColor);
 const contactFontUrls = [contactLabelStyle.fontUrl, contactIntroStyle.fontUrl].filter(Boolean) as string[];
 
@@ -89,8 +90,8 @@ const espaces = (sectionsData.sections || []).map((s: any, i: number) => {
     reverse: i % 2 === 1,
     font: fontKey ? FONTS[fontKey].family : null,
     fontUrl: fontKey ? FONTS[fontKey].url : null,
-    labelStyleObj: elementStyle(s, 'label', defaultColor),
-    titleStyleObj: elementStyle(s, 'title', defaultColor),
+    labelStyleObj: elementStyle(s, 'label', defaultColor, '700'),
+    titleStyleObj: elementStyle(s, 'title', defaultColor, '300'),
     contentStyleObj: elementStyle(s, 'content', defaultColor),
   };
 });

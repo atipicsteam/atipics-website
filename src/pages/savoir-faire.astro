@@ -34,15 +34,16 @@ const SIZE_MAP: Record<string, string> = {
   '6xl': '5rem',
 };
 
-function elementStyle(data: any, prefix: string, defaultColor: string) {
+function elementStyle(data: any, prefix: string, defaultColor: string, defaultWeight = '400') {
   const fontKey = data[`${prefix}_font`];
   const fontRes = fontKey && fontKey !== 'inherit' && FONTS[fontKey] ? FONTS[fontKey] : null;
   const styleVal = data[`${prefix}_style`] || 'normal';
+  const weightVal = data[`${prefix}_weight`];
   const size = SIZE_MAP[data[`${prefix}_size`]] || '';
   const color = data[`${prefix}_color`] || defaultColor;
   const obj: Record<string, string> = {
     color,
-    fontWeight: styleVal === 'bold' ? '700' : '400',
+    fontWeight: weightVal && weightVal !== 'inherit' ? weightVal : (styleVal === 'bold' ? '700' : defaultWeight),
     fontStyle: styleVal === 'italic' ? 'italic' : 'normal',
   };
   if (fontRes) obj.fontFamily = fontRes.family;
@@ -56,8 +57,8 @@ const bandeauFont = bandeauFontKey ? FONTS[bandeauFontKey].family : null;
 const bandeauFontUrl = bandeauFontKey ? FONTS[bandeauFontKey].url : null;
 const bandeauColor = bandeauData.text_color || '#1A1A18';
 const bandeauSousTitreStyle = styleMap[bandeauData.sous_titre_style] || 'normal';
-const bandeauLabelStyleObj = elementStyle(bandeauData, 'label', bandeauColor);
-const bandeauTitreStyleObj = elementStyle(bandeauData, 'titre', bandeauColor);
+const bandeauLabelStyleObj = elementStyle(bandeauData, 'label', bandeauColor, '700');
+const bandeauTitreStyleObj = elementStyle(bandeauData, 'titre', bandeauColor, '300');
 
 const pageLabel    = bandeauData.page_label     || "EXPERTISES";
 const pageTitre    = bandeauData.page_titre     || "Savoir Faire";
@@ -68,8 +69,8 @@ const formIntro1   = contactData.form_intro_1   || [{ type: "paragraph", childre
 const formIntro2   = contactData.form_intro_2   || [{ type: "paragraph", children: [{ text: "Ce formulaire est dédié aux demandes de prestation et de collaboration. Pour une visite du Village ou une question générale, utilisez le formulaire de contact." }] }];
 
 const contactDefaultColor = contactData.text_color || '#1A1A18';
-const contactLabelStyle = elementStyle(contactData, 'label', contactDefaultColor);
-const contactTitreStyle = elementStyle(contactData, 'titre', contactDefaultColor);
+const contactLabelStyle = elementStyle(contactData, 'label', contactDefaultColor, '700');
+const contactTitreStyle = elementStyle(contactData, 'titre', contactDefaultColor, '300');
 const contactIntro1Style = elementStyle(contactData, 'intro1', contactDefaultColor);
 const contactIntro2Style = elementStyle(contactData, 'intro2', contactDefaultColor);
 const contactFontUrls = [contactLabelStyle.fontUrl, contactTitreStyle.fontUrl, contactIntro1Style.fontUrl, contactIntro2Style.fontUrl].filter(Boolean) as string[];
@@ -95,8 +96,8 @@ const expertises = (sectionsData.sections || []).map((s: any, i: number) => {
     fallbackImages: fallbackSets[i % fallbackSets.length],
     font: fontKey ? FONTS[fontKey].family : null,
     fontUrl: fontKey ? FONTS[fontKey].url : null,
-    labelStyleObj: elementStyle(s, 'label', defaultColor),
-    titleStyleObj: elementStyle(s, 'title', defaultColor),
+    labelStyleObj: elementStyle(s, 'label', defaultColor, '700'),
+    titleStyleObj: elementStyle(s, 'title', defaultColor, '300'),
     contentStyleObj: elementStyle(s, 'content', defaultColor),
   };
 });

@@ -46,6 +46,11 @@ const resolveFont = (key: string) => {
   return FONTS[key];
 };
 
+const weightOr = (data: any, prefix: string, styleVal: string, defaultWeight: string) => {
+  const w = data[`${prefix}_weight`];
+  return w && w !== 'inherit' ? w : (styleVal === 'bold' ? '700' : defaultWeight);
+};
+
 // Bandeau styles
 const bandeauFontKey = bandeauData.font && bandeauData.font !== 'inherit' && FONTS[bandeauData.font] ? bandeauData.font : null;
 const bandeauFont = bandeauFontKey ? FONTS[bandeauFontKey].family : null;
@@ -66,6 +71,8 @@ const bandeauTitreFont = titreFontRes ? titreFontRes.family : null;
 const bandeauTitreFontUrl = titreFontRes ? titreFontRes.url : null;
 const bandeauLabelSize = SIZE_MAP[bandeauData.label_size] || '';
 const bandeauTitreSize = SIZE_MAP[bandeauData.titre_size] || '';
+const bandeauLabelWeight = weightOr(bandeauData, 'label', bandeauLabelStyle, '700');
+const bandeauTitreWeight = weightOr(bandeauData, 'titre', bandeauTitreStyle, '300');
 
 const sections = (sectionsData.sections || []).map((s: any, i: number) => {
   const fontKey = s.font && s.font !== 'inherit' && FONTS[s.font] ? s.font : null;
@@ -98,6 +105,9 @@ const sections = (sectionsData.sections || []).map((s: any, i: number) => {
     labelSize: SIZE_MAP[s.label_size] || '',
     titleSize: SIZE_MAP[s.title_size] || '',
     contentSize: SIZE_MAP[s.content_size] || '',
+    labelWeight: weightOr(s, 'label', styleMap[s.label_style] || 'bold', '700'),
+    titleWeight: weightOr(s, 'title', styleMap[s.title_style] || 'normal', '300'),
+    contentWeight: weightOr(s, 'content', styleMap[s.content_style] || 'normal', '400'),
   };
 });
 ---
@@ -108,7 +118,7 @@ const sections = (sectionsData.sections || []).map((s: any, i: number) => {
   <main style="padding-top: var(--nav-h);">
 
     <!-- Bandeau pleine largeur -->
-    <section class="bandeau" style={`${bandeauFont ? `font-family: ${bandeauFont};` : ''}--bandeau-color:${bandeauColor};--bandeau-label-color:${bandeauLabelColor};--bandeau-label-weight:${bandeauLabelStyle === 'bold' ? '700' : '400'};--bandeau-label-style:${bandeauLabelStyle === 'italic' ? 'italic' : 'normal'};${bandeauLabelFont ? `--bandeau-label-font:${bandeauLabelFont};` : ''}${bandeauLabelSize ? `--bandeau-label-size:${bandeauLabelSize};` : ''}--bandeau-titre-color:${bandeauTitreColor};--bandeau-titre-weight:${bandeauTitreStyle === 'bold' ? '700' : '200'};--bandeau-titre-style:${bandeauTitreStyle === 'italic' ? 'italic' : 'normal'};${bandeauTitreFont ? `--bandeau-titre-font:${bandeauTitreFont};` : ''}${bandeauTitreSize ? `--bandeau-titre-size:${bandeauTitreSize};` : ''}`}>
+    <section class="bandeau" style={`${bandeauFont ? `font-family: ${bandeauFont};` : ''}--bandeau-color:${bandeauColor};--bandeau-label-color:${bandeauLabelColor};--bandeau-label-weight:${bandeauLabelWeight};--bandeau-label-style:${bandeauLabelStyle === 'italic' ? 'italic' : 'normal'};${bandeauLabelFont ? `--bandeau-label-font:${bandeauLabelFont};` : ''}${bandeauLabelSize ? `--bandeau-label-size:${bandeauLabelSize};` : ''}--bandeau-titre-color:${bandeauTitreColor};--bandeau-titre-weight:${bandeauTitreWeight};--bandeau-titre-style:${bandeauTitreStyle === 'italic' ? 'italic' : 'normal'};${bandeauTitreFont ? `--bandeau-titre-font:${bandeauTitreFont};` : ''}${bandeauTitreSize ? `--bandeau-titre-size:${bandeauTitreSize};` : ''}`}>
       <img src={bandeauAgence} alt="Atipics" class="bandeau__img" decoding="async" />
       <div class="bandeau__overlay">
         <div class="container bandeau__text">
@@ -131,7 +141,7 @@ const sections = (sectionsData.sections || []).map((s: any, i: number) => {
       const imgs = s.images ?? [];
       const content = s.content;
       return (
-        <section class:list={["split-block", { "split-block--alt": s.reverse }]} id={s.slug} style={`${s.font ? `font-family: ${s.font};` : ''}--section-color:${s.color};--section-label-color:${s.labelColor};--section-label-weight:${s.labelStyle === 'bold' ? '700' : '400'};--section-label-style:${s.labelStyle === 'italic' ? 'italic' : 'normal'};${s.labelFont ? `--section-label-font:${s.labelFont};` : ''}${s.labelSize ? `--section-label-size:${s.labelSize};` : ''}--section-titre-color:${s.titleColor};--section-titre-weight:${s.titreStyle === 'bold' ? '700' : '200'};--section-titre-style:${s.titreStyle === 'italic' ? 'italic' : 'normal'};${s.titleFont ? `--section-titre-font:${s.titleFont};` : ''}${s.titleSize ? `--section-titre-size:${s.titleSize};` : ''}--section-text-color:${s.contentColor};--section-text-weight:${s.contentStyle === 'bold' ? '600' : '400'};--section-text-style:${s.contentStyle === 'italic' ? 'italic' : 'normal'};${s.contentFont ? `--section-text-font:${s.contentFont};` : ''}${s.contentSize ? `--section-text-size:${s.contentSize};` : ''}`}>
+        <section class:list={["split-block", { "split-block--alt": s.reverse }]} id={s.slug} style={`${s.font ? `font-family: ${s.font};` : ''}--section-color:${s.color};--section-label-color:${s.labelColor};--section-label-weight:${s.labelWeight};--section-label-style:${s.labelStyle === 'italic' ? 'italic' : 'normal'};${s.labelFont ? `--section-label-font:${s.labelFont};` : ''}${s.labelSize ? `--section-label-size:${s.labelSize};` : ''}--section-titre-color:${s.titleColor};--section-titre-weight:${s.titleWeight};--section-titre-style:${s.titreStyle === 'italic' ? 'italic' : 'normal'};${s.titleFont ? `--section-titre-font:${s.titleFont};` : ''}${s.titleSize ? `--section-titre-size:${s.titleSize};` : ''}--section-text-color:${s.contentColor};--section-text-weight:${s.contentWeight};--section-text-style:${s.contentStyle === 'italic' ? 'italic' : 'normal'};${s.contentFont ? `--section-text-font:${s.contentFont};` : ''}${s.contentSize ? `--section-text-size:${s.contentSize};` : ''}`}>
           {s.fontUrl && <link rel="stylesheet" href={s.fontUrl} />}
           {s.labelFontUrl && <link rel="stylesheet" href={s.labelFontUrl} />}
           {s.titleFontUrl && <link rel="stylesheet" href={s.titleFontUrl} />}

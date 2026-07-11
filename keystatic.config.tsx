@@ -35,6 +35,19 @@ const STYLE_OPTIONS = [
   { label: 'Italique', value: 'italic' },
 ];
 
+const WEIGHT_OPTIONS = [
+  { label: 'Hériter du style', value: 'inherit' },
+  { label: '100 — Fin', value: '100' },
+  { label: '200 — Extra-léger', value: '200' },
+  { label: '300 — Léger', value: '300' },
+  { label: '400 — Normal', value: '400' },
+  { label: '500 — Medium', value: '500' },
+  { label: '600 — Semi-gras', value: '600' },
+  { label: '700 — Gras', value: '700' },
+  { label: '800 — Extra-gras', value: '800' },
+  { label: '900 — Noir', value: '900' },
+];
+
 // ─── Reusable field factories ───
 const colorField = (label: string, defaultValue = '') =>
   fields.text({ label, defaultValue, description: 'Code hex (ex: #ffffff). Laisser vide pour hériter.' });
@@ -47,6 +60,9 @@ const sizeSelect = (label: string, defaultValue = 'inherit') =>
 
 const styleSelect = (label: string, defaultValue = 'normal') =>
   fields.select({ label, options: STYLE_OPTIONS, defaultValue });
+
+const weightSelect = (label: string, defaultValue = 'inherit') =>
+  fields.select({ label, options: WEIGHT_OPTIONS, defaultValue, description: 'Remplace Normal/Gras par un poids précis. Laisser sur "Hériter" pour garder le comportement du champ Style.' });
 
 const richDoc = (label: string) =>
   fields.document({
@@ -64,6 +80,7 @@ const elementStyles = (prefix: string, labelName: string) => ({
   [`${prefix}_font`]: fontSelect(`Police ${labelName}`),
   [`${prefix}_size`]: sizeSelect(`Taille ${labelName}`),
   [`${prefix}_style`]: styleSelect(`Style ${labelName}`),
+  [`${prefix}_weight`]: weightSelect(`Poids ${labelName}`),
 });
 
 export default config({
