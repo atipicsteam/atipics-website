@@ -27,7 +27,7 @@ const navItems = await Promise.all(
     const sub = sections
       .filter((s) => s.title)
       .map((s, i) => ({
-        label: s.title,
+        label: s.label || s.title,
         href: `${item.href}#${slugifySection(s.title, i)}`,
       }));
     return { ...item, sub };
