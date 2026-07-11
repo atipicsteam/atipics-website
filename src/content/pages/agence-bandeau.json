@@ -10,9 +10,15 @@
   "label_size": "inherit",
   "label_style": "normal",
   "label_weight": "200",
+  "label_align": "inherit",
+  "label_width": "inherit",
+  "label_line_height": "inherit",
   "titre_color": "#ffffff",
   "titre_font": "manrope",
   "titre_size": "inherit",
   "titre_style": "normal",
-  "titre_weight": "inherit"
+  "titre_weight": "300",
+  "titre_align": "inherit",
+  "titre_width": "inherit",
+  "titre_line_height": "inherit"
 }
