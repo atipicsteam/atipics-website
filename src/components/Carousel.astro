@@ -38,8 +38,10 @@ const categoryStyle = styleMap[carouselData.category_style] || 'normal';
         )}
         <div class="carousel__overlay"></div>
         <div class="carousel__content">
-          <span class="carousel__category">{slide.category} — {slide.year}</span>
-          <h2 class="carousel__title">{slide.title}</h2>
+          {(slide.category || slide.year) && (
+            <span class="carousel__category">{[slide.category, slide.year].filter(Boolean).join(' — ')}</span>
+          )}
+          {slide.title && <h2 class="carousel__title">{slide.title}</h2>}
         </div>
       </div>
     ))}
