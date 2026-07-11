@@ -6,6 +6,13 @@ import { reader } from "../lib/keystatic-reader";
 import { slugifySection } from "../lib/slugify";
 
 const name = parametres.nom_site || "ATIPICS";
+
+// Capitalise la première lettre et chaque mot précédé d'un « & »
+function formatNavLabel(label: string): string {
+  return label
+    .toLowerCase()
+    .replace(/(^\w|&\s*\w)/g, (m) => m.toUpperCase());
+}
 const currentPath = Astro.url.pathname;
 
 // Le sous-menu d'Agence / Savoir-faire / Village est généré automatiquement à
@@ -27,7 +34,7 @@ const navItems = await Promise.all(
     const sub = sections
       .filter((s) => s.title)
       .map((s, i) => ({
-        label: s.label || s.title,
+        label: formatNavLabel(s.label || s.title),
         href: `${item.href}#${slugifySection(s.title, i)}`,
       }));
     return { ...item, sub };
@@ -276,10 +283,6 @@ const sublinksStyle = styleMap[navData.sublinks_style] || 'normal';
     border-left: 3px solid transparent;
     transition: color 0.15s, background 0.15s, border-color 0.15s;
     white-space: nowrap;
-    text-transform: lowercase;
-  }
-  .nav__sub-link::first-letter {
-    text-transform: uppercase;
   }
   .nav__sub-link:hover,
   .nav__sub-link--active {
