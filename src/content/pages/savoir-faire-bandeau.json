@@ -2,13 +2,15 @@
   "page_label": "EXPERTISES",
   "page_titre": "Savoir Faire",
   "page_sous_titre": " ",
-  "text_color": "#081881",
+  "text_color": "#ffffff",
   "font": "manrope",
   "sous_titre_style": "normal",
-  "label_font": "inherit",
+  "label_color": "#ffffff",
+  "label_font": "manrope",
   "label_size": "inherit",
   "label_style": "bold",
-  "titre_font": "inherit",
+  "titre_color": "#ffffff",
+  "titre_font": "manrope",
   "titre_size": "inherit",
   "titre_style": "normal"
 }
