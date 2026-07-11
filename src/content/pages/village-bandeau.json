@@ -1,15 +1,16 @@
 {
   "bandeau_image": "/images/pages/bandeau_image.webp",
+  "bandeau_label": "LE COMPLEXE",
   "bandeau_titre": "Village Atipics",
   "text_color": "#ffffff",
   "font": "inherit",
   "intro_style": "normal",
   "label_color": "#ffffff",
-  "label_font": "inherit",
+  "label_font": "manrope",
   "label_size": "inherit",
   "label_style": "bold",
   "titre_color": "#ffffff",
-  "titre_font": "inherit",
+  "titre_font": "manrope",
   "titre_size": "inherit",
   "titre_style": "normal"
 }
