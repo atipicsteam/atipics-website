@@ -2,37 +2,44 @@
   "sections": [
     {
       "label": "À PROPOS",
-      "title": "Architecte de valeur.",
+      "title": "Façonner l’exception.",
       "images": [
         "/images/agence/sections/0/images/0.webp",
         "/images/agence/sections/0/images/1.webp"
       ],
-      "font": "inherit",
-      "label_font": "inherit",
-      "label_size": "inherit",
+      "text_color": "#081881",
+      "font": "eb-garamond",
+      "label_color": "#081881",
+      "label_font": "manrope",
+      "label_size": "base",
       "label_style": "bold",
-      "title_font": "inherit",
-      "title_size": "inherit",
-      "title_style": "normal",
-      "content_font": "inherit",
-      "content_size": "inherit",
-      "content_style": "normal"
+      "title_color": "#081881",
+      "title_font": "eb-garamond",
+      "title_size": "md",
+      "title_style": "italic",
+      "content_color": "#081881",
+      "content_font": "eb-garamond",
+      "content_size": "base",
+      "content_style": "italic"
     },
     {
       "label": "RÉSEAUX",
       "title": "Un réseau d'exception",
       "images": [],
-      "text_color": "#1A1A18",
-      "font": "inherit",
-      "label_font": "inherit",
+      "text_color": "#081881",
+      "font": "eb-garamond",
+      "label_color": "#081881",
+      "label_font": "manrope",
       "label_size": "inherit",
       "label_style": "bold",
-      "title_font": "inherit",
-      "title_size": "inherit",
-      "title_style": "normal",
-      "content_font": "inherit",
-      "content_size": "inherit",
-      "content_style": "normal"
+      "title_color": "#081881",
+      "title_font": "eb-garamond",
+      "title_size": "md",
+      "title_style": "italic",
+      "content_color": "#081881",
+      "content_font": "eb-garamond",
+      "content_size": "base",
+      "content_style": "italic"
     }
   ]
 }
