@@ -2,10 +2,37 @@
 import parametres from "../content/parametres/index.json";
 import navData from "../content/navigation/index.json";
 import { FONTS } from "../layouts/Layout.astro";
+import { reader } from "../lib/keystatic-reader";
+import { slugifySection } from "../lib/slugify";
 
 const name = parametres.nom_site || "ATIPICS";
-const navItems = navData.items || [];
 const currentPath = Astro.url.pathname;
+
+// Le sous-menu d'Agence / Savoir-faire / Village est généré automatiquement à
+// partir des sections réelles de chaque page (au lieu d'être saisi à la main
+// dans Navigation), pour rester toujours synchronisé si une section est
+// renommée, ajoutée ou supprimée depuis le dashboard.
+const SECTION_SOURCES: Record<string, string> = {
+  '/agence': 'agence_sections',
+  '/savoir-faire': 'savoir_faire_sections',
+  '/village': 'village_sections',
+};
+
+const navItems = await Promise.all(
+  ((navData.items || []) as any[]).map(async (item: any) => {
+    const singletonKey = SECTION_SOURCES[item.href];
+    if (!singletonKey) return item;
+    const data = await (reader.singletons as any)[singletonKey].read({ resolveLinkedFiles: true });
+    const sections = (data?.sections || []) as any[];
+    const sub = sections
+      .filter((s) => s.title)
+      .map((s, i) => ({
+        label: s.title,
+        href: `${item.href}#${slugifySection(s.title, i)}`,
+      }));
+    return { ...item, sub };
+  })
+);
 
 const navFontKey = navData.font && navData.font !== 'inherit' && FONTS[navData.font]
   ? navData.font

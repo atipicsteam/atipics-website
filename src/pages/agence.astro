@@ -6,6 +6,7 @@ import RichText from "../components/RichText.tsx";
 import { FONTS } from "../layouts/Layout.astro";
 import { optimizePath } from "../lib/image";
 import { reader } from "../lib/keystatic-reader";
+import { slugifySection } from "../lib/slugify";
 
 const bandeauData = (await reader.singletons.agence_bandeau.read({ resolveLinkedFiles: true })) ?? ({} as any);
 const sectionsData = (await reader.singletons.agence_sections.read({ resolveLinkedFiles: true })) ?? ({ sections: [] } as any);
@@ -72,7 +73,7 @@ const sections = (sectionsData.sections || []).map((s: any, i: number) => {
   const titleFontResS = resolveFont(s.title_font);
   const contentFontResS = resolveFont(s.content_font);
   return {
-    slug: s.title ? s.title.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') : `section-${i}`,
+    slug: slugifySection(s.title, i),
     label: s.label || '',
     titre: s.title || '',
     content: s.content || [],

@@ -6,6 +6,7 @@ import RichText from "../components/RichText.tsx";
 import { FONTS } from "../layouts/Layout.astro";
 import { optimizePath } from "../lib/image";
 import { reader } from "../lib/keystatic-reader";
+import { slugifySection } from "../lib/slugify";
 
 const bandeauData = (await reader.singletons.savoir_faire_bandeau.read({ resolveLinkedFiles: true })) ?? ({} as any);
 const sectionsData = (await reader.singletons.savoir_faire_sections.read({ resolveLinkedFiles: true })) ?? ({ sections: [] } as any);
@@ -84,7 +85,7 @@ const fallbackSets = [
 const expertises = (sectionsData.sections || []).map((s: any, i: number) => {
   const fontKey = s.font && s.font !== 'inherit' && FONTS[s.font] ? s.font : null;
   return {
-    id: s.title ? s.title.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') : `section-${i}`,
+    id: slugifySection(s.title, i),
     label: s.label || '',
     title: s.title || '',
     intro: s.intro || [],
