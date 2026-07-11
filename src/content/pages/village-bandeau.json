@@ -1,11 +1,13 @@
 {
-  "bandeau_image": "/images/pages/village-bandeau-d8b6ecec-a0f3-40d6-b532-131d15068219.jpg",
-  "bandeau_label": "",
+  "bandeau_image": "/images/pages/bandeau_image.webp",
   "bandeau_titre": "Village Atipics",
-  "intro": [],
-  "text_color": "#ffffff",
+  "text_color": "#F54927",
   "font": "inherit",
+  "intro_style": "normal",
+  "label_font": "inherit",
+  "label_size": "inherit",
   "label_style": "bold",
-  "titre_style": "normal",
-  "intro_style": "normal"
+  "titre_font": "inherit",
+  "titre_size": "inherit",
+  "titre_style": "normal"
 }
