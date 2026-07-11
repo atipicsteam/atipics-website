@@ -11,7 +11,7 @@ const name = parametres.nom_site || "ATIPICS";
 function formatNavLabel(label: string): string {
   return label
     .toLowerCase()
-    .replace(/(^\w|&\s*\w)/g, (m) => m.toUpperCase());
+    .replace(/(^[\wÀ-ÿ]|&\s*[\wÀ-ÿ])/g, (m) => m.toUpperCase());
 }
 const currentPath = Astro.url.pathname;
 
