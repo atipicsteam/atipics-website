@@ -33,7 +33,9 @@
     },
     {
       "title": "Conciergerie & Propriété",
-      "images": [],
+      "images": [
+        "/images/savoir/sections/1/images/0.avif"
+      ],
       "text_color": "#081881",
       "font": "eb-garamond",
       "label_font": "inherit",
