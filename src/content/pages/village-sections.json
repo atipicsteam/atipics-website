@@ -16,8 +16,8 @@
       "title_style": "italic",
       "title_weight": "inherit",
       "content_color": "#081881",
-      "content_font": "eb-garamond",
-      "content_size": "lg",
+      "content_font": "manrope",
+      "content_size": "md",
       "content_style": "italic",
       "content_weight": "inherit"
     }
