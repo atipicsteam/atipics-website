@@ -276,6 +276,10 @@ const sublinksStyle = styleMap[navData.sublinks_style] || 'normal';
     border-left: 3px solid transparent;
     transition: color 0.15s, background 0.15s, border-color 0.15s;
     white-space: nowrap;
+    text-transform: lowercase;
+  }
+  .nav__sub-link::first-letter {
+    text-transform: uppercase;
   }
   .nav__sub-link:hover,
   .nav__sub-link--active {
