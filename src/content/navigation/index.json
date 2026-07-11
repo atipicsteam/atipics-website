@@ -5,12 +5,12 @@
       "href": "/agence",
       "sub": [
         {
-          "label": "Architecte de valeur",
-          "href": "/agence#architecte-de-valeur"
+          "label": "À Propos",
+          "href": "/agence#apropos"
         },
         {
-          "label": "Un réseau d'exception",
-          "href": "/agence#un-reseau-d-exception"
+          "label": "Réseaux",
+          "href": "/agence#reseaux"
         }
       ]
     },
