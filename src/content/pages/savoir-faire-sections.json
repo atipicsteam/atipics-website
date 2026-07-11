@@ -21,12 +21,12 @@
       "title_width": "inherit",
       "title_line_height": "inherit",
       "content_color": "#081881",
-      "content_font": "manrope",
+      "content_font": "eb-garamond",
       "content_size": "sm",
-      "content_style": "normal",
+      "content_style": "italic",
       "content_weight": "600",
       "content_align": "justify",
-      "content_width": "full",
+      "content_width": "wide",
       "content_line_height": "normal"
     },
     {
