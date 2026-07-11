@@ -55,9 +55,9 @@ const bandeauFontKey = bandeauData.font && bandeauData.font !== 'inherit' && FON
 const bandeauFont = bandeauFontKey ? FONTS[bandeauFontKey].family : null;
 const bandeauFontUrl = bandeauFontKey ? FONTS[bandeauFontKey].url : null;
 const bandeauColor = bandeauData.text_color || '#ffffff';
-const bandeauLabelStyle = styleMap[bandeauData.label_style] || 'bold';
-const bandeauTitreStyle = styleMap[bandeauData.titre_style] || 'normal';
 const bandeauIntroStyle = styleMap[bandeauData.intro_style] || 'normal';
+const bandeauLabelStyleObj = elementStyle(bandeauData, 'label', bandeauColor);
+const bandeauTitreStyleObj = elementStyle(bandeauData, 'titre', bandeauColor);
 
 const bandeauVillage = bandeauData.bandeau_image
   ? optimizePath(bandeauData.bandeau_image.startsWith('/images/') ? bandeauData.bandeau_image : `/images/${bandeauData.bandeau_image}`)
@@ -78,6 +78,7 @@ const fallbackImgs = ["/images/projet1.jpg", "/images/projet2.webp", "/images/pr
 
 const espaces = (sectionsData.sections || []).map((s: any, i: number) => {
   const fontKey = s.font && s.font !== 'inherit' && FONTS[s.font] ? s.font : null;
+  const defaultColor = s.text_color || '#1A1A18';
   return {
     slug: slugifySection(s.title, i),
     label: s.label || '',
@@ -88,10 +89,9 @@ const espaces = (sectionsData.sections || []).map((s: any, i: number) => {
     reverse: i % 2 === 1,
     font: fontKey ? FONTS[fontKey].family : null,
     fontUrl: fontKey ? FONTS[fontKey].url : null,
-    color: s.text_color || '#1A1A18',
-    labelStyle: styleMap[s.label_style] || 'bold',
-    titreStyle: styleMap[s.title_style] || 'normal',
-    textStyle: styleMap[s.content_style] || 'normal',
+    labelStyleObj: elementStyle(s, 'label', defaultColor),
+    titleStyleObj: elementStyle(s, 'title', defaultColor),
+    contentStyleObj: elementStyle(s, 'content', defaultColor),
   };
 });
 ---
@@ -101,13 +101,15 @@ const espaces = (sectionsData.sections || []).map((s: any, i: number) => {
   <main style="padding-top: var(--nav-h);">
 
     <!-- Bandeau drone -->
-    <section class="bandeau" style={`${bandeauFont ? `font-family: ${bandeauFont};` : ''}--bandeau-color:${bandeauColor};--bandeau-label-weight:${bandeauLabelStyle === 'bold' ? '700' : '400'};--bandeau-label-style:${bandeauLabelStyle === 'italic' ? 'italic' : 'normal'};--bandeau-titre-weight:${bandeauTitreStyle === 'bold' ? '700' : '200'};--bandeau-titre-style:${bandeauTitreStyle === 'italic' ? 'italic' : 'normal'}`}>
+    <section class="bandeau" style={`${bandeauFont ? `font-family: ${bandeauFont};` : ''}--bandeau-color:${bandeauColor};`}>
       {bandeauFontUrl && <link rel="stylesheet" href={bandeauFontUrl} />}
+      {bandeauLabelStyleObj.fontUrl && <link rel="stylesheet" href={bandeauLabelStyleObj.fontUrl} />}
+      {bandeauTitreStyleObj.fontUrl && <link rel="stylesheet" href={bandeauTitreStyleObj.fontUrl} />}
       <img src={bandeauVillage} alt="Vue aérienne du Village Atipics" class="bandeau__img" />
       <div class="bandeau__overlay">
         <div class="container bandeau__text">
-          <p class="bandeau__label">{bandeauLabel}</p>
-          <h1 class="bandeau__title">{bandeauTitre}</h1>
+          <p class="bandeau__label" style={bandeauLabelStyleObj.obj}>{bandeauLabel}</p>
+          <h1 class="bandeau__title" style={bandeauTitreStyleObj.obj}>{bandeauTitre}</h1>
         </div>
       </div>
     </section>
@@ -122,11 +124,14 @@ const espaces = (sectionsData.sections || []).map((s: any, i: number) => {
 
     <!-- Espaces — alternance photo/texte -->
     {espaces.map((e) => (
-      <section class="espace" id={e.slug} style={`${e.font ? `font-family: ${e.font};` : ''}--section-color:${e.color};--section-label-weight:${e.labelStyle === 'bold' ? '700' : '400'};--section-label-style:${e.labelStyle === 'italic' ? 'italic' : 'normal'};--section-titre-weight:${e.titreStyle === 'bold' ? '700' : '300'};--section-titre-style:${e.titreStyle === 'italic' ? 'italic' : 'normal'};--section-text-weight:${e.textStyle === 'bold' ? '600' : '400'};--section-text-style:${e.textStyle === 'italic' ? 'italic' : 'normal'}`}>
+      <section class="espace" id={e.slug} style={e.font ? `font-family: ${e.font};` : ''}>
           {e.fontUrl && <link rel="stylesheet" href={e.fontUrl} />}
+          {e.labelStyleObj.fontUrl && <link rel="stylesheet" href={e.labelStyleObj.fontUrl} />}
+          {e.titleStyleObj.fontUrl && <link rel="stylesheet" href={e.titleStyleObj.fontUrl} />}
+          {e.contentStyleObj.fontUrl && <link rel="stylesheet" href={e.contentStyleObj.fontUrl} />}
         <div class="container">
           <div class="espace__label-row">
-            <span class="espace__section-label">{e.label}</span>
+            <span class="espace__section-label" style={e.labelStyleObj.obj}>{e.label}</span>
             <div class="espace__rule"></div>
           </div>
           <div class:list={["espace__grid", { "espace__grid--reverse": e.reverse }]}>
@@ -157,8 +162,8 @@ const espaces = (sectionsData.sections || []).map((s: any, i: number) => {
               )}
             </div>
             <div class="espace__text-col">
-              <h2 class="espace__title">{e.title}</h2>
-              {e.content && <RichText document={e.content} className="espace__p" />}
+              <h2 class="espace__title" style={e.titleStyleObj.obj}>{e.title}</h2>
+              {e.content && <RichText document={e.content} className="espace__p" style={e.contentStyleObj.obj} />}
             </div>
           </div>
         </div>

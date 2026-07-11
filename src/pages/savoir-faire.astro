@@ -55,9 +55,9 @@ const bandeauFontKey = bandeauData.font && bandeauData.font !== 'inherit' && FON
 const bandeauFont = bandeauFontKey ? FONTS[bandeauFontKey].family : null;
 const bandeauFontUrl = bandeauFontKey ? FONTS[bandeauFontKey].url : null;
 const bandeauColor = bandeauData.text_color || '#1A1A18';
-const bandeauLabelStyle = styleMap[bandeauData.label_style] || 'bold';
-const bandeauTitreStyle = styleMap[bandeauData.titre_style] || 'normal';
 const bandeauSousTitreStyle = styleMap[bandeauData.sous_titre_style] || 'normal';
+const bandeauLabelStyleObj = elementStyle(bandeauData, 'label', bandeauColor);
+const bandeauTitreStyleObj = elementStyle(bandeauData, 'titre', bandeauColor);
 
 const pageLabel    = bandeauData.page_label     || "EXPERTISES";
 const pageTitre    = bandeauData.page_titre     || "Savoir Faire";
@@ -84,6 +84,7 @@ const fallbackSets = [
 
 const expertises = (sectionsData.sections || []).map((s: any, i: number) => {
   const fontKey = s.font && s.font !== 'inherit' && FONTS[s.font] ? s.font : null;
+  const defaultColor = s.text_color || '#1A1A18';
   return {
     id: slugifySection(s.title, i),
     label: s.label || '',
@@ -94,10 +95,9 @@ const expertises = (sectionsData.sections || []).map((s: any, i: number) => {
     fallbackImages: fallbackSets[i % fallbackSets.length],
     font: fontKey ? FONTS[fontKey].family : null,
     fontUrl: fontKey ? FONTS[fontKey].url : null,
-    color: s.text_color || '#1A1A18',
-    labelStyle: styleMap[s.label_style] || 'bold',
-    titleStyle: styleMap[s.title_style] || 'normal',
-    textStyle: styleMap[s.content_style] || 'normal',
+    labelStyleObj: elementStyle(s, 'label', defaultColor),
+    titleStyleObj: elementStyle(s, 'title', defaultColor),
+    contentStyleObj: elementStyle(s, 'content', defaultColor),
   };
 });
 ---
@@ -107,32 +107,37 @@ const expertises = (sectionsData.sections || []).map((s: any, i: number) => {
   <main style="padding-top: var(--nav-h);">
 
     <!-- Header page -->
-    <section class="page-head" style={`${bandeauFont ? `font-family: ${bandeauFont};` : ''}--bandeau-color:${bandeauColor};--bandeau-label-weight:${bandeauLabelStyle === 'bold' ? '700' : '400'};--bandeau-label-style:${bandeauLabelStyle === 'italic' ? 'italic' : 'normal'};--bandeau-titre-weight:${bandeauTitreStyle === 'bold' ? '700' : '200'};--bandeau-titre-style:${bandeauTitreStyle === 'italic' ? 'italic' : 'normal'};--bandeau-soustitre-weight:${bandeauSousTitreStyle === 'bold' ? '600' : '400'};--bandeau-soustitre-style:${bandeauSousTitreStyle === 'italic' ? 'italic' : 'normal'}`}>
+    <section class="page-head" style={`${bandeauFont ? `font-family: ${bandeauFont};` : ''}--bandeau-color:${bandeauColor};--bandeau-soustitre-weight:${bandeauSousTitreStyle === 'bold' ? '600' : '400'};--bandeau-soustitre-style:${bandeauSousTitreStyle === 'italic' ? 'italic' : 'normal'}`}>
       {bandeauFontUrl && <link rel="stylesheet" href={bandeauFontUrl} />}
+      {bandeauLabelStyleObj.fontUrl && <link rel="stylesheet" href={bandeauLabelStyleObj.fontUrl} />}
+      {bandeauTitreStyleObj.fontUrl && <link rel="stylesheet" href={bandeauTitreStyleObj.fontUrl} />}
       <div class="container">
         <div class="label-row">
-          <span class="section-stamp">{pageLabel}</span>
+          <span class="section-stamp" style={bandeauLabelStyleObj.obj}>{pageLabel}</span>
           <div class="rule"></div>
         </div>
-        <h1 class="page-head__title">{pageTitre}</h1>
+        <h1 class="page-head__title" style={bandeauTitreStyleObj.obj}>{pageTitre}</h1>
         <p class="page-head__sub">{pageSousTitre}</p>
       </div>
     </section>
 
     <!-- Expertises -->
     {expertises.map((e, i) => (
-      <section class:list={["expertise-block", { "expertise-block--alt": i % 2 !== 0 }]} id={e.id} style={`${e.font ? `font-family: ${e.font};` : ''}--section-color:${e.color};--section-label-weight:${e.labelStyle === 'bold' ? '700' : '400'};--section-label-style:${e.labelStyle === 'italic' ? 'italic' : 'normal'};--section-titre-weight:${e.titleStyle === 'bold' ? '700' : '300'};--section-titre-style:${e.titleStyle === 'italic' ? 'italic' : 'normal'};--section-text-weight:${e.textStyle === 'bold' ? '600' : '400'};--section-text-style:${e.textStyle === 'italic' ? 'italic' : 'normal'}`}>
+      <section class:list={["expertise-block", { "expertise-block--alt": i % 2 !== 0 }]} id={e.id} style={e.font ? `font-family: ${e.font};` : ''}>
           {e.fontUrl && <link rel="stylesheet" href={e.fontUrl} />}
+          {e.labelStyleObj.fontUrl && <link rel="stylesheet" href={e.labelStyleObj.fontUrl} />}
+          {e.titleStyleObj.fontUrl && <link rel="stylesheet" href={e.titleStyleObj.fontUrl} />}
+          {e.contentStyleObj.fontUrl && <link rel="stylesheet" href={e.contentStyleObj.fontUrl} />}
         <div class="container">
           <div class="label-row">
-            <span class="section-stamp">{e.label}</span>
+            <span class="section-stamp" style={e.labelStyleObj.obj}>{e.label}</span>
             <div class="rule"></div>
           </div>
           <div class="expertise-grid">
             <div class="expertise-text">
-              <h2 class="expertise-title">{e.title}</h2>
+              <h2 class="expertise-title" style={e.titleStyleObj.obj}>{e.title}</h2>
               <RichText document={e.intro} className="expertise-intro" />
-              {e.content && <RichText document={e.content} className="expertise-p" />}
+              {e.content && <RichText document={e.content} className="expertise-p" style={e.contentStyleObj.obj} />}
             </div>
             <div class="expertise-carousel" data-carousel>
               <div class="ecarousel__track" data-track>
