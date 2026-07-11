@@ -111,6 +111,7 @@ const richDoc = (label: string) =>
       blockTypes: { blockquote: true },
       headingLevels: [2, 3, 4],
       listTypes: { unordered: true, ordered: true },
+      alignment: { center: true, end: true },
     },
   });
 
