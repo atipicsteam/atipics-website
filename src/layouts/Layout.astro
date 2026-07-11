@@ -215,6 +215,30 @@ const socials = [
     margin-block: var(--sp-md);
   }
 
+  /* ─── Listes à puces (contenu riche) ─── */
+  .rt-list {
+    list-style: none;
+    margin: 0.5em 0;
+    padding-left: 1.5em;
+  }
+  .rt-list-item {
+    position: relative;
+    margin-bottom: 0.5em;
+  }
+  .rt-list-item::before {
+    content: '–';
+    position: absolute;
+    left: -1.2em;
+    opacity: 0.65;
+  }
+  .rt-list-item:last-child { margin-bottom: 0; }
+  ol.rt-list { counter-reset: rt-counter; }
+  ol.rt-list > .rt-list-item::before {
+    content: counter(rt-counter) '.';
+    counter-increment: rt-counter;
+    opacity: 0.65;
+  }
+
   @media (max-width: 768px) {
     .section { padding-block: var(--sp-lg); }
     .section-title { font-size: var(--text-2xl); }

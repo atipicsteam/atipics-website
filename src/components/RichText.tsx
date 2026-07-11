@@ -21,6 +21,13 @@ export default function RichText({ document, className, style }: { document: any
           blockquote: ({ children }) => {
             return className ? <blockquote className={className} style={style}>{children}</blockquote> : <blockquote style={style}>{children}</blockquote>;
           },
+          list: ({ children, type }: { children: React.ReactNode[], type: 'ordered' | 'unordered' }) => {
+            const listClass = className ? `${className} rt-list` : 'rt-list';
+            const items = children.map((child, i) => <li key={i} className="rt-list-item">{child}</li>);
+            return type === 'ordered'
+              ? <ol className={listClass} style={style}>{items}</ol>
+              : <ul className={listClass} style={style}>{items}</ul>;
+          },
         }
       }}
     />

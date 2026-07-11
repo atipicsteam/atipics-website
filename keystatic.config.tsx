@@ -62,6 +62,9 @@ const WIDTH_OPTIONS = [
   { label: 'Moyen — 46 caractères', value: 'medium' },
   { label: 'Large — 64 caractères', value: 'wide' },
   { label: 'Très large — 80 caractères', value: 'xwide' },
+  { label: 'XXL — 100 caractères', value: 'xxl' },
+  { label: 'XXXL — 120 caractères', value: 'xxxl' },
+  { label: 'Maximal — 140 caractères', value: 'max' },
   { label: 'Pleine largeur (aucune limite)', value: 'full' },
 ];
 
@@ -107,6 +110,7 @@ const richDoc = (label: string) =>
       inlineMarks: { bold: true, italic: true },
       blockTypes: { blockquote: true },
       headingLevels: [2, 3, 4],
+      listTypes: { unordered: true, ordered: true },
     },
   });
 
