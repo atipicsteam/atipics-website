@@ -11,7 +11,7 @@
       "font": "eb-garamond",
       "label_color": "#081881",
       "label_font": "inherit",
-      "label_size": "inherit",
+      "label_size": "sm",
       "label_style": "bold",
       "label_weight": "inherit",
       "label_align": "inherit",
