@@ -60,7 +60,9 @@
     },
     {
       "title": "Events & Scénographie",
-      "images": [],
+      "images": [
+        "/images/savoir/sections/2/images/0.jpg"
+      ],
       "text_color": "#081881",
       "font": "eb-garamond",
       "label_font": "inherit",
