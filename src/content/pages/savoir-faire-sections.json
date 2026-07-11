@@ -5,8 +5,16 @@
       "images": [],
       "text_color": "#081881",
       "font": "eb-garamond",
+      "label_font": "inherit",
+      "label_size": "inherit",
       "label_style": "italic",
+      "title_color": "#081881",
+      "title_font": "eb-garamond",
+      "title_size": "md",
       "title_style": "italic",
+      "content_color": "#081881",
+      "content_font": "eb-garamond",
+      "content_size": "base",
       "content_style": "italic"
     },
     {
@@ -14,8 +22,16 @@
       "images": [],
       "text_color": "#081881",
       "font": "eb-garamond",
+      "label_font": "inherit",
+      "label_size": "inherit",
       "label_style": "italic",
+      "title_color": "#081881",
+      "title_font": "eb-garamond",
+      "title_size": "md",
       "title_style": "italic",
+      "content_color": "#081881",
+      "content_font": "eb-garamond",
+      "content_size": "base",
       "content_style": "italic"
     },
     {
@@ -23,8 +39,16 @@
       "images": [],
       "text_color": "#081881",
       "font": "eb-garamond",
+      "label_font": "inherit",
+      "label_size": "inherit",
       "label_style": "italic",
+      "title_color": "#081881",
+      "title_font": "eb-garamond",
+      "title_size": "md",
       "title_style": "italic",
+      "content_color": "#081881",
+      "content_font": "eb-garamond",
+      "content_size": "base",
       "content_style": "italic"
     },
     {
@@ -32,8 +56,16 @@
       "images": [],
       "text_color": "#081881",
       "font": "eb-garamond",
+      "label_font": "inherit",
+      "label_size": "inherit",
       "label_style": "italic",
+      "title_color": "#081881",
+      "title_font": "eb-garamond",
+      "title_size": "md",
       "title_style": "italic",
+      "content_color": "#081881",
+      "content_font": "eb-garamond",
+      "content_size": "base",
       "content_style": "italic"
     }
   ]
