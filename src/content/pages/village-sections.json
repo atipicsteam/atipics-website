@@ -6,28 +6,14 @@
       "images": [],
       "text_color": "#1A1A18",
       "font": "inherit",
+      "label_font": "inherit",
+      "label_size": "inherit",
       "label_style": "bold",
+      "title_font": "inherit",
+      "title_size": "inherit",
       "title_style": "normal",
-      "content_style": "normal"
-    },
-    {
-      "label": "STUDIO ATIPICS",
-      "title": "Studio Design",
-      "images": [],
-      "text_color": "#1A1A18",
-      "font": "inherit",
-      "label_style": "bold",
-      "title_style": "normal",
-      "content_style": "normal"
-    },
-    {
-      "label": "ATELIERS ATIPICS",
-      "title": "Les Ateliers",
-      "images": [],
-      "text_color": "#1A1A18",
-      "font": "inherit",
-      "label_style": "bold",
-      "title_style": "normal",
+      "content_font": "inherit",
+      "content_size": "inherit",
       "content_style": "normal"
     }
   ]
