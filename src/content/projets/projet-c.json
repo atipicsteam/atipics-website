@@ -3,21 +3,21 @@
   "category": "Architecture",
   "year": "2023",
   "description": [],
-  "cover": "/images/projet3.jpg",
+  "cover": "/images/projets/projet3.jpg",
   "medias": [
     {
       "type": "image",
-      "src": "/images/projet3.jpg",
+      "src": "/images/projets/projet3.jpg",
       "alt": "Vue d'ensemble"
     },
     {
       "type": "image",
-      "src": "/images/projet1.jpg",
+      "src": "/images/projets/projet1.jpg",
       "alt": "Détail installation"
     },
     {
       "type": "image",
-      "src": "/images/projet2.webp",
+      "src": "/images/projets/projet2.webp",
       "alt": "Vue latérale"
     }
   ]

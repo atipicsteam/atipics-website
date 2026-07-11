@@ -3,21 +3,21 @@
   "category": "Design circulaire",
   "year": "2024",
   "description": [],
-  "cover": "/images/projet2.webp",
+  "cover": "/images/projets/projet2.webp",
   "medias": [
     {
       "type": "image",
-      "src": "/images/projet2.webp",
+      "src": "/images/projets/projet2.webp",
       "alt": "Vue principale"
     },
     {
       "type": "image",
-      "src": "/images/projet4.webp",
+      "src": "/images/projets/projet4.webp",
       "alt": "Détail pièce"
     },
     {
       "type": "image",
-      "src": "/images/projet1.jpg",
+      "src": "/images/projets/projet1.jpg",
       "alt": "Contexte"
     }
   ]

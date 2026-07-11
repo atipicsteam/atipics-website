@@ -3,21 +3,21 @@
   "category": "Textile",
   "year": "2023",
   "description": [],
-  "cover": "/images/projet4.webp",
+  "cover": "/images/projets/projet4.webp",
   "medias": [
     {
       "type": "image",
-      "src": "/images/projet4.webp",
+      "src": "/images/projets/projet4.webp",
       "alt": "Vue principale"
     },
     {
       "type": "image",
-      "src": "/images/projet3.jpg",
+      "src": "/images/projets/projet3.jpg",
       "alt": "Détail tissu"
     },
     {
       "type": "image",
-      "src": "/images/projet2.webp",
+      "src": "/images/projets/projet2.webp",
       "alt": "Mise en scène"
     }
   ]

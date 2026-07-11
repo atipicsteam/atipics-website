@@ -3,21 +3,21 @@
   "category": "Artisanat",
   "year": "2024",
   "description": [],
-  "cover": "/images/projet1.jpg",
+  "cover": "/images/projets/projet1.jpg",
   "medias": [
     {
       "type": "image",
-      "src": "/images/projet1.jpg",
+      "src": "/images/projets/projet1.jpg",
       "alt": "Vue principale"
     },
     {
       "type": "image",
-      "src": "/images/projet2.webp",
+      "src": "/images/projets/projet2.webp",
       "alt": "Détail"
     },
     {
       "type": "image",
-      "src": "/images/projet3.jpg",
+      "src": "/images/projets/projet3.jpg",
       "alt": "Ambiance générale"
     }
   ]
