@@ -8,14 +8,17 @@
       "label_font": "inherit",
       "label_size": "inherit",
       "label_style": "italic",
+      "label_weight": "inherit",
       "title_color": "#081881",
       "title_font": "eb-garamond",
       "title_size": "md",
       "title_style": "italic",
+      "title_weight": "inherit",
       "content_color": "#081881",
-      "content_font": "eb-garamond",
-      "content_size": "base",
-      "content_style": "italic"
+      "content_font": "manrope",
+      "content_size": "sm",
+      "content_style": "normal",
+      "content_weight": "inherit"
     },
     {
       "title": "Conciergerie & Propriété",
@@ -25,14 +28,17 @@
       "label_font": "inherit",
       "label_size": "inherit",
       "label_style": "italic",
+      "label_weight": "inherit",
       "title_color": "#081881",
       "title_font": "eb-garamond",
       "title_size": "md",
       "title_style": "italic",
+      "title_weight": "inherit",
       "content_color": "#081881",
       "content_font": "eb-garamond",
       "content_size": "base",
-      "content_style": "italic"
+      "content_style": "italic",
+      "content_weight": "inherit"
     },
     {
       "title": "Events & Scénographie",
@@ -42,14 +48,17 @@
       "label_font": "inherit",
       "label_size": "inherit",
       "label_style": "italic",
+      "label_weight": "inherit",
       "title_color": "#081881",
       "title_font": "eb-garamond",
       "title_size": "md",
       "title_style": "italic",
+      "title_weight": "inherit",
       "content_color": "#081881",
       "content_font": "eb-garamond",
       "content_size": "base",
-      "content_style": "italic"
+      "content_style": "italic",
+      "content_weight": "inherit"
     },
     {
       "title": "Logistique & Valorisation",
@@ -59,14 +68,17 @@
       "label_font": "inherit",
       "label_size": "inherit",
       "label_style": "italic",
+      "label_weight": "inherit",
       "title_color": "#081881",
       "title_font": "eb-garamond",
       "title_size": "md",
       "title_style": "italic",
+      "title_weight": "inherit",
       "content_color": "#081881",
       "content_font": "eb-garamond",
       "content_size": "base",
-      "content_style": "italic"
+      "content_style": "italic",
+      "content_weight": "inherit"
     }
   ]
 }
