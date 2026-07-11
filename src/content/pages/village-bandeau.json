@@ -9,8 +9,10 @@
   "label_font": "manrope",
   "label_size": "inherit",
   "label_style": "bold",
+  "label_weight": "inherit",
   "titre_color": "#ffffff",
   "titre_font": "manrope",
-  "titre_size": "inherit",
-  "titre_style": "normal"
+  "titre_size": "md",
+  "titre_style": "normal",
+  "titre_weight": "400"
 }
