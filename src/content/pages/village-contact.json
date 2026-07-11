@@ -1,4 +1,18 @@
 {
   "section_label": "CONTACT",
-  "form_intro": []
+  "font": "inherit",
+  "label_font": "inherit",
+  "label_size": "inherit",
+  "label_style": "normal",
+  "label_weight": "inherit",
+  "label_align": "inherit",
+  "label_width": "inherit",
+  "label_line_height": "inherit",
+  "intro_font": "inherit",
+  "intro_size": "inherit",
+  "intro_style": "normal",
+  "intro_weight": "inherit",
+  "intro_align": "inherit",
+  "intro_width": "inherit",
+  "intro_line_height": "inherit"
 }
