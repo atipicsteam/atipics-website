@@ -48,6 +48,23 @@ const WEIGHT_OPTIONS = [
   { label: '900 — Noir', value: '900' },
 ];
 
+const ALIGN_OPTIONS = [
+  { label: 'Hériter', value: 'inherit' },
+  { label: 'Gauche', value: 'left' },
+  { label: 'Centré', value: 'center' },
+  { label: 'Droite', value: 'right' },
+  { label: 'Justifié', value: 'justify' },
+];
+
+const WIDTH_OPTIONS = [
+  { label: 'Hériter (largeur par défaut)', value: 'inherit' },
+  { label: 'Étroit — 32 caractères', value: 'narrow' },
+  { label: 'Moyen — 46 caractères', value: 'medium' },
+  { label: 'Large — 64 caractères', value: 'wide' },
+  { label: 'Très large — 80 caractères', value: 'xwide' },
+  { label: 'Pleine largeur (aucune limite)', value: 'full' },
+];
+
 // ─── Reusable field factories ───
 const colorField = (label: string, defaultValue = '') =>
   fields.text({ label, defaultValue, description: 'Code hex (ex: #ffffff). Laisser vide pour hériter.' });
@@ -63,6 +80,12 @@ const styleSelect = (label: string, defaultValue = 'normal') =>
 
 const weightSelect = (label: string, defaultValue = 'inherit') =>
   fields.select({ label, options: WEIGHT_OPTIONS, defaultValue, description: 'Remplace Normal/Gras par un poids précis. Laisser sur "Hériter" pour garder le comportement du champ Style.' });
+
+const alignSelect = (label: string, defaultValue = 'inherit') =>
+  fields.select({ label, options: ALIGN_OPTIONS, defaultValue });
+
+const widthSelect = (label: string, defaultValue = 'inherit') =>
+  fields.select({ label, options: WIDTH_OPTIONS, defaultValue, description: 'Contrôle où le texte revient à la ligne. "Pleine largeur" laisse le texte utiliser tout l\'espace disponible.' });
 
 const richDoc = (label: string) =>
   fields.document({
@@ -81,6 +104,8 @@ const elementStyles = (prefix: string, labelName: string) => ({
   [`${prefix}_size`]: sizeSelect(`Taille ${labelName}`),
   [`${prefix}_style`]: styleSelect(`Style ${labelName}`),
   [`${prefix}_weight`]: weightSelect(`Poids ${labelName}`),
+  [`${prefix}_align`]: alignSelect(`Alignement ${labelName}`),
+  [`${prefix}_width`]: widthSelect(`Largeur ${labelName}`),
 });
 
 export default config({

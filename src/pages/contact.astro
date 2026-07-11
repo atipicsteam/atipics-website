@@ -40,6 +40,15 @@ const SIZE_MAP: Record<string, string> = {
   '6xl': '5rem',
 };
 
+const WIDTH_MAP: Record<string, string> = {
+  inherit: '',
+  narrow: '32ch',
+  medium: '46ch',
+  wide: '64ch',
+  xwide: '80ch',
+  full: 'none',
+};
+
 function elementStyle(data: any, prefix: string, defaultColor: string, defaultWeight = '400') {
   const fontKey = data[`${prefix}_font`];
   const fontRes = fontKey && fontKey !== 'inherit' && FONTS[fontKey] ? FONTS[fontKey] : null;
@@ -47,6 +56,8 @@ function elementStyle(data: any, prefix: string, defaultColor: string, defaultWe
   const weightVal = data[`${prefix}_weight`];
   const size = SIZE_MAP[data[`${prefix}_size`]] || '';
   const color = data[`${prefix}_color`] || defaultColor;
+  const align = data[`${prefix}_align`];
+  const width = WIDTH_MAP[data[`${prefix}_width`]] || '';
   const obj: Record<string, string> = {
     color,
     fontWeight: weightVal && weightVal !== 'inherit' ? weightVal : (styleVal === 'bold' ? '700' : defaultWeight),
@@ -54,7 +65,9 @@ function elementStyle(data: any, prefix: string, defaultColor: string, defaultWe
   };
   if (fontRes) obj.fontFamily = fontRes.family;
   if (size) obj.fontSize = size;
-  const cssText = `color:${obj.color};font-weight:${obj.fontWeight};font-style:${obj.fontStyle};${obj.fontFamily ? `font-family:${obj.fontFamily};` : ''}${obj.fontSize ? `font-size:${obj.fontSize};` : ''}`;
+  if (align && align !== 'inherit') obj.textAlign = align;
+  if (width) obj.maxWidth = width;
+  const cssText = `color:${obj.color};font-weight:${obj.fontWeight};font-style:${obj.fontStyle};${obj.fontFamily ? `font-family:${obj.fontFamily};` : ''}${obj.fontSize ? `font-size:${obj.fontSize};` : ''}${obj.textAlign ? `text-align:${obj.textAlign};` : ''}${obj.maxWidth ? `max-width:${obj.maxWidth};` : ''}`;
   return { obj, cssText, fontUrl: fontRes ? fontRes.url : null };
 }
 

@@ -41,6 +41,15 @@ const SIZE_MAP: Record<string, string> = {
   '6xl': '5rem',
 };
 
+const WIDTH_MAP: Record<string, string> = {
+  inherit: '',
+  narrow: '32ch',
+  medium: '46ch',
+  wide: '64ch',
+  xwide: '80ch',
+  full: 'none',
+};
+
 const resolveFont = (key: string) => {
   if (!key || key === 'inherit' || !FONTS[key]) return null;
   return FONTS[key];
@@ -50,6 +59,13 @@ const weightOr = (data: any, prefix: string, styleVal: string, defaultWeight: st
   const w = data[`${prefix}_weight`];
   return w && w !== 'inherit' ? w : (styleVal === 'bold' ? '700' : defaultWeight);
 };
+
+const alignOf = (data: any, prefix: string) => {
+  const a = data[`${prefix}_align`];
+  return a && a !== 'inherit' ? a : '';
+};
+
+const widthOf = (data: any, prefix: string) => WIDTH_MAP[data[`${prefix}_width`]] || '';
 
 // Bandeau styles
 const bandeauFontKey = bandeauData.font && bandeauData.font !== 'inherit' && FONTS[bandeauData.font] ? bandeauData.font : null;
@@ -108,6 +124,8 @@ const sections = (sectionsData.sections || []).map((s: any, i: number) => {
     labelWeight: weightOr(s, 'label', styleMap[s.label_style] || 'bold', '700'),
     titleWeight: weightOr(s, 'title', styleMap[s.title_style] || 'normal', '300'),
     contentWeight: weightOr(s, 'content', styleMap[s.content_style] || 'normal', '400'),
+    contentAlign: alignOf(s, 'content'),
+    contentWidth: widthOf(s, 'content'),
   };
 });
 ---
@@ -141,7 +159,7 @@ const sections = (sectionsData.sections || []).map((s: any, i: number) => {
       const imgs = s.images ?? [];
       const content = s.content;
       return (
-        <section class:list={["split-block", { "split-block--alt": s.reverse }]} id={s.slug} style={`${s.font ? `font-family: ${s.font};` : ''}--section-color:${s.color};--section-label-color:${s.labelColor};--section-label-weight:${s.labelWeight};--section-label-style:${s.labelStyle === 'italic' ? 'italic' : 'normal'};${s.labelFont ? `--section-label-font:${s.labelFont};` : ''}${s.labelSize ? `--section-label-size:${s.labelSize};` : ''}--section-titre-color:${s.titleColor};--section-titre-weight:${s.titleWeight};--section-titre-style:${s.titreStyle === 'italic' ? 'italic' : 'normal'};${s.titleFont ? `--section-titre-font:${s.titleFont};` : ''}${s.titleSize ? `--section-titre-size:${s.titleSize};` : ''}--section-text-color:${s.contentColor};--section-text-weight:${s.contentWeight};--section-text-style:${s.contentStyle === 'italic' ? 'italic' : 'normal'};${s.contentFont ? `--section-text-font:${s.contentFont};` : ''}${s.contentSize ? `--section-text-size:${s.contentSize};` : ''}`}>
+        <section class:list={["split-block", { "split-block--alt": s.reverse }]} id={s.slug} style={`${s.font ? `font-family: ${s.font};` : ''}--section-color:${s.color};--section-label-color:${s.labelColor};--section-label-weight:${s.labelWeight};--section-label-style:${s.labelStyle === 'italic' ? 'italic' : 'normal'};${s.labelFont ? `--section-label-font:${s.labelFont};` : ''}${s.labelSize ? `--section-label-size:${s.labelSize};` : ''}--section-titre-color:${s.titleColor};--section-titre-weight:${s.titleWeight};--section-titre-style:${s.titreStyle === 'italic' ? 'italic' : 'normal'};${s.titleFont ? `--section-titre-font:${s.titleFont};` : ''}${s.titleSize ? `--section-titre-size:${s.titleSize};` : ''}--section-text-color:${s.contentColor};--section-text-weight:${s.contentWeight};--section-text-style:${s.contentStyle === 'italic' ? 'italic' : 'normal'};${s.contentFont ? `--section-text-font:${s.contentFont};` : ''}${s.contentSize ? `--section-text-size:${s.contentSize};` : ''}${s.contentAlign ? `--section-text-align:${s.contentAlign};` : ''}${s.contentWidth ? `--section-text-width:${s.contentWidth};` : ''}`}>
           {s.fontUrl && <link rel="stylesheet" href={s.fontUrl} />}
           {s.labelFontUrl && <link rel="stylesheet" href={s.labelFontUrl} />}
           {s.titleFontUrl && <link rel="stylesheet" href={s.titleFontUrl} />}
@@ -353,7 +371,8 @@ const sections = (sectionsData.sections || []).map((s: any, i: number) => {
     color: var(--section-text-color, var(--section-color, var(--c-muted)));
     line-height: 1.9;
     margin-bottom: 1.5rem;
-    max-width: 48ch;
+    max-width: var(--section-text-width, 48ch);
+    text-align: var(--section-text-align, left);
     overflow-wrap: break-word;
   }
   .split-p:last-child { margin-bottom: 0; }
@@ -365,7 +384,8 @@ const sections = (sectionsData.sections || []).map((s: any, i: number) => {
     color: var(--section-text-color, var(--section-color, var(--c-muted)));
     line-height: 1.9;
     margin-bottom: 1.5rem;
-    max-width: 48ch;
+    max-width: var(--section-text-width, 48ch);
+    text-align: var(--section-text-align, left);
     overflow-wrap: break-word;
   }
   :global(.split-p:last-child) { margin-bottom: 0; }
