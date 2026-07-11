@@ -9,12 +9,15 @@
       "label_font": "inherit",
       "label_size": "inherit",
       "label_style": "bold",
+      "label_weight": "inherit",
       "title_font": "inherit",
       "title_size": "inherit",
       "title_style": "normal",
+      "title_weight": "inherit",
       "content_font": "inherit",
       "content_size": "inherit",
-      "content_style": "normal"
+      "content_style": "normal",
+      "content_weight": "inherit"
     }
   ]
 }
