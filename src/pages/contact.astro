@@ -49,6 +49,16 @@ const WIDTH_MAP: Record<string, string> = {
   full: 'none',
 };
 
+const LINE_HEIGHT_MAP: Record<string, string> = {
+  inherit: '',
+  tight: '1.1',
+  snug: '1.3',
+  normal: '1.5',
+  relaxed: '1.8',
+  loose: '2.1',
+  xloose: '2.4',
+};
+
 function elementStyle(data: any, prefix: string, defaultColor: string, defaultWeight = '400') {
   const fontKey = data[`${prefix}_font`];
   const fontRes = fontKey && fontKey !== 'inherit' && FONTS[fontKey] ? FONTS[fontKey] : null;
@@ -58,6 +68,7 @@ function elementStyle(data: any, prefix: string, defaultColor: string, defaultWe
   const color = data[`${prefix}_color`] || defaultColor;
   const align = data[`${prefix}_align`];
   const width = WIDTH_MAP[data[`${prefix}_width`]] || '';
+  const lineHeight = LINE_HEIGHT_MAP[data[`${prefix}_line_height`]] || '';
   const obj: Record<string, string> = {
     color,
     fontWeight: weightVal && weightVal !== 'inherit' ? weightVal : (styleVal === 'bold' ? '700' : defaultWeight),
@@ -67,7 +78,8 @@ function elementStyle(data: any, prefix: string, defaultColor: string, defaultWe
   if (size) obj.fontSize = size;
   if (align && align !== 'inherit') obj.textAlign = align;
   if (width) obj.maxWidth = width;
-  const cssText = `color:${obj.color};font-weight:${obj.fontWeight};font-style:${obj.fontStyle};${obj.fontFamily ? `font-family:${obj.fontFamily};` : ''}${obj.fontSize ? `font-size:${obj.fontSize};` : ''}${obj.textAlign ? `text-align:${obj.textAlign};` : ''}${obj.maxWidth ? `max-width:${obj.maxWidth};` : ''}`;
+  if (lineHeight) obj.lineHeight = lineHeight;
+  const cssText = `color:${obj.color};font-weight:${obj.fontWeight};font-style:${obj.fontStyle};${obj.fontFamily ? `font-family:${obj.fontFamily};` : ''}${obj.fontSize ? `font-size:${obj.fontSize};` : ''}${obj.textAlign ? `text-align:${obj.textAlign};` : ''}${obj.maxWidth ? `max-width:${obj.maxWidth};` : ''}${obj.lineHeight ? `line-height:${obj.lineHeight};` : ''}`;
   return { obj, cssText, fontUrl: fontRes ? fontRes.url : null };
 }
 

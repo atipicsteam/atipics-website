@@ -65,6 +65,16 @@ const WIDTH_OPTIONS = [
   { label: 'Pleine largeur (aucune limite)', value: 'full' },
 ];
 
+const LINE_HEIGHT_OPTIONS = [
+  { label: 'Hériter (interligne par défaut)', value: 'inherit' },
+  { label: 'Très compact — 1.1', value: 'tight' },
+  { label: 'Compact — 1.3', value: 'snug' },
+  { label: 'Normal — 1.5', value: 'normal' },
+  { label: 'Aéré — 1.8', value: 'relaxed' },
+  { label: 'Très aéré — 2.1', value: 'loose' },
+  { label: 'Maximal — 2.4', value: 'xloose' },
+];
+
 // ─── Reusable field factories ───
 const colorField = (label: string, defaultValue = '') =>
   fields.text({ label, defaultValue, description: 'Code hex (ex: #ffffff). Laisser vide pour hériter.' });
@@ -87,6 +97,9 @@ const alignSelect = (label: string, defaultValue = 'inherit') =>
 const widthSelect = (label: string, defaultValue = 'inherit') =>
   fields.select({ label, options: WIDTH_OPTIONS, defaultValue, description: 'Contrôle où le texte revient à la ligne. "Pleine largeur" laisse le texte utiliser tout l\'espace disponible.' });
 
+const lineHeightSelect = (label: string, defaultValue = 'inherit') =>
+  fields.select({ label, options: LINE_HEIGHT_OPTIONS, defaultValue, description: 'Espace vertical entre les lignes du texte.' });
+
 const richDoc = (label: string) =>
   fields.document({
     label,
@@ -106,6 +119,7 @@ const elementStyles = (prefix: string, labelName: string) => ({
   [`${prefix}_weight`]: weightSelect(`Poids ${labelName}`),
   [`${prefix}_align`]: alignSelect(`Alignement ${labelName}`),
   [`${prefix}_width`]: widthSelect(`Largeur ${labelName}`),
+  [`${prefix}_line_height`]: lineHeightSelect(`Interligne ${labelName}`),
 });
 
 export default config({

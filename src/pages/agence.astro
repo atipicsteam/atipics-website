@@ -50,6 +50,16 @@ const WIDTH_MAP: Record<string, string> = {
   full: 'none',
 };
 
+const LINE_HEIGHT_MAP: Record<string, string> = {
+  inherit: '',
+  tight: '1.1',
+  snug: '1.3',
+  normal: '1.5',
+  relaxed: '1.8',
+  loose: '2.1',
+  xloose: '2.4',
+};
+
 const resolveFont = (key: string) => {
   if (!key || key === 'inherit' || !FONTS[key]) return null;
   return FONTS[key];
@@ -66,6 +76,8 @@ const alignOf = (data: any, prefix: string) => {
 };
 
 const widthOf = (data: any, prefix: string) => WIDTH_MAP[data[`${prefix}_width`]] || '';
+
+const lineHeightOf = (data: any, prefix: string) => LINE_HEIGHT_MAP[data[`${prefix}_line_height`]] || '';
 
 // Bandeau styles
 const bandeauFontKey = bandeauData.font && bandeauData.font !== 'inherit' && FONTS[bandeauData.font] ? bandeauData.font : null;
@@ -126,6 +138,7 @@ const sections = (sectionsData.sections || []).map((s: any, i: number) => {
     contentWeight: weightOr(s, 'content', styleMap[s.content_style] || 'normal', '400'),
     contentAlign: alignOf(s, 'content'),
     contentWidth: widthOf(s, 'content'),
+    contentLineHeight: lineHeightOf(s, 'content'),
   };
 });
 ---
@@ -159,7 +172,7 @@ const sections = (sectionsData.sections || []).map((s: any, i: number) => {
       const imgs = s.images ?? [];
       const content = s.content;
       return (
-        <section class:list={["split-block", { "split-block--alt": s.reverse }]} id={s.slug} style={`${s.font ? `font-family: ${s.font};` : ''}--section-color:${s.color};--section-label-color:${s.labelColor};--section-label-weight:${s.labelWeight};--section-label-style:${s.labelStyle === 'italic' ? 'italic' : 'normal'};${s.labelFont ? `--section-label-font:${s.labelFont};` : ''}${s.labelSize ? `--section-label-size:${s.labelSize};` : ''}--section-titre-color:${s.titleColor};--section-titre-weight:${s.titleWeight};--section-titre-style:${s.titreStyle === 'italic' ? 'italic' : 'normal'};${s.titleFont ? `--section-titre-font:${s.titleFont};` : ''}${s.titleSize ? `--section-titre-size:${s.titleSize};` : ''}--section-text-color:${s.contentColor};--section-text-weight:${s.contentWeight};--section-text-style:${s.contentStyle === 'italic' ? 'italic' : 'normal'};${s.contentFont ? `--section-text-font:${s.contentFont};` : ''}${s.contentSize ? `--section-text-size:${s.contentSize};` : ''}${s.contentAlign ? `--section-text-align:${s.contentAlign};` : ''}${s.contentWidth ? `--section-text-width:${s.contentWidth};` : ''}`}>
+        <section class:list={["split-block", { "split-block--alt": s.reverse }]} id={s.slug} style={`${s.font ? `font-family: ${s.font};` : ''}--section-color:${s.color};--section-label-color:${s.labelColor};--section-label-weight:${s.labelWeight};--section-label-style:${s.labelStyle === 'italic' ? 'italic' : 'normal'};${s.labelFont ? `--section-label-font:${s.labelFont};` : ''}${s.labelSize ? `--section-label-size:${s.labelSize};` : ''}--section-titre-color:${s.titleColor};--section-titre-weight:${s.titleWeight};--section-titre-style:${s.titreStyle === 'italic' ? 'italic' : 'normal'};${s.titleFont ? `--section-titre-font:${s.titleFont};` : ''}${s.titleSize ? `--section-titre-size:${s.titleSize};` : ''}--section-text-color:${s.contentColor};--section-text-weight:${s.contentWeight};--section-text-style:${s.contentStyle === 'italic' ? 'italic' : 'normal'};${s.contentFont ? `--section-text-font:${s.contentFont};` : ''}${s.contentSize ? `--section-text-size:${s.contentSize};` : ''}${s.contentAlign ? `--section-text-align:${s.contentAlign};` : ''}${s.contentWidth ? `--section-text-width:${s.contentWidth};` : ''}${s.contentLineHeight ? `--section-text-line-height:${s.contentLineHeight};` : ''}`}>
           {s.fontUrl && <link rel="stylesheet" href={s.fontUrl} />}
           {s.labelFontUrl && <link rel="stylesheet" href={s.labelFontUrl} />}
           {s.titleFontUrl && <link rel="stylesheet" href={s.titleFontUrl} />}
@@ -369,7 +382,7 @@ const sections = (sectionsData.sections || []).map((s: any, i: number) => {
     font-weight: var(--section-text-weight, 400);
     font-style: var(--section-text-style, normal);
     color: var(--section-text-color, var(--section-color, var(--c-muted)));
-    line-height: 1.9;
+    line-height: var(--section-text-line-height, 1.9);
     margin-bottom: 1.5rem;
     max-width: var(--section-text-width, 48ch);
     text-align: var(--section-text-align, left);
@@ -382,7 +395,7 @@ const sections = (sectionsData.sections || []).map((s: any, i: number) => {
     font-weight: var(--section-text-weight, 400);
     font-style: var(--section-text-style, normal);
     color: var(--section-text-color, var(--section-color, var(--c-muted)));
-    line-height: 1.9;
+    line-height: var(--section-text-line-height, 1.9);
     margin-bottom: 1.5rem;
     max-width: var(--section-text-width, 48ch);
     text-align: var(--section-text-align, left);
