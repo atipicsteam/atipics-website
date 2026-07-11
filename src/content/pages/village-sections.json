@@ -1,22 +1,24 @@
 {
   "sections": [
     {
-      "label": "ATIPICS ENTREPÔT",
-      "title": "L'Entrepôt",
+      "label": "ENTREPÔT & STUDIO ",
+      "title": "L'Entrepôt & Studio Design",
       "images": [],
-      "text_color": "#1A1A18",
-      "font": "inherit",
+      "text_color": "#081881",
+      "font": "eb-garamond",
       "label_font": "inherit",
       "label_size": "inherit",
       "label_style": "bold",
       "label_weight": "inherit",
-      "title_font": "inherit",
+      "title_color": "#081881",
+      "title_font": "eb-garamond",
       "title_size": "inherit",
-      "title_style": "normal",
+      "title_style": "italic",
       "title_weight": "inherit",
-      "content_font": "inherit",
+      "content_color": "#081881",
+      "content_font": "eb-garamond",
       "content_size": "inherit",
-      "content_style": "normal",
+      "content_style": "italic",
       "content_weight": "inherit"
     }
   ]
