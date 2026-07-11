@@ -10,16 +10,25 @@
       "label_size": "inherit",
       "label_style": "bold",
       "label_weight": "inherit",
+      "label_align": "inherit",
+      "label_width": "inherit",
+      "label_line_height": "inherit",
       "title_color": "#081881",
       "title_font": "eb-garamond",
       "title_size": "inherit",
       "title_style": "italic",
       "title_weight": "inherit",
+      "title_align": "inherit",
+      "title_width": "inherit",
+      "title_line_height": "inherit",
       "content_color": "#081881",
       "content_font": "manrope",
       "content_size": "sm",
       "content_style": "normal",
-      "content_weight": "inherit"
+      "content_weight": "500",
+      "content_align": "inherit",
+      "content_width": "wide",
+      "content_line_height": "normal"
     }
   ]
 }
