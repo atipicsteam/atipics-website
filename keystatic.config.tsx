@@ -107,11 +107,28 @@ const richDoc = (label: string) =>
   fields.document({
     label,
     formatting: {
-      inlineMarks: { bold: true, italic: true },
-      blockTypes: { blockquote: true },
-      headingLevels: [2, 3, 4],
+      inlineMarks: {
+        bold: true,
+        italic: true,
+        underline: true,
+        strikethrough: true,
+        code: true,
+        superscript: true,
+        subscript: true,
+        keyboard: true,
+      },
+      blockTypes: { blockquote: true, code: true },
+      headingLevels: [2, 3, 4, 5, 6],
       listTypes: { unordered: true, ordered: true },
       alignment: { center: true, end: true },
+      softBreaks: true,
+    },
+    links: true,
+    dividers: true,
+    tables: true,
+    images: {
+      directory: 'public/images/content',
+      publicPath: '/images/content/',
     },
   });
 
