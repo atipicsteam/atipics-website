@@ -363,10 +363,15 @@ export default config({
       path: 'src/content/pages/savoir-faire-bandeau',
       format: { data: 'json' },
       schema: {
+        bandeau_image: fields.image({
+          label: 'Image du bandeau',
+          directory: 'public/images/pages',
+          publicPath: '/images/pages/',
+        }),
         page_label: fields.text({ label: 'Label de la page' }),
         page_titre: fields.text({ label: 'Titre de la page' }),
         page_sous_titre: fields.text({ label: 'Sous-titre' }),
-        text_color: fields.text({ label: 'Couleur du texte (défaut)', defaultValue: '#1A1A18', description: 'Couleur par défaut — peut être surchargée par élément' }),
+        text_color: fields.text({ label: 'Couleur du texte (défaut)', defaultValue: '#ffffff', description: 'Couleur par défaut — peut être surchargée par élément' }),
         font: fontSelect('Police (défaut)', 'inherit'),
         sous_titre_style: styleSelect('Style du sous-titre', 'normal'),
         ...elementStyles('label', 'du label'),
