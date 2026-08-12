@@ -179,7 +179,7 @@ export default config({
         description: richDoc('Description'),
         cover: fields.image({
           label: 'Image de couverture',
-          directory: 'public/images/projets',
+          directory: 'public/images/projets/',
           publicPath: '/images/projets/',
         }),
         medias: fields.array(
@@ -194,7 +194,7 @@ export default config({
             }),
             src: fields.image({
               label: 'Fichier Média',
-              directory: 'public/images/projets',
+              directory: 'public/images/projets/',
               publicPath: '/images/projets/',
             }),
             alt: fields.text({ label: 'Texte alternatif' }),
@@ -216,7 +216,7 @@ export default config({
         excerpt: richDoc('Extrait'),
         cover: fields.image({
           label: 'Image de couverture',
-          directory: 'public/images/journal',
+          directory: 'public/images/journal/',
           publicPath: '/images/journal/',
         }),
       },
@@ -345,7 +345,7 @@ export default config({
             title: fields.text({ label: 'Titre' }),
             content: richDoc('Contenu'),
             images: fields.array(
-              fields.image({ label: 'Image', directory: 'public/images/agence', publicPath: '/images/agence/' }),
+              fields.image({ label: 'Image', directory: 'public/images/agence/', publicPath: '/images/agence/' }),
               { label: 'Images', itemLabel: props => 'Image' }
             ),
             text_color: fields.text({ label: 'Couleur du texte (défaut)', defaultValue: '#1A1A18', description: 'Couleur par défaut — peut être surchargée par élément' }),
@@ -390,7 +390,7 @@ export default config({
             intro: richDoc('Introduction'),
             content: richDoc('Contenu'),
             images: fields.array(
-              fields.image({ label: 'Image', directory: 'public/images/savoir', publicPath: '/images/savoir/' }),
+              fields.image({ label: 'Image', directory: 'public/images/savoir/', publicPath: '/images/savoir/' }),
               { label: 'Images', itemLabel: props => 'Image' }
             ),
             text_color: fields.text({ label: 'Couleur du texte (défaut)', defaultValue: '#1A1A18', description: 'Couleur par défaut — peut être surchargée par élément' }),
@@ -434,7 +434,7 @@ export default config({
             title: fields.text({ label: 'Titre' }),
             content: richDoc('Contenu'),
             images: fields.array(
-              fields.image({ label: 'Image', directory: 'public/images/village', publicPath: '/images/village/' }),
+              fields.image({ label: 'Image', directory: 'public/images/village/', publicPath: '/images/village/' }),
               { label: 'Images', itemLabel: props => 'Image' }
             ),
             text_color: fields.text({ label: 'Couleur du texte (défaut)', defaultValue: '#1A1A18', description: 'Couleur par défaut — peut être surchargée par élément' }),
@@ -539,7 +539,7 @@ export default config({
             year: fields.text({ label: 'Année' }),
             image: fields.image({
               label: 'Image',
-              directory: 'public/images',
+              directory: 'public/images/',
               publicPath: '/images/',
             }),
           }),
