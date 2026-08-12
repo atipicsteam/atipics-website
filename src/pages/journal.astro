@@ -14,7 +14,7 @@ const articles = rawArticles.map((a) => a.entry).sort((a: any, b: any) => new Da
 
 <Layout title={`Journal — ${parametres.nom_site}`} description="Actualités, découvertes et réflexions de l'Agence Atipics">
   <Header />
-  <main style="padding-top: var(--nav-h);">
+  <main style="padding-top: var(--nav-h); min-height: calc(100vh - var(--footer-h) - var(--social-bar-h));">
 
     <!-- Header -->
     <section class="page-head">
