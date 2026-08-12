@@ -321,8 +321,8 @@ export default config({
       schema: {
         bandeau_image: fields.image({
           label: 'Image du bandeau',
-          directory: 'public/images/pages/agence',
-          publicPath: '/images/pages/agence/',
+          directory: 'public/images/pages/',
+          publicPath: '/images/pages/',
         }),
         bandeau_label: fields.text({ label: 'Label du bandeau' }),
         bandeau_titre: fields.text({ label: 'Titre du bandeau' }),
@@ -365,8 +365,8 @@ export default config({
       schema: {
         bandeau_image: fields.image({
           label: 'Image du bandeau',
-          directory: 'public/images/pages/savoir-faire',
-          publicPath: '/images/pages/savoir-faire/',
+          directory: 'public/images/pages/',
+          publicPath: '/images/pages/',
         }),
         page_label: fields.text({ label: 'Label de la page' }),
         page_titre: fields.text({ label: 'Titre de la page' }),
@@ -410,8 +410,8 @@ export default config({
       schema: {
         bandeau_image: fields.image({
           label: 'Image du bandeau',
-          directory: 'public/images/pages/village',
-          publicPath: '/images/pages/village/',
+          directory: 'public/images/pages/',
+          publicPath: '/images/pages/',
         }),
         bandeau_label: fields.text({ label: 'Label du bandeau' }),
         bandeau_titre: fields.text({ label: 'Titre du bandeau' }),
