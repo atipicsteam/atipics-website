@@ -354,10 +354,11 @@ const expertises = (sectionsData.sections || []).map((s: any, i: number) => {
     color: var(--bandeau-color, #fff);
   }
   .bandeau__label {
-    font-size: var(--text-xs);
+    font-size: var(--bandeau-label-size, 0.68rem);
     font-weight: var(--bandeau-label-weight, 700);
     font-style: var(--bandeau-label-style, normal);
-    letter-spacing: 0.18em;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
     opacity: 0.7;
     margin-bottom: 0.5rem;
     color: var(--bandeau-color, #fff);
