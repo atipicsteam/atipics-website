@@ -214,6 +214,7 @@ export default config({
         dateLabel: fields.text({ label: 'Label de la date (ex: 10 Avril 2026)' }),
         category: fields.text({ label: 'Catégorie' }),
         excerpt: richDoc('Extrait'),
+        content: richDoc('Contenu de l\'article'),
         cover: fields.image({
           label: 'Image de couverture',
           directory: 'public/images/journal/',

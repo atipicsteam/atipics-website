@@ -9,7 +9,7 @@ const parametres = (await reader.singletons.parametres.read({ resolveLinkedFiles
 
 // Charger tous les articles générés par Keystatic (résout les champs richDoc externalisés en .mdoc)
 const rawArticles = await reader.collections.journal.all({ resolveLinkedFiles: true });
-const articles = rawArticles.map((a) => a.entry).sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
+const articles = rawArticles.map((a) => ({ ...a.entry, slug: a.slug })).sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
 ---
 
 <Layout title={`Journal — ${parametres.nom_site}`} description="Actualités, découvertes et réflexions de l'Agence Atipics">
@@ -33,7 +33,7 @@ const articles = rawArticles.map((a) => a.entry).sort((a: any, b: any) => new Da
       <div class="container">
         <div class="articles__grid">
           {articles.map((a) => (
-            <article class="art-card">
+            <a href={`/journal/${a.slug}`} class="art-card">
               <div class="art-card__img-wrap">
                 <img src={a.cover} alt={a.title} class="art-card__img" loading="lazy" />
               </div>
@@ -48,7 +48,7 @@ const articles = rawArticles.map((a) => a.entry).sort((a: any, b: any) => new Da
 
                 <span class="art-card__read">Lire →</span>
               </div>
-            </article>
+            </a>
           ))}
         </div>
       </div>
@@ -116,6 +116,8 @@ const articles = rawArticles.map((a) => a.entry).sort((a: any, b: any) => new Da
     display: flex;
     flex-direction: column;
     cursor: pointer;
+    text-decoration: none;
+    color: inherit;
   }
 
   .art-card__img-wrap {

@@ -1,0 +1,155 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import RichText from "../../components/RichText.tsx";
+import { reader } from "../../lib/keystatic-reader";
+
+export async function getStaticPaths() {
+  const articles = await reader.collections.journal.all();
+  return articles.map((article) => ({
+    params: { slug: article.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const article = await reader.collections.journal.read(slug, { resolveLinkedFiles: true });
+const parametres = (await reader.singletons.parametres.read({ resolveLinkedFiles: true })) ?? ({} as any);
+
+if (!article) {
+  throw new Error(`Article introuvable : ${slug}`);
+}
+---
+
+<Layout title={`${article.title} — ${parametres.nom_site}`} description={article.title}>
+  <Header />
+  <main style="padding-top: var(--nav-h); min-height: calc(100vh - var(--footer-h) - var(--social-bar-h));">
+    
+    <article class="article-detail">
+      <header class="article-detail__head">
+        <div class="container container--narrow">
+          <div class="article-detail__meta">
+            <span class="article-detail__cat">{article.category}</span>
+            <span class="article-detail__sep">—</span>
+            <time class="article-detail__date" datetime={article.date}>{article.dateLabel}</time>
+          </div>
+          <h1 class="article-detail__title">{article.title}</h1>
+        </div>
+      </header>
+
+      {article.cover && (
+        <div class="article-detail__cover container">
+          <img src={article.cover} alt={article.title} />
+        </div>
+      )}
+
+      <div class="container container--narrow">
+        <div class="article-detail__content">
+          {article.content ? (
+            <RichText document={article.content} />
+          ) : (
+            <p><em>(Le contenu de cet article est en cours de rédaction)</em></p>
+          )}
+        </div>
+      </div>
+    </article>
+
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .container--narrow {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .article-detail {
+    padding-bottom: var(--sp-xl);
+  }
+
+  .article-detail__head {
+    padding-top: var(--sp-xl);
+    padding-bottom: var(--sp-lg);
+    text-align: center;
+  }
+
+  .article-detail__meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--c-muted);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .article-detail__sep { color: var(--c-border); }
+
+  .article-detail__title {
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 200;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .article-detail__cover {
+    margin-bottom: var(--sp-xl);
+  }
+
+  .article-detail__cover img {
+    width: 100%;
+    aspect-ratio: 21/9;
+    object-fit: cover;
+    background: var(--c-surface);
+  }
+
+  .article-detail__content {
+    font-size: var(--text-base);
+    line-height: 1.8;
+  }
+
+  .article-detail__content :global(p) {
+    margin-bottom: 1.5rem;
+  }
+
+  .article-detail__content :global(h2) {
+    font-size: 1.8rem;
+    font-weight: 300;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .article-detail__content :global(h3) {
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .article-detail__content :global(ul), .article-detail__content :global(ol) {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .article-detail__content :global(li) {
+    margin-bottom: 0.5rem;
+  }
+
+  .article-detail__content :global(img) {
+    max-width: 100%;
+    height: auto;
+    margin: 2rem 0;
+  }
+  
+  .article-detail__content :global(blockquote) {
+    border-left: 2px solid var(--c-accent);
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--c-muted);
+  }
+</style>
