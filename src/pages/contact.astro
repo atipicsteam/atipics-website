@@ -141,9 +141,9 @@ const contactFontUrls = [
             </div>
           </div>
 
-          <!-- Formulaire — Message général -->
           <form class="cform" id="form-message" name="contact-message" action="https://api.web3forms.com/submit" method="POST">
             <input type="hidden" name="access_key" value="b22d8b15-ab5e-4c21-bc11-9de55b394583" />
+            <input type="hidden" name="from_name" value="Atipics website" />
             <input type="hidden" name="subject" value="Nouveau message depuis la page Contact" />
             <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
             <div class="cform__group">
@@ -171,6 +171,7 @@ const contactFontUrls = [
           <!-- Formulaire — Confier une mission -->
           <form class="cform cform--hidden" id="form-mission" name="contact-mission" action="https://api.web3forms.com/submit" method="POST">
             <input type="hidden" name="access_key" value="b22d8b15-ab5e-4c21-bc11-9de55b394583" />
+            <input type="hidden" name="from_name" value="Atipics website" />
             <input type="hidden" name="subject" value="Nouvelle mission depuis la page Contact" />
             <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
             <div class="cform__row">
