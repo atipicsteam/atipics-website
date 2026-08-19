@@ -147,6 +147,11 @@ const projets = rawProjets.map((p) => p.entry);
   }
 
   function openLightbox(projet, startMedia = 0) {
+    // Si le projet n'a pas de médias, on utilise la cover comme média par défaut
+    if (!projet.medias || projet.medias.length === 0) {
+      projet.medias = [{ type: 'image', src: projet.cover, alt: projet.title }];
+    }
+
     currentProjet = projet;
     const single = projet.medias.length <= 1;
 
