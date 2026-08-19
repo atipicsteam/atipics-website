@@ -211,7 +211,10 @@ const espaces = (sectionsData.sections || []).map((s: any, i: number) => {
           <div class="form-intro">
             <RichText document={formIntro} className="form-intro__text" style={contactIntroStyle.obj} />
           </div>
-          <form class="vform" name="village-contact" method="POST">
+          <form class="vform" name="village-contact" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="b22d8b15-ab5e-4c21-bc11-9de55b394583" />
+            <input type="hidden" name="subject" value="Nouveau message depuis la page Le Village" />
+            <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
             <div class="vform__row">
               <div class="vform__group">
                 <label class="vform__label" for="vc-nom">NOM</label>
